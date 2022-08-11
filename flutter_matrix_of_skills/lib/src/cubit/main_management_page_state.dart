@@ -6,9 +6,7 @@ abstract class MainManagementPageState {}
 class MainManagementPageInitialState extends MainManagementPageState {}
 
 class MainManagementPageLoadedState extends MainManagementPageState {
-  MainManagementPageLoadedState();
 }
 
 class MainManagementPageErrorState extends MainManagementPageState {
-  MainManagementPageErrorState();
 }
