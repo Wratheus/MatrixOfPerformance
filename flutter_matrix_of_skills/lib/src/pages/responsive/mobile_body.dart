@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart';
-import '../../utils/my_box.dart';
-import '../../utils/my_tile.dart';
-import '../../utils/my_drawer.dart';
+import '../../utils/sample_box.dart';
+import '../../utils/sample_tile.dart';
+import '../../utils/main_drawer.dart';
 import '../main_management_page.dart';
 
 class MobileScaffold extends StatefulWidget {

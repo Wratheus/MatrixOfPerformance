@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/main_management_page_cubit.dart';
-import '../utils/my_box.dart';
-import '../utils/my_tile.dart';
+import '../utils/sample_box.dart';
+import '../utils/sample_tile.dart';
 import 'responsive/responsive_layout.dart';
 
 // ignore: must_be_immutable
@@ -47,7 +47,7 @@ class MainManagementPage extends StatelessWidget {
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 4),
                                     itemBuilder: (context, index) {
-                                      return MyBox();
+                                      return SampleBox();
                                     },
                                   ),
                                 ),
@@ -57,7 +57,7 @@ class MainManagementPage extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemCount: 3,
                                 itemBuilder: (context, index) {
-                                  return const MyTile();
+                                  return const SampleTile();
                                 },
                               ),
                             ],
@@ -114,7 +114,7 @@ class MainManagementPage extends StatelessWidget {
                                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2),
                                   itemBuilder: (context, index) {
-                                    return MyBox();
+                                    return SampleBox();
                                 },
                               ),
                             ),
@@ -123,7 +123,7 @@ class MainManagementPage extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemCount: 4,
                                 itemBuilder: (context, index) {
-                                  return const MyTile();
+                                  return const SampleTile();
                                 },
                               ),
                             ]

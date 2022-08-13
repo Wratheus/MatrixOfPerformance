@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import '../pages/main_management_page.dart';
 
 import '../constants/constants.dart';
-import '../pages/responsive/desktop_body.dart';
-import '../pages/responsive/mobile_body.dart';
-import '../pages/responsive/responsive_layout.dart';
 
 // ignore: must_be_immutable
 class NavigationDrawer extends StatefulWidget {

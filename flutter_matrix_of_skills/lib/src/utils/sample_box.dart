@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyBox extends StatelessWidget {
+class SampleBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
