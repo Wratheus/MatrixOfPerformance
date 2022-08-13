@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
+import 'package:flutter_matrix_of_skills/src/feature/components/sample_loading_page.dart';
 
-import '../../components/sample_box.dart';
-import '../../components/sample_tile.dart';
 import '../../responsive/responsive_layout.dart';
 import 'cubit/main_management_page_cubit.dart';
-
-
+import 'widget/desktop_layout.dart';
+import 'widget/phone_layout.dart';
 
 // ignore: must_be_immutable
 class MainManagementPage extends StatelessWidget {
@@ -19,103 +19,16 @@ class MainManagementPage extends StatelessWidget {
           builder: (context, state) {
             if (state is MainManagementPageInitialState) {
               context.read<MainManagementPageCubit>().informInitial();
-              print("main page is initialised");
               context.read<MainManagementPageCubit>().loadMainManagementPage();
-              return const Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  )
-              );
+              return const SampleLoadingPage();
             }
-
             if (state is MainManagementPageLoadedState) {
               return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
-              RefreshIndicator(
-                child: Scaffold(
-                  body: SingleChildScrollView(
-                    child: Row(
-                        children: [
-                          Expanded(
-                            flex: 6,
-                            child: Column(
-                              children: [
-                                AspectRatio(
-                                  aspectRatio: 4,
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    child: GridView.builder(
-                                      itemCount: 4,
-                                      gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 4),
-                                      itemBuilder: (context, index) {
-                                        return SampleBox();
-                                      },
-                                    ),
-                                  ),
-                                ),
-
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: 3,
-                                  itemBuilder: (context, index) {
-                                    return const SampleTile();
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ]
-                    ),
-                  ),
-                ),
-                onRefresh: () =>
-                    context.read<MainManagementPageCubit>()
-                        .reloadMainManagementPage(),
-              ) :
-              RefreshIndicator(
-                child: Scaffold(
-                    body: SingleChildScrollView(
-                      child: Column(
-                            children: [
-                            AspectRatio(
-                              aspectRatio: 1,
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: GridView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: 4,
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2),
-                                  itemBuilder: (context, index) {
-                                    return SampleBox();
-                                },
-                              ),
-                            ),
-                          ),
-                              ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: 4,
-                                itemBuilder: (context, index) {
-                                  return const SampleTile();
-                                },
-                              ),
-                            ]
-                      ),
-                    ),
-                  ),
-                onRefresh: () =>
-                context.read<MainManagementPageCubit>()
-                .reloadMainManagementPage(),
-              );
+              const MainManagementPageDesktopLayout() :
+              const MainManagementPagePhoneLayout();
             }
             if (state is MainManagementPageErrorState) {
-              return const Scaffold(
-                backgroundColor: Colors.blueAccent,
-                body: Center(
-                  child: Text("Err"),
-                ),
-              );
+              return const SampleErrorDialogPage();
             }
             return Container();
           }
