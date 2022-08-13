@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/constants.dart';
-import '../../utils/sample_box.dart';
-import '../../utils/sample_tile.dart';
-import '../../utils/main_drawer.dart';
-import '../main_management_page.dart';
+import '../../core/constants/constants.dart';
+import '../components/main_drawer.dart';
+import '../components/sample_appbar.dart';
 
 class MobileScaffold extends StatefulWidget {
   const MobileScaffold({Key? key}) : super(key: key);
@@ -19,7 +17,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: defaultBackgroundColor,
-      appBar: myAppBar,
+      appBar: SampleAppbar(title: 'Matrix of Performance'),
       drawer: NavigationDrawer(pageController: pageController),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -1,4 +1,4 @@
-part of './constants.dart';
+part of 'constants.dart';
 
 class MyColors {
   

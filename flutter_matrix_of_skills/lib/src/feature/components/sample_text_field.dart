@@ -1,14 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/constants.dart';
+import '../../core/constants/constants.dart';
 
 // ignore: must_be_immutable
 class SampleTextField extends StatefulWidget {
   TextEditingController textController;
   String labelText;
   bool hideText;
-  SampleTextField({Key? key, required this.textController, required this.labelText, required this.hideText}) : super(key: key);
+  String hintText;
+  SampleTextField({Key? key, required this.textController, required this.labelText, required this.hideText, required this.hintText}) : super(key: key);
 
   @override
   State<SampleTextField> createState() => _SampleTextFieldState();
@@ -24,6 +25,7 @@ class _SampleTextFieldState extends State<SampleTextField> {
       textAlign: TextAlign.start,
       textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
+          hintText: widget.hintText,
           border: const OutlineInputBorder(),
           labelText: widget.labelText,
           labelStyle: drawerTextColor,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../cubit/main_management_page_cubit.dart';
-import '../utils/sample_box.dart';
-import '../utils/sample_tile.dart';
-import 'responsive/responsive_layout.dart';
+import '../../components/sample_box.dart';
+import '../../components/sample_tile.dart';
+import '../../responsive/responsive_layout.dart';
+import 'cubit/main_management_page_cubit.dart';
+
+
 
 // ignore: must_be_immutable
 class MainManagementPage extends StatelessWidget {
@@ -30,69 +32,41 @@ class MainManagementPage extends StatelessWidget {
               return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
               RefreshIndicator(
                 child: Scaffold(
-                  body: Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            children: [
-                              AspectRatio(
-                                aspectRatio: 4,
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  child: GridView.builder(
-                                    itemCount: 4,
-                                    shrinkWrap: true,
-                                    gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 4),
-                                    itemBuilder: (context, index) {
-                                      return SampleBox();
-                                    },
-                                  ),
-                                ),
-                              ),
-
-                              ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: 3,
-                                itemBuilder: (context, index) {
-                                  return const SampleTile();
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        // second half of page
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  height: 400,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                              ),
-                              // list of stuff
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: Colors.grey[200],
+                  body: SingleChildScrollView(
+                    child: Row(
+                        children: [
+                          Expanded(
+                            flex: 6,
+                            child: Column(
+                              children: [
+                                AspectRatio(
+                                  aspectRatio: 4,
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: GridView.builder(
+                                      itemCount: 4,
+                                      gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4),
+                                      itemBuilder: (context, index) {
+                                        return SampleBox();
+                                      },
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) {
+                                    return const SampleTile();
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ]
+                        ]
+                    ),
                   ),
                 ),
                 onRefresh: () =>

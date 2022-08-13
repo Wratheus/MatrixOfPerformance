@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants/constants.dart';
+import '../../core/classes/app.dart';
+import '../../core/constants/constants.dart';
 
 // ignore: must_be_immutable
 class NavigationDrawer extends StatefulWidget {
@@ -31,7 +32,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             child: ListTile(
               leading: const Icon(Icons.home),
               title: Text(
-                'T A B L E S   P A G E',
+                'TABLES PAGE',
                 style: drawerTextColor,
               ),
               onTap: () => widget.pageController.animateToPage(0, duration: const Duration(milliseconds: 350), curve: Curves.ease)
@@ -42,7 +43,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             child: ListTile(
               leading: const Icon(Icons.settings),
               title: Text(
-                'T E S T   N A V   2',
+                'TEST NAV 2',
                 style: drawerTextColor,
               ),
                 onTap: () => widget.pageController.animateToPage(1, duration: const Duration(milliseconds: 350), curve: Curves.ease)
@@ -53,7 +54,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             child: ListTile(
               leading: const Icon(Icons.info),
               title: Text(
-                'T E S T   N A V   3',
+                'TEST NAV 3',
                 style: drawerTextColor,
               ),
                 onTap: () => widget.pageController.animateToPage(2, duration: const Duration(milliseconds: 350), curve: Curves.ease)
@@ -64,10 +65,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             child: ListTile(
               leading: const Icon(Icons.logout),
               title: Text(
-                'T E S T   N A V   4',
+                'Sign out',
                 style: drawerTextColor,
               ),
-                onTap: () => widget.pageController.animateToPage(3, duration: const Duration(milliseconds: 350), curve: Curves.ease)
+                onTap: () => App.supaBaseController?.signOut(),
             ),
           ),
         ],

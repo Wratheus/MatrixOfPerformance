@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_matrix_of_skills/src/pages/main_management_page.dart';
-import '../../constants/constants.dart';
-import '../../utils/main_drawer.dart';
+import '../../core/constants/constants.dart';
+import '../components/main_drawer.dart';
+import '../components/sample_appbar.dart';
 
 class DesktopScaffold extends StatefulWidget {
   const DesktopScaffold({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: defaultBackgroundColor,
-      appBar: myAppBar,
+      appBar: SampleAppbar(title: 'Matrix of Performance'),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(

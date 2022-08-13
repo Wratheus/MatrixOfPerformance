@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter_matrix_of_skills/src/constants/constants.dart';
+import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 
 class SampleElevatedButtonStyleContainer extends StatelessWidget {
   String labelText;

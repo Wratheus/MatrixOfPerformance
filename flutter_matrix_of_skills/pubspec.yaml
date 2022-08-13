@@ -19,6 +19,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_secure_storage: ^5.1.0
   flutter_native_splash: ^2.2.7
+  supabase_flutter: ^0.3.3
 
 
 dev_dependencies:
