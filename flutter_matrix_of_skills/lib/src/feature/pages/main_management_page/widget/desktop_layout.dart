@@ -29,7 +29,7 @@ class MainManagementPageDesktopLayout extends StatelessWidget {
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 4),
                             itemBuilder: (context, index) {
-                              return SampleBox();
+                              return const SampleBox();
                             },
                           ),
                         ),

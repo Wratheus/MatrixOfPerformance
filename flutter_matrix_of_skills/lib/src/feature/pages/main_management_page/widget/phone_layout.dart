@@ -25,7 +25,7 @@ class MainManagementPagePhoneLayout extends StatelessWidget {
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2),
                       itemBuilder: (context, index) {
-                        return SampleBox();
+                        return const SampleBox();
                       },
                     ),
                   ),

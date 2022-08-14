@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/constants.dart';
@@ -32,8 +33,13 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
             Expanded(
               flex: 6,
                 child: PageView(
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: pageController,
-                  onPageChanged: (_) => (index) { print('page changed to ${pageList[index]}'); },
+                  onPageChanged: (_) => (index) {
+                    if (kDebugMode) {
+                      print('page changed to ${pageList[index]}');
+                    }
+                    },
                   children: pageList // print what page is now selected
                 ),
             ),

@@ -9,47 +9,50 @@ class SupaBaseController {
 
   final client = SupabaseClient(ClientCredentials().url, ClientCredentials().key);
 
-  singUp(String email, String password)async{
-    await client.auth.signUp(email, password);
-    if (kDebugMode) {
-      print('signedUP successful $email, $password');
+  Future<bool> singUp(String email, String password)async{
+    final response = await client.auth.signUp(email, password);
+    if(response.user != null) {
+      return true;
+    } else {
+      return false;
     }
   }
 
-  signIn(String email, String password) async{
+  Future<bool> signIn(String email, String password) async{
     try{
       final response = await client.auth.signIn(email: email, password: password);
       final user = response.data?.user;
-      print('logged in ${user?.email}, ${user?.id}');
       if (user == null) {
         final error = response.error;
         if (kDebugMode) {
           print(error);
         }
+        return false;
       }
+      return true;
     }catch(e){
       if (kDebugMode) {
         print(e);
       }
+      return false;
     }
   }
-  signOut()async{
+  Future<bool> signOut()async{
     try{
+      await client.auth.signOut();
       if (kDebugMode) {
         print(client.auth.currentUser);
       }
-      final response = await client.auth.signOut();
-      if (kDebugMode) {
-        print(client.auth.currentUser);
-      }
-      final error = response.error;
-      if (kDebugMode) {
-        print(error);
+      if(client.auth.currentUser == null) {
+        return true;
+      } else {
+        return false;
       }
     }catch(e){
       if (kDebugMode) {
         print(e);
       }
+      return false;
     }
   }
 

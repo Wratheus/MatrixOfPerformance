@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_matrix_of_skills/src/core/classes/app.dart';
 
-import 'package:flutter_matrix_of_skills/src/feature/responsive/mobile_body.dart';
-import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layout.dart';
-import 'package:flutter_matrix_of_skills/src/feature/responsive/desktop_body.dart';
+import 'src/feature/pages/login_page/login_page.dart';
 
 
 
 
 void main() {
   App.initApp();
+  SystemChrome.setPreferredOrientations([ //remove mobile flip
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
@@ -24,10 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         backgroundColor: Colors.black12
       ),
-      home: const ResponsiveLayout(
-        desktopBody: DesktopScaffold(),
-        mobileBody: MobileScaffold(),
-      )
+      home: const LoginPage()
     );
   }
 }

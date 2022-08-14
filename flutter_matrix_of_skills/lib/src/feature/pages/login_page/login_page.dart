@@ -2,12 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
+import 'package:flutter_matrix_of_skills/src/feature/components/sample_alert_dialog.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/registration_page/registration_page.dart';
+import 'package:flutter_matrix_of_skills/src/feature/responsive/mobile_body.dart';
 
 import '../../../core/classes/app.dart';
-import '../../../core/database/supabase_controller.dart';
 import '../../components/sample_appbar.dart';
 import '../../components/sample_button_style.dart';
 import '../../components/sample_text_field.dart';
+import '../../responsive/desktop_body.dart';
+import '../../responsive/responsive_layout.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -40,15 +44,31 @@ class _LoginPageState extends State<LoginPage>{
               SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, hintText: 'you\'re password'),
               const SizedBox(height: 20,),
               ElevatedButton(
-                  onPressed: () =>
-                      // print('${_textControllerLogin.text}, ${_textControllerPassword.text}'),
-                  App.supaBaseController?.signIn(_textControllerLogin.text, _textControllerPassword.text),
-                  child: SampleElevatedButtonStyleContainer(labelText: 'Login')
+                onPressed: () async =>
+                    // print('${_textControllerLogin.text}, ${_textControllerPassword.text}'),
+                {
+                  await App.supaBaseController?.signIn(_textControllerLogin.text, _textControllerPassword.text),
+                  if(App.supaBaseController?.client.auth.currentUser != null){
+                    Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (context) =>
+                          const ResponsiveLayout(
+                              desktopBody: DesktopScaffold(),
+                              mobileBody: MobileScaffold()
+                              )
+                            )
+                          ),
+                  }
+                  else if(App.supaBaseController?.client.auth.currentUser == null){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: "Wrong login or password", appBarStr: "Failed to login")))
+                  },
+                },
+                child: SampleElevatedButtonStyleContainer(labelText: 'Login'),
               ),
               const SizedBox(height: 10,),
               Center(
                 child: InkWell(
-                  onTap: () {Navigator.pushNamed(context, "myRoute");},
+                  onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegistrationPage()));
+                  },
                   child: Text("Register",
                     style: buttonTextColor,
                   ),

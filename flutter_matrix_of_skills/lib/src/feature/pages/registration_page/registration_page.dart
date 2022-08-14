@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../../../core/classes/app.dart';
 import '../../../core/constants/constants.dart';
+import '../../components/sample_alert_dialog.dart';
 import '../../components/sample_appbar.dart';
 import '../../components/sample_button_style.dart';
 import '../../components/sample_text_field.dart';
+import '../login_page/login_page.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -42,9 +44,14 @@ class _RegistrationPageState extends State<RegistrationPage>{
               SampleTextField(textController: _textControllerName, labelText: 'Name', hideText: false, hintText: 'John'),
               const SizedBox(height: 20,),
               ElevatedButton(
-                  onPressed: () => {
+                  onPressed: () async => {
                     // print('${_textControllerLogin.text}, ${_textControllerPassword.text}'),
-                    App.supaBaseController?.singUp(_textControllerLogin.text, _textControllerPassword.text),
+                    if (await App.supaBaseController?.singUp(_textControllerLogin.text, _textControllerPassword.text) == true) {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()))
+                    } else {
+                      Navigator.pushReplacement(
+                          context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: "Registration failed", appBarStr: "Failed", routePage: const LoginPage(),))),
+                    },
                   },
                   child: SampleElevatedButtonStyleContainer(labelText: 'Register')
               ),

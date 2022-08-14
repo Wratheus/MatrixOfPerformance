@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/classes/app.dart';
 import '../../core/constants/constants.dart';
+import '../pages/login_page/login_page.dart';
 
 // ignore: must_be_immutable
 class NavigationDrawer extends StatefulWidget {
@@ -35,7 +36,9 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                 'TABLES PAGE',
                 style: drawerTextColor,
               ),
-              onTap: () => widget.pageController.animateToPage(0, duration: const Duration(milliseconds: 350), curve: Curves.ease)
+              onTap: () => {
+                widget.pageController.animateToPage(0, duration: const Duration(milliseconds: 350), curve: Curves.ease),
+              }
             ),
           ),
           Padding(
@@ -68,7 +71,12 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                 'Sign out',
                 style: drawerTextColor,
               ),
-                onTap: () => App.supaBaseController?.signOut(),
+                onTap: () async => {
+                await App.supaBaseController?.signOut(),
+                  if(App.supaBaseController?.client.auth.currentUser == null){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()))
+                  },
+              }
             ),
           ),
         ],

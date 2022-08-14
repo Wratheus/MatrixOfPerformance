@@ -29,8 +29,7 @@ class MyColors {
   static const Color richCalculatorCanvas = Color(0xff222433);
   static const Color richCalculatorOuterButtonColor = Color(0xff333549);
   static const Color richCalculatorInnerButtonColor = Color(0xff2c2e41);
-  static const Color richCalculatorYellowButtonColor = Color(0xffffba001);
-  
+
   static const Color buttonExampleCanvas = Color(0xfff3f6ff);
   static const Color buttonSampleColor = Color(0xff7c2ae8);
 

@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
 
 part 'main_management_page_state.dart';
 
@@ -8,7 +7,9 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
   MainManagementPageCubit() : super(MainManagementPageInitialState());
 
   Future<void> informInitial() async {
-    print("main page is loading");
+    if (kDebugMode) {
+      print("main page is loading");
+    }
   }
 
   Future<void> loadMainManagementPage() async {
@@ -16,7 +17,9 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
     try{
       if (!isClosed) {
         emit(MainManagementPageLoadedState());
-        print("main page is loaded");
+        if (kDebugMode) {
+          print("main page is loaded");
+        }
       }
     }catch (e) {
       if (!isClosed) {
