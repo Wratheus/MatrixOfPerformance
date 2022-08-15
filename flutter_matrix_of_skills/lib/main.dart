@@ -9,10 +9,8 @@ import 'src/feature/pages/login_page/login_page.dart';
 
 void main() {
   App.initApp();
-  SystemChrome.setPreferredOrientations([ //remove mobile flip
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
@@ -20,6 +18,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Matrix of performance App',

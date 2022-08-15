@@ -47,7 +47,7 @@ class _RegistrationPageState extends State<RegistrationPage>{
                   onPressed: () async => {
                     // print('${_textControllerLogin.text}, ${_textControllerPassword.text}'),
                     if (await App.supaBaseController?.singUp(_textControllerLogin.text, _textControllerPassword.text) == true) {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()))
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", appBarStr: "Done", routePage: const LoginPage()))),
                     } else {
                       Navigator.pushReplacement(
                           context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: "Registration failed", appBarStr: "Failed", routePage: const LoginPage(),))),

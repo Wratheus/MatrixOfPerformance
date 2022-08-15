@@ -16,10 +16,11 @@ dependencies:
   http: ^0.13.5
   url_launcher: ^6.1.5
   bloc: ^8.1.0
-  flutter_bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
   flutter_secure_storage: ^5.1.0
   flutter_native_splash: ^2.2.7
   supabase_flutter: ^0.3.3
+  flutter_launcher_icons: ^0.10.0
 
 
 dev_dependencies:
@@ -27,7 +28,14 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.1
+flutter_icons:
+  image_path: "assets/core/images/logo_round.png"
+  android: true
+  ios: true
 
+flutter_native_splash:
+  image: assets/core/images/logo.png
+  color: "#FFFFFF"
 flutter:
 
   uses-material-design: true
