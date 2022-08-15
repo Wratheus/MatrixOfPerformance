@@ -22,7 +22,6 @@ dependencies:
   supabase_flutter: ^0.3.3
   flutter_launcher_icons: ^0.10.0
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -34,8 +33,11 @@ flutter_icons:
   ios: true
 
 flutter_native_splash:
-  image: assets/core/images/logo.png
+  image: assets/core/images/splashscreen_logo.png
   color: "#FFFFFF"
 flutter:
 
   uses-material-design: true
+
+  assets:
+    - assets/core/images/

@@ -31,7 +31,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           Padding(
             padding: tilePadding,
             child: ListTile(
-              leading: const Icon(Icons.home),
+              leading: const Icon(Icons.bar_chart),
               title: Text(
                 'TABLES PAGE',
                 style: drawerTextColor,
