@@ -24,18 +24,19 @@ class _LoginPageState extends State<LoginPage>{
   final TextEditingController _textControllerLogin = TextEditingController();
   final TextEditingController _textControllerPassword = TextEditingController();
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SampleAppbar(title: 'Welcome'),
       backgroundColor: defaultBackgroundColor,
-      body: Center(
-        child: Container(
-          width: 300,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: ListView(
-            shrinkWrap: true,
+      body: Container(
+        decoration: const BoxDecoration(
+          image:  DecorationImage(image: AssetImage('assets/core/images/background.jpg',),fit: BoxFit.fill),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(child: Text('Welcome\nplease login to continue', style: buttonTextColor, textAlign: TextAlign.center)),
               const SizedBox(height: 15,),

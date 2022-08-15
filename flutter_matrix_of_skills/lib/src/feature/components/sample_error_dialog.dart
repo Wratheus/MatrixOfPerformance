@@ -9,9 +9,14 @@ class SampleErrorDialogPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: defaultBackgroundColor,
-      body: Center(
-        child: Text("Err",
-          style: buttonTextColor,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/core/images/background.jpg',),fit: BoxFit.fill),
+        ),
+        child: Center(
+          child: Text("Err",
+            style: buttonTextColor,
+          ),
         ),
       ),
     );
