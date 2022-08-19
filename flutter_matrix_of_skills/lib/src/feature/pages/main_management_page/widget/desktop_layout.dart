@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_management_tab.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_selection_tab.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_table_view.dart';
 
-import '../../../components/sample_box.dart';
-import '../../../components/sample_tile.dart';
 import '../cubit/main_management_page_cubit.dart';
 
 class MainManagementPageDesktopLayout extends StatelessWidget {
@@ -14,39 +15,19 @@ class MainManagementPageDesktopLayout extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Row(
-              children: [
-                Expanded(
-                  flex: 6,
-                  child: Column(
-                    children: [
-                      AspectRatio(
-                        aspectRatio: 4,
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: GridView.builder(
-                            itemCount: 4,
-                            gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 4),
-                            itemBuilder: (context, index) {
-                              return const SampleBox();
-                            },
-                          ),
-                        ),
-                      ),
-
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 3,
-                        itemBuilder: (context, index) {
-                          return const SampleTile();
-                        },
-                      ),
-                    ],
-                  ),
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    GroupSelectionTab(),
+                    GroupManagementTab(),
+                    GroupTableView()
+                  ]
                 ),
-              ]
-          ),
+              )
+            ]
+          )
         ),
       ),
       onRefresh: () =>

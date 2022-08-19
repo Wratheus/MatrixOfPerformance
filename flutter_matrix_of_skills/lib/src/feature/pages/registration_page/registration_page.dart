@@ -41,7 +41,6 @@ class _RegistrationPageState extends State<RegistrationPage>{
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(child: Text('Welcome to Matrix of Performance \nregister to use the app', style: buttonTextColor, textAlign: TextAlign.center)),
-                Center(child: Text('Welcome to Matrix of Performance \nregister to use the app', style: buttonTextColor, textAlign: TextAlign.center)),
                 const SizedBox(height: 15,),
                 SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, hintText: 'example@email.com'),
                 const SizedBox(height: 20,),

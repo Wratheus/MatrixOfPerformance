@@ -19,32 +19,29 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
     return Scaffold(
       backgroundColor: defaultBackgroundColor,
       appBar: SampleAppbar(title: 'Matrix of Performance'),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // open drawer
-            Expanded(
-              flex: 2,
-                child: NavigationDrawer(pageController: pageController)
-            ),
-            // routing implementation
-            Expanded(
-              flex: 6,
-                child: PageView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: pageController,
-                  onPageChanged: (_) => (index) {
-                    if (kDebugMode) {
-                      print('page changed to ${pageList[index]}');
-                    }
-                    },
-                  children: pageList // print what page is now selected
-                ),
-            ),
-          ],
-        ),
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // open drawer
+          Expanded(
+            flex: 2,
+              child: NavigationDrawer(pageController: pageController)
+          ),
+          // routing implementation
+          Expanded(
+            flex: 6,
+              child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: pageController,
+                onPageChanged: (_) => (index) {
+                  if (kDebugMode) {
+                    print('page changed to ${pageList[index]}');
+                  }
+                  },
+                children: pageList // print what page is now selected
+              ),
+          ),
+        ],
       ),
     );
   }
