@@ -1,12 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:flutter/material.dart';
 import '../../../../core/classes/app.dart';
 
 part 'main_management_page_state.dart';
 
 class MainManagementPageCubit extends Cubit<MainManagementPageState> {
-  MainManagementPageCubit() : super(MainManagementPageInitialState());
+  BuildContext context;
+  MainManagementPageCubit({Key? key, required this.context}) : super(MainManagementPageInitialState());
 
   Future<void> informInitial() async {
     if (kDebugMode) {
@@ -20,8 +21,7 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
       if (!isClosed) {
         if(tableName != null) {
           emit(MainManagementPageLoadedState(
-              tableData: await App.supaBaseController?.readData(table: tableName)
-          ));
+              tableData: await App.supaBaseController?.readData(table: tableName, context: context)));
         } else {
           emit(MainManagementPageLoadedState(
               tableData: const []
@@ -32,7 +32,6 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
         }
       }
     }catch (e) {
-      print(e);
       if (!isClosed) {
         emit(MainManagementPageErrorState());
       }

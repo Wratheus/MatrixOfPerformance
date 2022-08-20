@@ -12,16 +12,17 @@ class SampleAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SampleAppbar(title: appBarStr),
+      backgroundColor: MyColors.mainCanvas,
+      appBar: SampleAppbar(title: appBarStr, backgroundColor: MyColors.mainOuterColor, textColor: whiteTextColor),
       body: AlertDialog(
           title: Text(alertMessageStr,
-            style: buttonTextColor,
+            style: whiteTextColor,
           ),
-        backgroundColor: defaultBackgroundColor,
+        backgroundColor: MyColors.mainInnerColor,
         actions: <Widget>[
           TextButton(
             child: Text("OK",
-              style: buttonTextColor,
+              style: whiteTextColor,
             ),
             onPressed: ()=>{
               if(routePage == null){

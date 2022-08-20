@@ -15,22 +15,23 @@ class GroupSelectionTab extends StatelessWidget {
       margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Colors.grey[400],
+        color: MyColors.mainOuterColor,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("Select group",
-              style: highlightedTextColor
+              style: whiteTextColor
           ),
           Row(
             children: [
               SampleDropDownMenu(values: groupValues),
+              const SizedBox(width: 10),
               ElevatedButton(
                   onPressed: ()=>{
                     context.read<MainManagementPageCubit>().loadMainManagementPage(tableName: groupValues[0])
                   },
-                  child: Text("New", style: buttonTextColor)
+                  child: Text("New", style: whiteTextColor)
               )
             ],
           ),

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/constants.dart';
-
-
-
 // ignore: must_be_immutable
 class SampleAppbar extends StatelessWidget with PreferredSizeWidget{
   String title;
-  SampleAppbar({Key? key, required this.title}) : super(key: key);
+  Color backgroundColor;
+  TextStyle textColor;
+  SampleAppbar({Key? key, required this.title, required this.backgroundColor, required this.textColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: appBarColor,
-      title: Text(title, style: appBarTextColor),
+      backgroundColor: backgroundColor,
+      title: Text(title, style: textColor),
       centerTitle: false,
     );
   }

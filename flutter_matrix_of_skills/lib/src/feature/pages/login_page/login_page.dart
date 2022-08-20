@@ -2,13 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
-import 'package:flutter_matrix_of_skills/src/feature/components/sample_alert_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/registration_page/registration_page.dart';
 import 'package:flutter_matrix_of_skills/src/feature/responsive/mobile_body.dart';
 
 import '../../../core/classes/app.dart';
 import '../../components/sample_appbar.dart';
-import '../../components/sample_button_style.dart';
 import '../../components/sample_text_field.dart';
 import '../../responsive/desktop_body.dart';
 import '../../responsive/responsive_layout.dart';
@@ -27,56 +25,47 @@ class _LoginPageState extends State<LoginPage>{
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SampleAppbar(title: 'Welcome'),
-      backgroundColor: defaultBackgroundColor,
-      body: Container(
-        decoration: const BoxDecoration(
-          image:  DecorationImage(image: AssetImage('assets/core/images/background.jpg',),fit: BoxFit.fill),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(child: Text('Welcome\nplease login to continue', style: buttonTextColor, textAlign: TextAlign.center)),
-              const SizedBox(height: 15,),
-              SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, hintText: 'example@email.com'),
-              const SizedBox(height: 20,),
-              SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, hintText: 'you\'re password'),
-              const SizedBox(height: 20,),
-              ElevatedButton(
-                onPressed: () async =>
-                    // print('${_textControllerLogin.text}, ${_textControllerPassword.text}'),
-                {
-                  await App.supaBaseController?.signIn(_textControllerLogin.text, _textControllerPassword.text),
-                  if(App.supaBaseController?.client.auth.currentUser != null){
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) =>
-                          const ResponsiveLayout(
-                              desktopBody: DesktopScaffold(),
-                              mobileBody: MobileScaffold()
-                              )
-                            )
-                          ),
-                  }
-                  else if(App.supaBaseController?.client.auth.currentUser == null){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: "Wrong login or password", appBarStr: "Failed to login")))
-                  },
-                },
-                child: SampleElevatedButtonStyleContainer(labelText: 'Login'),
-              ),
-              const SizedBox(height: 10,),
-              Center(
-                child: InkWell(
-                  onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegistrationPage()));
-                  },
-                  child: Text("Register",
-                    style: buttonTextColor,
+      appBar: SampleAppbar(title: 'Welcome', backgroundColor: MyColors.mainOuterColor, textColor: whiteTextColor),
+      backgroundColor: MyColors.mainCanvas,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(child: Text('Welcome\nplease login to continue', style: whiteTextColor, textAlign: TextAlign.center)),
+            const SizedBox(height: 15,),
+            SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor),
+            const SizedBox(height: 20,),
+            SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor),
+            const SizedBox(height: 20,),
+            ElevatedButton(
+              onPressed: () async =>
+                  // print('${_textControllerLogin.text}, ${_textControllerPassword.text}'),
+              {
+                if (await App.supaBaseController?.signIn(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true){
+                  Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) =>
+                      const ResponsiveLayout(
+                        desktopBody: DesktopScaffold(),
+                        mobileBody: MobileScaffold()
+                        )
+                      )
                   ),
+                }
+              },
+              child: Text('Login', style: whiteTextColor),
+            ),
+            const SizedBox(height: 10,),
+            Center(
+              child: InkWell(
+                onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegistrationPage()));
+                },
+                child: Text("Register",
+                  style: whiteTextColor,
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

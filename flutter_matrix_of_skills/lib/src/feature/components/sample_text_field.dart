@@ -7,8 +7,9 @@ class SampleTextField extends StatefulWidget {
   TextEditingController textController;
   String labelText;
   bool hideText;
-  String hintText;
-  SampleTextField({Key? key, required this.textController, required this.labelText, required this.hideText, required this.hintText}) : super(key: key);
+  Color borderColor;
+  TextStyle textColor;
+  SampleTextField({Key? key, required this.textController, required this.labelText, required this.hideText, required this.borderColor, required this.textColor}) : super(key: key);
 
   @override
   State<SampleTextField> createState() => _SampleTextFieldState();
@@ -26,13 +27,18 @@ class _SampleTextFieldState extends State<SampleTextField> {
         textAlign: TextAlign.start,
         textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
-            hintText: widget.hintText,
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: MyColors.mainBeige, width: 0.0),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: MyColors.mainBeige, width: 0.0),
+            ),
             border: const OutlineInputBorder(),
             labelText: widget.labelText,
-            labelStyle: drawerTextColor,
+            labelStyle: whiteTextColor,
 
           ),
-        style: drawerTextColor,
+        style: widget.textColor,
         keyboardType: TextInputType.text,
         onSubmitted: (text) => {
           setState(() {

@@ -2,7 +2,6 @@ import 'package:flutter_matrix_of_skills/src/core/classes/secure_storage_control
 import 'package:flutter_matrix_of_skills/src/core/database/supabase_controller.dart';
 
 class App{
-  // user model
   static  SupaBaseController? supaBaseController;
   static SecureStorage? secureStorageController;
   static Future initApp() async{

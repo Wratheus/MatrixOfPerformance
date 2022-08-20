@@ -24,15 +24,15 @@ class _SampleDropDownMenuState extends State<SampleDropDownMenu> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
-      value: selectedValue,
-      items: widget.values.map((item) =>
-          DropdownMenuItem<String>(
-              value: item,
-              child: Text(item, style: buttonTextColor)
-          )
-      ).toList(),
-      onChanged: (item) => dropDownCallBack(item),
-
-    );
+        style: whiteTextColor,
+        value: selectedValue,
+        items: widget.values.map((item) =>
+            DropdownMenuItem<String>(
+                value: item,
+                child: Text(item, style: whiteTextColor)
+            )
+        ).toList(),
+        onChanged: (item) => dropDownCallBack(item),
+      );
   }
 }

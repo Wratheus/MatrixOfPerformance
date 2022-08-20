@@ -18,7 +18,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.grey[350],
+      backgroundColor: MyColors.mainOuterColor,
       elevation: 0,
       child: Column(
         children: [
@@ -26,15 +26,16 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             child: Icon(
               Icons.favorite,
               size: 64,
+              color: MyColors.mainBeige,
             ),
           ),
           Padding(
             padding: tilePadding,
             child: ListTile(
-              leading: const Icon(Icons.bar_chart),
+              leading: const Icon(Icons.bar_chart, color: MyColors.mainBeige),
               title: Text(
                 'TABLES PAGE',
-                style: drawerTextColor,
+                style: whiteTextColor,
               ),
               onTap: () => {
                 widget.pageController.animateToPage(0, duration: const Duration(milliseconds: 350), curve: Curves.ease),
@@ -44,10 +45,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           Padding(
             padding: tilePadding,
             child: ListTile(
-              leading: const Icon(Icons.settings),
+              leading: const Icon(Icons.settings, color: MyColors.mainBeige),
               title: Text(
                 'TEST NAV 2',
-                style: drawerTextColor,
+                style: whiteTextColor,
               ),
                 onTap: () => widget.pageController.animateToPage(1, duration: const Duration(milliseconds: 350), curve: Curves.ease)
             ),
@@ -55,10 +56,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           Padding(
             padding: tilePadding,
             child: ListTile(
-              leading: const Icon(Icons.info),
+              leading: const Icon(Icons.info, color: MyColors.mainBeige),
               title: Text(
                 'TEST NAV 3',
-                style: drawerTextColor,
+                style: whiteTextColor,
               ),
                 onTap: () => widget.pageController.animateToPage(2, duration: const Duration(milliseconds: 350), curve: Curves.ease)
             ),
@@ -66,13 +67,13 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           Padding(
             padding: tilePadding,
             child: ListTile(
-              leading: const Icon(Icons.logout),
+              leading: const Icon(Icons.logout, color: MyColors.mainBeige),
               title: Text(
                 'Sign out',
-                style: drawerTextColor,
+                style: whiteTextColor,
               ),
                 onTap: () async => {
-                await App.supaBaseController?.signOut(),
+                await App.supaBaseController?.signOut(context: context),
                   if(App.supaBaseController?.client.auth.currentUser == null){
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()))
                   },

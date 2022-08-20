@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 
-import '../../../components/sample_box.dart';
-import '../../../components/sample_tile.dart';
+import '../components/group_management_tab.dart';
+import '../components/group_selection_tab.dart';
+import '../components/group_table_view.dart';
 import '../cubit/main_management_page_cubit.dart';
 
 class MainManagementPagePhoneLayout extends StatelessWidget {
@@ -12,33 +14,14 @@ class MainManagementPagePhoneLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-              children: [
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      itemCount: 4,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2),
-                      itemBuilder: (context, index) {
-                        return const SampleBox();
-                      },
-                    ),
-                  ),
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return const SampleTile();
-                  },
-                ),
-              ]
-          ),
+        backgroundColor: MyColors.mainCanvas,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            GroupSelectionTab(),
+            GroupManagementTab(),
+            GroupTableView()
+          ]
         ),
       ),
       onRefresh: () =>

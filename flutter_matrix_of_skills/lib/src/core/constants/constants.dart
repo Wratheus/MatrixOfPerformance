@@ -13,23 +13,10 @@ List<Widget> pageList = <Widget>[ // navigation pages list
 ];
 List<String> groupValues = ['Ratings', 'group 2', 'group 3'];
 
-List<List<dynamic>> rawValues = [['John', 1, null, 3],['Alex', 3, 4, 3], ['Frank', null, null, 2]];
-List<String> skillValues = ['name', 'skill item 1', 'skill item 2', 'skill item 3'];
-
-var defaultBackgroundColor = Colors.grey[300];
-var appBarColor = Colors.grey[900];
-var drawerTextColor = TextStyle(
-  color: Colors.grey[600],
+var whiteTextColor = const TextStyle(
+  color: Colors.white,
 );
-var appBarTextColor = TextStyle(
-  color: Colors.grey[200],
-);
-var buttonTextColor = TextStyle(
-  color: Colors.grey[900],
-);
-var highlightedTextColor = const TextStyle(
-  color: Colors.black54,
-  fontSize: 16,
-  fontWeight: FontWeight.bold
+var darkTextColor = const TextStyle(
+  color: MyColors.customDeepPurple,
 );
 var tilePadding = const EdgeInsets.only(left: 8.0, right: 8, top: 8);

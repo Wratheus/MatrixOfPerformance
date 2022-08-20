@@ -14,7 +14,7 @@ class MainManagementPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainManagementPageCubit(),
+      create: (context) => MainManagementPageCubit(context: context),
       child: BlocBuilder<MainManagementPageCubit, MainManagementPageState>(
           builder: (context, state) {
             if (state is MainManagementPageInitialState) {
@@ -28,7 +28,7 @@ class MainManagementPage extends StatelessWidget {
               const MainManagementPagePhoneLayout();
             }
             if (state is MainManagementPageErrorState) {
-              return const SampleErrorDialogPage();
+              return SampleErrorDialogPage(errorMessage: "Main management page\nCubit error state");
             }
             return Container();
           }

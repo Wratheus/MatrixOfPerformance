@@ -17,8 +17,8 @@ class _MobileScaffoldState extends State<MobileScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: defaultBackgroundColor,
-      appBar: SampleAppbar(title: 'Matrix of Performance'),
+      backgroundColor: MyColors.mainCanvas,
+      appBar: SampleAppbar(title: 'Matrix of Performance', backgroundColor: MyColors.mainOuterColor, textColor: whiteTextColor),
       drawer: NavigationDrawer(pageController: pageController),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

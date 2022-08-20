@@ -1,15 +1,15 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
 
+import '../../feature/components/sample_alert_dialog.dart';
 import 'client_credentials/auth.dart';
-import 'package:supabase/supabase.dart';
-// not tested made by supabase documentation
-
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupaBaseController {
 
   final client = SupabaseClient(ClientCredentials().url, ClientCredentials().key);
 
-  Future<bool> singUp(String email, String password)async{
+  Future<bool> singUp({required String email, required String password})async{
     final response = await client.auth.signUp(email, password);
     if(response.user != null) {
       return true;
@@ -18,119 +18,71 @@ class SupaBaseController {
     }
   }
 
-  Future<bool> signIn(String email, String password) async{
-    try{
-      final response = await client.auth.signIn(email: email, password: password);
-      final user = response.data?.user;
-      if (user == null) {
-        final error = response.error;
-        if (kDebugMode) {
-          print(error);
-        }
-        return false;
-      }
+  Future<bool> signIn({required String email, required String password, required context}) async{
+    final response = await client.auth.signIn(email: email, password: password);
+    final error = response.error;
+    if (error != null) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> signOut({required context})async{
+    final response = await client.auth.signOut();
+    final error = response.error;
+    if (error != null) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
+    }
+    if(client.auth.currentUser == null) {
       return true;
-    }catch(e){
-      if (kDebugMode) {
-        print(e);
-      }
-      return false;
-    }
-  }
-  Future<bool> signOut()async{
-    try{
-      await client.auth.signOut();
-      if (kDebugMode) {
-        print(client.auth.currentUser);
-      }
-      if(client.auth.currentUser == null) {
-        return true;
-      } else {
-        return false;
-      }
-    }catch(e){
-      if (kDebugMode) {
-        print(e);
-      }
+    } else {
       return false;
     }
   }
 
-  insertData(String tableName, Map<dynamic, dynamic> values) async {
-    try { //if (values != null)
-      final response = await client.from(tableName).insert(values).execute();
-      if (kDebugMode) {
-        print(response.status);
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+  insertData({required String tableName, required Map<dynamic, dynamic> values, required context}) async {
+    final response = await client.from(tableName).insert(values).execute();
+    final error = response.error;
+    if (error != null) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
     }
   }
 
-  readData({required String table, Map<dynamic, dynamic>? values}) async {
-    try { //if (values != null)
-      final response = await client.from(table).select().execute();
-      if (response.status == 200) {
-        final dataResponse = response.data as List;
-        if (kDebugMode) {
-          print(response.data);
-        }
-        return dataResponse;
-      } else {
-        if (kDebugMode) {
-          print('response status code ${response.status} error');
-        }
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+  readData({required String table, Map<dynamic, dynamic>? values, required context}) async {
+    final response = await client.from(table).select().execute();
+    final error = response.error;
+    if (error != null) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
+    }
+    if (response.status == 200) {
+      final dataResponse = response.data as List;
+      return dataResponse;
     }
   }
 
-  updateData(String tableName, Map<dynamic, dynamic> values,
-      Map<dynamic, dynamic> matchValues) async {
-    try { //if (values != null)
-      final response = await client.from(tableName).update(values).match(
-          matchValues).execute();
-      if (response.status == 200) {
-        final dataResponse = response.data as List;
-        if (kDebugMode) {
-          print(response);
-        }
-        return dataResponse;
-      } else {
-        if (kDebugMode) {
-          print('response status code ${response.status} error');
-        }
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+  updateData({required String tableName, required Map<dynamic, dynamic> values, required Map<dynamic, dynamic> matchValues, required context}) async {
+    final response = await client.from(tableName).update(values).match(
+        matchValues).execute();
+    final error = response.error;
+    if (error != null) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
+    }
+    if (response.status == 200) {
+      final dataResponse = response.data as List;
+      return dataResponse;
     }
   }
 
-  deleteData(String tableName, Map<dynamic, dynamic> values) async {
-    try { //if (values != null)
-      final response = await client.from(tableName).delete().match(values).execute();
-      if (response.status == 200) {
-        final dataResponse = response.data as List;
-        if (kDebugMode) {
-          print(response);
-        }
-        return dataResponse;
-      } else {
-        if (kDebugMode) {
-          print('response status code ${response.status} error');
-        }
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+  deleteData({required String tableName, required Map<dynamic, dynamic> values, required context}) async {
+    final response = await client.from(tableName).delete().match(values).execute();
+    final error = response.error;
+    if (error != null) {
+      SampleErrorDialogPage(errorMessage: error.toString());
+    }
+    if (response.status == 200) {
+      final dataResponse = response.data as List;
+      return dataResponse;
     }
   }
 }

@@ -12,18 +12,28 @@ class GroupManagementTab extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Colors.grey[400],
+        color: MyColors.mainOuterColor,
       ),
       child: Row(
         children: <Widget>[
-          ElevatedButton(
-              onPressed: ()=>{},
-              child: Text("Add skill", style: buttonTextColor)
+          Container(
+            decoration: const BoxDecoration(
+              color: MyColors.mainInnerColor
+            ),
+            child: ElevatedButton(
+                onPressed: ()=>{},
+                child: Text("Add skill", style: whiteTextColor)
+            ),
           ),
           const SizedBox(width: 10),
-          ElevatedButton(
-              onPressed: ()=>{},
-              child: Text("Add person", style: buttonTextColor)
+          Container(
+            decoration: const BoxDecoration(
+              color: MyColors.mainInnerColor
+            ),
+            child: ElevatedButton(
+                onPressed: ()=>{},
+                child: Text("Add person", style: whiteTextColor)
+            ),
           ),
         ],
       ),

@@ -17,8 +17,8 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: defaultBackgroundColor,
-      appBar: SampleAppbar(title: 'Matrix of Performance'),
+      backgroundColor: MyColors.mainCanvas,
+      appBar: SampleAppbar(title: 'Matrix of Performance', backgroundColor: MyColors.mainBeige, textColor: darkTextColor),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -29,7 +29,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
           ),
           // routing implementation
           Expanded(
-            flex: 6,
+            flex: 7,
               child: PageView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: pageController,

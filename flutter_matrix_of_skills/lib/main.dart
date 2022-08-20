@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_matrix_of_skills/src/core/classes/app.dart';
 
+import 'src/core/constants/constants.dart';
 import 'src/feature/pages/login_page/login_page.dart';
 
 
@@ -23,8 +24,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Matrix of performance App',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
-        backgroundColor: Colors.black12
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: MyColors.mainInnerColor,
+          secondary: MyColors.mainBeige,
+        ),
       ),
       home: const LoginPage()
     );
