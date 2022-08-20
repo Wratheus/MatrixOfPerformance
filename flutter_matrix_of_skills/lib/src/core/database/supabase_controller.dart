@@ -69,14 +69,13 @@ class SupaBaseController {
     }
   }
 
-  readData(String tableName, Map<dynamic, dynamic> values) async {
+  readData({required String table, Map<dynamic, dynamic>? values}) async {
     try { //if (values != null)
-      final response = await client.from(tableName).select().order(
-          values.toString(), ascending: true).execute();
+      final response = await client.from(table).select().execute();
       if (response.status == 200) {
         final dataResponse = response.data as List;
         if (kDebugMode) {
-          print(response);
+          print(response.data);
         }
         return dataResponse;
       } else {

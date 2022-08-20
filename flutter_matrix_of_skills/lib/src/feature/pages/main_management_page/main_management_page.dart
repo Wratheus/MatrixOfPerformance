@@ -19,7 +19,7 @@ class MainManagementPage extends StatelessWidget {
           builder: (context, state) {
             if (state is MainManagementPageInitialState) {
               context.read<MainManagementPageCubit>().informInitial();
-              context.read<MainManagementPageCubit>().loadMainManagementPage();
+              context.read<MainManagementPageCubit>().loadMainManagementPage(tableName: 'Ratings');
               return const SampleLoadingPage();
             }
             if (state is MainManagementPageLoadedState) {

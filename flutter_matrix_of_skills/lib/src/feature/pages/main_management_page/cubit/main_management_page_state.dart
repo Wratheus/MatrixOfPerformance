@@ -6,6 +6,9 @@ abstract class MainManagementPageState {}
 class MainManagementPageInitialState extends MainManagementPageState {}
 
 class MainManagementPageLoadedState extends MainManagementPageState {
+  final List<dynamic> tableData;
+
+  MainManagementPageLoadedState({required this.tableData});
 }
 
 class MainManagementPageErrorState extends MainManagementPageState {

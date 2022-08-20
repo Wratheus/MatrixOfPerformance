@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../components/sample_drop_down_menu.dart';
+import '../cubit/main_management_page_cubit.dart';
 
 class GroupSelectionTab extends StatelessWidget {
   const GroupSelectionTab({Key? key}) : super(key: key);
@@ -25,7 +27,9 @@ class GroupSelectionTab extends StatelessWidget {
             children: [
               SampleDropDownMenu(values: groupValues),
               ElevatedButton(
-                  onPressed: ()=>{},
+                  onPressed: ()=>{
+                    context.read<MainManagementPageCubit>().loadMainManagementPage(tableName: groupValues[0])
+                  },
                   child: Text("New", style: buttonTextColor)
               )
             ],

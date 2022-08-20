@@ -11,9 +11,11 @@ List<Widget> pageList = <Widget>[ // navigation pages list
   const LoginPage(),
   const RegistrationPage(),
 ];
-List<String> groupValues = ['group 1', 'group 2', 'group 3'];
+List<String> groupValues = ['Ratings', 'group 2', 'group 3'];
+
 List<List<dynamic>> rawValues = [['John', 1, null, 3],['Alex', 3, 4, 3], ['Frank', null, null, 2]];
 List<String> skillValues = ['name', 'skill item 1', 'skill item 2', 'skill item 3'];
+
 var defaultBackgroundColor = Colors.grey[300];
 var appBarColor = Colors.grey[900];
 var drawerTextColor = TextStyle(
