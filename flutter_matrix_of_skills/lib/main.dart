@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           secondary: MyColors.mainBeige,
         ),
       ),
-      home: const LoginPage()
+      home: LoginPage()
     );
   }
 }

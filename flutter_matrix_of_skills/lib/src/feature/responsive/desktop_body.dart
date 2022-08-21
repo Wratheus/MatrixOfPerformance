@@ -18,7 +18,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.mainCanvas,
-      appBar: SampleAppbar(title: 'Matrix of Performance', backgroundColor: MyColors.mainBeige, textColor: darkTextColor),
+      appBar: SampleAppbar(title: 'Matrix of Performance', backgroundColor: MyColors.mainInnerColor, textColor: whiteTextColor),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

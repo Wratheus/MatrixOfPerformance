@@ -75,7 +75,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                 onTap: () async => {
                 await App.supaBaseController?.signOut(context: context),
                   if(App.supaBaseController?.client.auth.currentUser == null){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()))
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()))
                   },
               }
             ),

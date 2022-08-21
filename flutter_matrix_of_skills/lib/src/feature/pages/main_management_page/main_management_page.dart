@@ -14,7 +14,7 @@ class MainManagementPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainManagementPageCubit(context: context),
+      create: (context) => MainManagementPageCubit(),
       child: BlocBuilder<MainManagementPageCubit, MainManagementPageState>(
           builder: (context, state) {
             if (state is MainManagementPageInitialState) {

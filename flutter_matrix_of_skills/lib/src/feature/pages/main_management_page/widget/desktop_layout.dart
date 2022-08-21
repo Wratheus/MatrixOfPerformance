@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 
-import '../components/group_management_tab.dart';
-import '../components/group_selection_tab.dart';
-import '../components/group_table_view.dart';
+import '../components/desktop_group_management_tab.dart';
+import '../components/desktop_group_table_view.dart';
 import '../cubit/main_management_page_cubit.dart';
 
 class MainManagementPageDesktopLayout extends StatelessWidget {
@@ -18,9 +17,9 @@ class MainManagementPageDesktopLayout extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
-            GroupSelectionTab(),
-            GroupManagementTab(),
-            GroupTableView()
+            SizedBox(height: 5),
+            DesktopGroupManagementTab(),
+            DesktopGroupTableView(),
           ]
         ),
       ),

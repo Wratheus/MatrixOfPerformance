@@ -8,8 +8,8 @@ part './colors.dart';
 
 List<Widget> pageList = <Widget>[ // navigation pages list
   const MainManagementPage(),
-  const LoginPage(),
-  const RegistrationPage(),
+  LoginPage(),
+  RegistrationPage(),
 ];
 List<String> groupValues = ['Ratings', 'group 2', 'group 3'];
 

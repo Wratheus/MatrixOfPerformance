@@ -11,18 +11,13 @@ import '../../components/sample_text_field.dart';
 import '../../responsive/desktop_body.dart';
 import '../../responsive/responsive_layout.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-  @override
-  // ignore: library_private_types_in_public_api
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage>{
+class LoginPage extends StatelessWidget {
   final TextEditingController _textControllerLogin = TextEditingController();
   final TextEditingController _textControllerPassword = TextEditingController();
-  @override
 
+  LoginPage({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SampleAppbar(title: 'Welcome', backgroundColor: MyColors.mainOuterColor, textColor: whiteTextColor),
@@ -40,16 +35,16 @@ class _LoginPageState extends State<LoginPage>{
             const SizedBox(height: 20,),
             ElevatedButton(
               onPressed: () async =>
-                  // print('${_textControllerLogin.text}, ${_textControllerPassword.text}'),
+              // print('${_textControllerLogin.text}, ${_textControllerPassword.text}'),
               {
                 if (await App.supaBaseController?.signIn(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true){
                   Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) =>
-                      const ResponsiveLayout(
-                        desktopBody: DesktopScaffold(),
-                        mobileBody: MobileScaffold()
-                        )
-                      )
+                      context, MaterialPageRoute(builder: (context) =>
+                  const ResponsiveLayout(
+                      desktopBody: DesktopScaffold(),
+                      mobileBody: MobileScaffold()
+                  )
+                  )
                   ),
                 }
               },
@@ -58,7 +53,7 @@ class _LoginPageState extends State<LoginPage>{
             const SizedBox(height: 10,),
             Center(
               child: InkWell(
-                onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegistrationPage()));
+                onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
                 },
                 child: Text("Register",
                   style: whiteTextColor,
