@@ -45,4 +45,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-/lib/src/core/database/client_credentials/auth.dart
+#authentication database credentials
+lib/src/core/database/client_credentials/auth.dart
