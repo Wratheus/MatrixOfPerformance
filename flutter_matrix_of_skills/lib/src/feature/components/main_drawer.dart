@@ -20,7 +20,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     return Drawer(
       backgroundColor: MyColors.mainOuterColor,
       elevation: 0,
-      child: Column(
+      child: ListView(
         children: [
           const DrawerHeader(
             child: Icon(

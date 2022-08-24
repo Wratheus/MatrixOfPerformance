@@ -25,11 +25,16 @@ class _SampleDropDownMenuState extends State<SampleDropDownMenu> {
   Widget build(BuildContext context) {
     return DropdownButton<String>(
         style: whiteTextColor,
+        dropdownColor: MyColors.mainInnerColor,
         value: selectedValue,
         items: widget.values.map((item) =>
             DropdownMenuItem<String>(
                 value: item,
-                child: Text(item, style: whiteTextColor)
+                child: Row(
+                  children: [
+                    Text(item, style: whiteTextColor),
+                  ],
+                )
             )
         ).toList(),
         onChanged: (item) => dropDownCallBack(item),

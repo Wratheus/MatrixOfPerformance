@@ -40,7 +40,7 @@ class SupaBaseController {
       return false;
     }
   }
-
+  //TODO: ADD BUTTON ACTION
   insertData({required String tableName, required Map<dynamic, dynamic> values, required context}) async {
     final response = await client.from(tableName).insert(values).execute();
     final error = response.error;
@@ -60,7 +60,7 @@ class SupaBaseController {
       return dataResponse;
     }
   }
-
+  //TODO: UPDATE BUTTON ACTION
   updateData({required String tableName, required Map<dynamic, dynamic> values, required Map<dynamic, dynamic> matchValues, required context}) async {
     final response = await client.from(tableName).update(values).match(
         matchValues).execute();
@@ -73,7 +73,7 @@ class SupaBaseController {
       return dataResponse;
     }
   }
-
+  //TODO: DELETE BUTTON ACTION
   deleteData({required String tableName, required Map<dynamic, dynamic> values, required context}) async {
     final response = await client.from(tableName).delete().match(values).execute();
     final error = response.error;

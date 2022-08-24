@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_loading_page.dart';
 
-import '../../responsive/responsive_layout.dart';
 import 'cubit/main_management_page_cubit.dart';
-import 'widget/desktop_layout.dart';
-import 'widget/phone_layout.dart';
+import 'layout/layout.dart';
 
 // ignore: must_be_immutable
 class MainManagementPage extends StatelessWidget {
@@ -23,9 +21,7 @@ class MainManagementPage extends StatelessWidget {
               return const SampleLoadingPage();
             }
             if (state is MainManagementPageLoadedState) {
-              return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
-              const MainManagementPageDesktopLayout() :
-              const MainManagementPagePhoneLayout();
+              return const MainManagementPageLayout();
             }
             if (state is MainManagementPageErrorState) {
               return SampleErrorDialogPage(errorMessage: "Main management page\nCubit error state");

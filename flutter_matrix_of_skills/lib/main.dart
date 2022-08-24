@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_matrix_of_skills/src/core/classes/app.dart';
+import 'package:flutter_matrix_of_skills/src/core/utils/custom_scroll_behavior.dart';
 
 import 'src/core/constants/constants.dart';
 import 'src/feature/pages/login_page/login_page.dart';
-
-
-
 
 void main() {
   App.initApp();
@@ -21,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
     return MaterialApp(
+      scrollBehavior: CustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Matrix of performance App',
       theme: ThemeData(

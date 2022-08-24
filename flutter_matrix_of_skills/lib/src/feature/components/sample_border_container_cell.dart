@@ -7,12 +7,15 @@ import '../../core/constants/constants.dart';
 class SampleBorderContainerCell extends StatelessWidget {
   Widget child;
   Color color;
-  SampleBorderContainerCell({Key? key, required this.child, required this.color}) : super(key: key);
+  double? width;
+  double? height;
+  SampleBorderContainerCell({Key? key, required this.child, required this.color, this.height, this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 5,
+      width: width ?? 5,
+      height: height,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(1),
           border: Border.all(color: MyColors.mainCanvas),
