@@ -5,10 +5,14 @@ import 'package:flutter_matrix_of_skills/src/core/utils/custom_scroll_behavior.d
 
 import 'src/core/constants/constants.dart';
 import 'src/feature/pages/login_page/login_page.dart';
+import 'src/feature/responsive/desktop_body.dart';
+import 'src/feature/responsive/mobile_body.dart';
+import 'src/feature/responsive/responsive_layout.dart';
 
-void main() {
-  App.initApp();
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  App.initApp();
+  App.session = await App.supaBaseController?.sessionSignIn();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
@@ -28,7 +32,11 @@ class MyApp extends StatelessWidget {
           secondary: MyColors.mainBeige,
         ),
       ),
-      home: LoginPage()
+      home: (App.session == true) ?
+      const ResponsiveLayout(
+          desktopBody: DesktopScaffold(),
+          mobileBody: MobileScaffold()
+      ) : LoginPage()
     );
   }
 }

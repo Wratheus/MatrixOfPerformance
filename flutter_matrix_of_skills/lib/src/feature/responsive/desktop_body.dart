@@ -33,12 +33,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
               child: PageView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: pageController,
-                onPageChanged: (_) => (index) {
-                  if (kDebugMode) {
-                    print('page changed to ${pageList[index]}');
-                  }
-                  },
-                children: pageList // print what page is now selected
+                children: pageList
               ),
           ),
         ],

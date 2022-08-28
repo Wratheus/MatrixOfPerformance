@@ -3,18 +3,18 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class SecureStorage {
   static const _storage = FlutterSecureStorage();
 
-  static const _keyRefreshToken = 'refresh_token';
-  static const _keyToken = 'access_token';
+  static const _session = 'access_token';
 
-  static Future setRefreshTokenFromStorage(String refreshToken) async =>
-      await _storage.write(key: _keyRefreshToken, value: refreshToken);
+  static Future setSessionToStorage(String session) async =>
+      await _storage.write(key: _session, value: session);
 
-  static Future<String?> getRefreshTokenFromStorage() async =>
-      await _storage.read(key: _keyRefreshToken);
+  static Future<String?> getSessionFromStorage() async =>
+      await _storage.read(key: _session);
 
-  static Future setTokenInStorage(String token) async =>
-      await _storage.write(key: _keyToken, value: token);
+  static Future deleteSessionFromStorage() async =>
+      await _storage.delete(key: _session);
 
-  static Future<String?> getTokenFromStorage() async =>
-      await _storage.read(key: _keyToken);
+  static Future deleteAllData() async =>
+      await _storage.deleteAll();
+
 }

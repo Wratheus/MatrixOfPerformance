@@ -35,7 +35,6 @@ class LoginPage extends StatelessWidget {
             const SizedBox(height: 20,),
             ElevatedButton(
               onPressed: () async =>
-              // print('${_textControllerLogin.text}, ${_textControllerPassword.text}'),
               {
                 if (await App.supaBaseController?.signIn(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true){
                   Navigator.pushReplacement(

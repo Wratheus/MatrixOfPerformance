@@ -1,13 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_matrix_of_skills/src/core/classes/secure_storage_controller.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
 
 import '../../feature/components/sample_alert_dialog.dart';
+import '../classes/app.dart';
 import 'client_credentials/auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupaBaseController {
+  final SupabaseClient client = SupabaseClient(ClientCredentials().url, ClientCredentials().key);
 
-  final client = SupabaseClient(ClientCredentials().url, ClientCredentials().key);
 
   Future<bool> singUp({required String email, required String password})async{
     final response = await client.auth.signUp(email, password);
@@ -18,14 +22,34 @@ class SupaBaseController {
     }
   }
 
-  Future<bool> signIn({required String email, required String password, required context}) async{
-    final response = await client.auth.signIn(email: email, password: password);
+  Future<bool> signIn({required String email, required String password, required context}) async {
+    final response = await client.auth.signIn(
+        email: email, password: password);
     final error = response.error;
     if (error != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>
+          SampleAlertDialog(
+              alertMessageStr: error.message, appBarStr: "Error")));
       return false;
     }
+    String newSession = (json.encode(App.supaBaseController?.client.auth.session()));
+    await SecureStorage.setSessionToStorage(newSession);
     return true;
+  }
+  // try to recreate session with refresh token
+  Future<bool> sessionSignIn() async {
+    String? lastSession = await SecureStorage.getSessionFromStorage();
+    if (lastSession != null) {
+      Map<dynamic, dynamic> jsonSession = jsonDecode(lastSession);
+      await App.supaBaseController?.client.auth.setSession(jsonSession['refresh_token']);
+      if (App.supaBaseController?.client.auth.session() != null) {
+        String newSession = (json.encode(App.supaBaseController?.client.auth.session()));
+        await SecureStorage.setSessionToStorage(newSession);
+        return true;
+      }
+      return false;
+    }
+    return false;
   }
 
   Future<bool> signOut({required context})async{
@@ -35,6 +59,8 @@ class SupaBaseController {
       Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
     }
     if(client.auth.currentUser == null) {
+      await SecureStorage.deleteAllData();
+    // TODO: check from secure storage method
       return true;
     } else {
       return false;

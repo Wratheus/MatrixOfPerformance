@@ -28,12 +28,8 @@ class _MobileScaffoldState extends State<MobileScaffold> {
               child: PageView(
                   physics: const NeverScrollableScrollPhysics(),
                   controller: pageController,
-                  onPageChanged: (_) => (index) {
-                      if (kDebugMode) {
-                        print('page changed to ${pageList[index]}');
-                      }
-                    },
-                  children: pageList // print what page is now selected
+                  onPageChanged: (_) => (index) {},
+                  children: pageList
               ),
             ),
           ],

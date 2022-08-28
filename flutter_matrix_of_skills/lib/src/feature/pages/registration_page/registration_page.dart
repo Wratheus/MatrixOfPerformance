@@ -40,7 +40,6 @@ class RegistrationPage extends StatelessWidget {
               const SizedBox(height: 20,),
               ElevatedButton(
                   onPressed: () async => {
-                    // print('${_textControllerLogin.text}, ${_textControllerPassword.text}'),
                     if (await App.supaBaseController?.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text) == true) {
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", appBarStr: "Done", routePage: LoginPage()))),
                     } else {
