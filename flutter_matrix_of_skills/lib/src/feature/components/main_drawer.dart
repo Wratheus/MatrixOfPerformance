@@ -24,17 +24,17 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         children: [
           const DrawerHeader(
             child: Icon(
-              Icons.favorite,
-              size: 64,
+              Icons.church,
+              size: 128,
               color: MyColors.mainBeige,
             ),
           ),
           Padding(
             padding: tilePadding,
             child: ListTile(
-              leading: const Icon(Icons.bar_chart, color: MyColors.mainBeige),
+              leading: const Icon(Icons.storage_rounded, color: MyColors.mainBeige),
               title: Text(
-                'TABLES PAGE',
+                'Tables manager',
                 style: whiteTextColor,
               ),
               onTap: () => {
@@ -45,12 +45,25 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           Padding(
             padding: tilePadding,
             child: ListTile(
+                leading: const Icon(Icons.bar_chart, color: MyColors.mainBeige),
+                title: Text(
+                  'Graphs',
+                  style: whiteTextColor,
+                ),
+                onTap: () => {
+                  widget.pageController.animateToPage(1, duration: const Duration(milliseconds: 350), curve: Curves.ease),
+                }
+            ),
+          ),
+          Padding(
+            padding: tilePadding,
+            child: ListTile(
               leading: const Icon(Icons.settings, color: MyColors.mainBeige),
               title: Text(
-                'TEST NAV 2',
+                'TEST NAV 3',
                 style: whiteTextColor,
               ),
-                onTap: () => widget.pageController.animateToPage(1, duration: const Duration(milliseconds: 350), curve: Curves.ease)
+                onTap: () => widget.pageController.animateToPage(2, duration: const Duration(milliseconds: 350), curve: Curves.ease)
             ),
           ),
           Padding(
@@ -58,10 +71,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             child: ListTile(
               leading: const Icon(Icons.info, color: MyColors.mainBeige),
               title: Text(
-                'TEST NAV 3',
+                'TEST NAV 4',
                 style: whiteTextColor,
               ),
-                onTap: () => widget.pageController.animateToPage(2, duration: const Duration(milliseconds: 350), curve: Curves.ease)
+                onTap: () => widget.pageController.animateToPage(3, duration: const Duration(milliseconds: 350), curve: Curves.ease)
             ),
           ),
           Padding(

@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/classes/secure_storage_controller.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
 
-import '../../feature/components/sample_alert_dialog.dart';
 import '../classes/app.dart';
+import '../services/app_ui_modals.dart';
 import 'client_credentials/auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -13,13 +12,17 @@ class SupaBaseController {
   final SupabaseClient client = SupabaseClient(ClientCredentials().url, ClientCredentials().key);
 
 
-  Future<bool> singUp({required String email, required String password})async{
+  Future<bool> singUp({required String email, required String password, required context})async{
     final response = await client.auth.signUp(email, password);
-    if(response.user != null) {
-      return true;
-    } else {
+    final error = response.error;
+    if(error != null){
+      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
       return false;
     }
+    if(response.user != null) {
+      return true;
+    }
+    return false;
   }
 
   Future<bool> signIn({required String email, required String password, required context}) async {
@@ -27,9 +30,7 @@ class SupaBaseController {
         email: email, password: password);
     final error = response.error;
     if (error != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>
-          SampleAlertDialog(
-              alertMessageStr: error.message, appBarStr: "Error")));
+      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
       return false;
     }
     String newSession = (json.encode(App.supaBaseController?.client.auth.session()));
@@ -56,11 +57,10 @@ class SupaBaseController {
     final response = await client.auth.signOut();
     final error = response.error;
     if (error != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
+      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
     }
     if(client.auth.currentUser == null) {
       await SecureStorage.deleteAllData();
-    // TODO: check from secure storage method
       return true;
     } else {
       return false;
@@ -71,7 +71,7 @@ class SupaBaseController {
     final response = await client.from(tableName).insert(values).execute();
     final error = response.error;
     if (error != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
+      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
     }
   }
 
@@ -79,7 +79,7 @@ class SupaBaseController {
     final response = await client.from(table).select().execute();
     final error = response.error;
     if (error != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
+      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
     }
     if (response.status == 200) {
       final dataResponse = response.data as List;
@@ -92,7 +92,7 @@ class SupaBaseController {
         matchValues).execute();
     final error = response.error;
     if (error != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: error.message, appBarStr: "Error")));
+      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
     }
     if (response.status == 200) {
       final dataResponse = response.data as List;
@@ -104,7 +104,7 @@ class SupaBaseController {
     final response = await client.from(tableName).delete().match(values).execute();
     final error = response.error;
     if (error != null) {
-      SampleErrorDialogPage(errorMessage: error.toString());
+      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
     }
     if (response.status == 200) {
       final dataResponse = response.data as List;

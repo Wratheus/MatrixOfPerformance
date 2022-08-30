@@ -1,27 +1,24 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:flutter/material.dart';
-
+import 'package:flutter/cupertino.dart';
 import '../../core/constants/constants.dart';
 
-class SampleErrorDialogPage extends StatelessWidget {
+class SampleErrorDialog extends StatelessWidget {
   String errorMessage;
-  SampleErrorDialogPage({Key? key, required this.errorMessage}) : super(key: key);
+  SampleErrorDialog({Key? key, required this.errorMessage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MyColors.mainCanvas,
-      body: Container(
-        decoration: const BoxDecoration(
-          color: MyColors.mainCanvas,
-        ),
-        child: Center(
-          child: Text(errorMessage,
-            style: whiteTextColor,
-          ),
-        ),
-      ),
+    return CupertinoAlertDialog(
+      scrollController: ScrollController(),
+      actions: [
+        CupertinoDialogAction(
+          child: Text("OK", style: darkTextColor),
+          onPressed: () => Navigator.pop(context),
+        )
+      ],
+      title: Text("🥺 Error", style: darkTextColor),
+      content: Text(errorMessage, style: darkTextColor),
     );
   }
 }

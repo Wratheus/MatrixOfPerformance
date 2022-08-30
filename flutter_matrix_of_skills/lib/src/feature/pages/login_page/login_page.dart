@@ -27,23 +27,25 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            appIcon,
+            const SizedBox(height: 10,),
             Center(child: Text('Welcome\nplease login to continue', style: whiteTextColor, textAlign: TextAlign.center)),
             const SizedBox(height: 15,),
             SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor),
-            const SizedBox(height: 20,),
+            const SizedBox(height: 15,),
             SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor),
-            const SizedBox(height: 20,),
+            const SizedBox(height: 15,),
             ElevatedButton(
               onPressed: () async =>
               {
                 if (await App.supaBaseController?.signIn(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true){
                   Navigator.pushReplacement(
                       context, MaterialPageRoute(builder: (context) =>
-                  const ResponsiveLayout(
-                      desktopBody: DesktopScaffold(),
-                      mobileBody: MobileScaffold()
-                  )
-                  )
+                      const ResponsiveLayout(
+                          desktopBody: DesktopScaffold(),
+                          mobileBody: MobileScaffold()
+                      )
+                    )
                   ),
                 }
               },
@@ -56,6 +58,16 @@ class LoginPage extends StatelessWidget {
                 },
                 child: Text("Register",
                   style: whiteTextColor,
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Center(
+              child: InkWell(
+                // TODO: password reset
+                onTap: () { },
+                child: Text("Forgot password",
+                  style: greyTextColor,
                 ),
               ),
             )

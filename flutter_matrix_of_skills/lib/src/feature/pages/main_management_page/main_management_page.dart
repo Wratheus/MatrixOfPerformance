@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_loading_page.dart';
 
+import '../../../core/services/app_ui_modals.dart';
 import 'cubit/main_management_page_cubit.dart';
 import 'layout/layout.dart';
 
@@ -24,7 +25,7 @@ class MainManagementPage extends StatelessWidget {
               return const MainManagementPageLayout();
             }
             if (state is MainManagementPageErrorState) {
-              return SampleErrorDialogPage(errorMessage: "Main management page\nCubit error state");
+              return AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: "Main management page\nCubit error state"));
             }
             return Container();
           }

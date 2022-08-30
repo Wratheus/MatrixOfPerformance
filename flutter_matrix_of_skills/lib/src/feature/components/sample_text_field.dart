@@ -22,6 +22,7 @@ class _SampleTextFieldState extends State<SampleTextField> {
     return SizedBox(
       width: 300,
       child: TextField(
+        cursorColor: MyColors.mainBeige,
         obscureText: widget.hideText,
         controller: widget.textController,
         textAlign: TextAlign.start,

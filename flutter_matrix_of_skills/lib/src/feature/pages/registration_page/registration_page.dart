@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/classes/app.dart';
 import '../../../core/constants/constants.dart';
+import '../../../core/services/app_ui_modals.dart';
 import '../../components/sample_alert_dialog.dart';
 import '../../components/sample_appbar.dart';
 import '../../components/sample_text_field.dart';
@@ -30,24 +31,31 @@ class RegistrationPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(child: Text('Welcome to Matrix of Performance \nregister to use the app', style: whiteTextColor, textAlign: TextAlign.center)),
+              appIcon,
+              const SizedBox(height: 5,),
+              Center(child: Text('Complete registration to use the app', style: whiteTextColor, textAlign: TextAlign.center)),
+              const SizedBox(height: 10,),
+              SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor),
               const SizedBox(height: 15,),
-              SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: darkTextColor),
-              const SizedBox(height: 20,),
-              SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: darkTextColor),
-              const SizedBox(height: 20,),
-              SampleTextField(textController: _textControllerName, labelText: 'Name', hideText: false, borderColor: MyColors.mainBeige, textColor: darkTextColor),
-              const SizedBox(height: 20,),
+              SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor),
+              const SizedBox(height: 15,),
+              // TODO: name required
+              SampleTextField(textController: _textControllerName, labelText: 'Name', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor),
+              const SizedBox(height: 10,),
               ElevatedButton(
                   onPressed: () async => {
-                    if (await App.supaBaseController?.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text) == true) {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", appBarStr: "Done", routePage: LoginPage()))),
-                    } else {
-                      Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) => SampleAlertDialog(alertMessageStr: "Registration failed", appBarStr: "Failed", routePage: LoginPage(),))),
-                    },
+                    if (await App.supaBaseController?.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
+                      AppUI.showCupertinoModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done")),
+                    }
                   },
                   child: Text('Register', style: whiteTextColor)
+              ),
+              const SizedBox(height: 15,),
+              ElevatedButton(
+                  onPressed: () async => {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
+                  },
+                  child: Text('Back to login page', style: whiteTextColor)
               ),
             ],
           ),
