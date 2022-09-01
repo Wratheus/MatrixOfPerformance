@@ -66,6 +66,7 @@ class SupaBaseController {
       return false;
     }
   }
+
   //TODO: ADD BUTTON ACTION
   insertData({required String tableName, required Map<dynamic, dynamic> values, required context}) async {
     final response = await client.from(tableName).insert(values).execute();

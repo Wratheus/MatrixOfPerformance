@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/widgets/group_management_drop_down_menu.dart';
 import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layout.dart';
 
 import '../../../../core/constants/constants.dart';
@@ -26,11 +27,11 @@ class GroupManagementTab extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SampleDropDownMenu(values: groupValues),
+                  GroupManagementDropDownMenu(values: groupValues),
                   const SizedBox(width: 10),
                   ElevatedButton(
                       onPressed: ()=>{
-                        context.read<MainManagementPageCubit>().loadMainManagementPage(tableName: groupValues[0])
+                        //TODO: new table request
                       },
                       child: Text("New", style: whiteTextColor)
                   )

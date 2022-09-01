@@ -17,8 +17,8 @@ dependencies:
   url_launcher: ^6.1.5
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
-  flutter_secure_storage: ^5.1.0
-  flutter_native_splash: ^2.2.7
+  flutter_secure_storage: ^6.0.0
+  flutter_native_splash: ^2.2.8
   supabase_flutter: ^0.3.3
   flutter_launcher_icons: ^0.10.0
 

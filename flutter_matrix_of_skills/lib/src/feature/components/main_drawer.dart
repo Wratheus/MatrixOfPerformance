@@ -24,7 +24,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         children: [
           const DrawerHeader(
             child: Icon(
-              Icons.church,
+              Icons.architecture,
               size: 128,
               color: MyColors.mainBeige,
             ),

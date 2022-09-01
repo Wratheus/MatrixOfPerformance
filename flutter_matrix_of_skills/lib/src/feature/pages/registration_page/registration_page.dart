@@ -45,7 +45,7 @@ class RegistrationPage extends StatelessWidget {
               ElevatedButton(
                   onPressed: () async => {
                     if (await App.supaBaseController?.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
-                      AppUI.showCupertinoModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done")),
+                      AppUI.showCupertinoModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done", route: LoginPage())),
                     }
                   },
                   child: Text('Register', style: whiteTextColor)
