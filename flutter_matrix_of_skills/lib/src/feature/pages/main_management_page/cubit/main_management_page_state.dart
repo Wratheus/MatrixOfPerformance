@@ -7,8 +7,8 @@ class MainManagementPageInitialState extends MainManagementPageState {}
 
 class MainManagementPageLoadedState extends MainManagementPageState {
   final List<dynamic> tableData;
-
-  MainManagementPageLoadedState({required this.tableData});
+  final List<dynamic> values;
+  MainManagementPageLoadedState({required this.tableData, required this.values});
 }
 
 class MainManagementPageErrorState extends MainManagementPageState {

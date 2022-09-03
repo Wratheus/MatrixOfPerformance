@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import '../../../../core/classes/app.dart';
-import '../../../../core/services/app_ui_modals.dart';
-import '../../../components/sample_error_dialog.dart';
 
 part 'main_management_page_state.dart';
 
@@ -20,19 +18,16 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
   Future<void> loadMainManagementPage({tableName, context}) async {
     try{
       if (!isClosed) {
-        if(tableName != null) {
-          emit(MainManagementPageLoadedState(
-              tableData: await App.supaBaseController?.readData(table: tableName, context: context)));
-        } else {
-          emit(MainManagementPageLoadedState(
-              tableData: const []
-          ));
-        }
+        emit(MainManagementPageLoadedState(
+            tableData: const [],
+            values: await App.supaBaseController?.readData(table: "user_tables", context: context, tableName: tableName)
+        ));
         if (kDebugMode) {
           print("main page is loaded");
         }
       }
     }catch (e) {
+      print(e);
       if (!isClosed) {
         emit(MainManagementPageErrorState());
       }

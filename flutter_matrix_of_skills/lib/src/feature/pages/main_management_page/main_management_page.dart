@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_loading_page.dart';
 
-import '../../../core/constants/constants.dart';
-import '../../../core/services/app_ui_modals.dart';
 import '../../responsive/desktop_body.dart';
 import '../../responsive/mobile_body.dart';
 import '../../responsive/responsive_layout.dart';
@@ -22,14 +20,13 @@ class MainManagementPage extends StatelessWidget {
           builder: (context, state) {
             if (state is MainManagementPageInitialState) {
               context.read<MainManagementPageCubit>().informInitial();
-              context.read<MainManagementPageCubit>().loadMainManagementPage(tableName: groupValues[0]);
+              context.read<MainManagementPageCubit>().loadMainManagementPage();
               return const SampleLoadingPage();
             }
             if (state is MainManagementPageLoadedState) {
               return const MainManagementPageLayout();
             }
             if (state is MainManagementPageErrorState) {
-              // TODO: fix error handle
               return SampleErrorDialog(errorMessage: "Main management page\nCubit error state", route: const ResponsiveLayout(
                   desktopBody: DesktopScaffold(),
                   mobileBody: MobileScaffold()));

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/widgets/group_management_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/widgets/group_management_drop_down_menu.dart';
 import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layout.dart';
 
 import '../../../../core/constants/constants.dart';
-import '../../../components/sample_drop_down_menu.dart';
-import '../cubit/main_management_page_cubit.dart';
+import '../../../../core/services/app_ui_modals.dart';
 
 class GroupManagementTab extends StatelessWidget {
   const GroupManagementTab({Key? key}) : super(key: key);
@@ -22,21 +21,16 @@ class GroupManagementTab extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Select group",
+              Text("Select table",
                   style: whiteTextColor
               ),
-              Row(
-                children: [
-                  GroupManagementDropDownMenu(values: groupValues),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                      onPressed: ()=>{
-                        //TODO: new table request
-                      },
-                      child: Text("New", style: whiteTextColor)
-                  )
-                ],
-              ),
+              const GroupManagementDropDownMenu(),
+              const SizedBox(width: 10),
+              ElevatedButton(
+                  onPressed: ()=>{
+                  AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(newTable: true, context: context)),
+                  },
+                  child: Text("New", style: whiteTextColor))
             ],
           ),
         ),
@@ -101,19 +95,17 @@ class GroupManagementTab extends StatelessWidget {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Select group",
+                Text("Select table",
                     style: whiteTextColor
                 ),
                 Row(
                   children: [
-                    SampleDropDownMenu(values: groupValues),
-                    const SizedBox(width: 10),
+                    const GroupManagementDropDownMenu(),
                     ElevatedButton(
                         onPressed: ()=>{
-                          context.read<MainManagementPageCubit>().loadMainManagementPage(tableName: groupValues[0])
+                          AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(newTable: true, context: context)),
                         },
-                        child: Text("New", style: whiteTextColor)
-                    )
+                        child: Text("New", style: whiteTextColor))
                   ],
                 ),
               ]),

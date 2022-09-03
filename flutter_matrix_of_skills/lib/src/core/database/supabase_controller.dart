@@ -1,12 +1,15 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_matrix_of_skills/src/core/classes/secure_storage_controller.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
 
+import 'client_credentials/auth.dart';
 import '../classes/app.dart';
 import '../services/app_ui_modals.dart';
-import 'client_credentials/auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+
 
 class SupaBaseController {
   final SupabaseClient client = SupabaseClient(ClientCredentials().url, ClientCredentials().key);
@@ -67,49 +70,66 @@ class SupaBaseController {
     }
   }
 
+  insertNewTable({required String newTableName, required context}) async {
+    if(newTableName.isNotEmpty){
+      final response = await client.from("user_tables").insert(
+        {
+          'table_name': newTableName,
+          'user_id': App.supaBaseController?.client.auth.currentUser?.id,
+          'table': json.encode({})
+        },
+      ).execute();
+      final error = response.error;
+      if (error != null) {
+        if (kDebugMode) {
+          print(error);
+        }
+        AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
+      }
+    }
+  }
+
   //TODO: ADD BUTTON ACTION
-  insertData({required String tableName, required Map<dynamic, dynamic> values, required context}) async {
-    final response = await client.from(tableName).insert(values).execute();
+  insertRow({required String tableName, required Map<dynamic, dynamic> values, required context}) async {}
+
+  insertColumn({required String tableName, required String columnName, required Map<dynamic, dynamic> table, required context}) async {
+    final response = await client.from(tableName).insert(
+        table[columnName] = []
+    ).execute();
+    final error = response.error;
+    if (error != null) {
+      print(error);
+      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
+    }
+  }
+
+  readData({required String table, required context, String? tableName}) async {
+    final response = await client.from(table).select().execute();
+    final error = response.error;
+    if (error != null) {
+      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
+    }
+    if (response.status == 200 && response.data != null) {
+      if(tableName != null){
+        (response.data as List<dynamic>).forEach((element) {if(element[tableName] == tableName) return response.data[element];});
+      }
+      final dataResponse = response.data as List;
+      return dataResponse;
+    }
+  }
+  //TODO: UPDATE BUTTON ACTION
+  updateData({required String tableName, required Map<dynamic, dynamic> values, required Map<dynamic, dynamic> matchValues, required context}) async {}
+
+  //TODO: DELETE BUTTON ACTION
+  deleteColumn({required String tableName, required String columnName, required Map<dynamic, dynamic> table, required context}) async {
+    final response = await client.from(tableName).update(
+        table.remove(columnName)
+    ).execute();
     final error = response.error;
     if (error != null) {
       AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
     }
   }
 
-  readData({required String table, Map<dynamic, dynamic>? values, required context}) async {
-    final response = await client.from(table).select().execute();
-    final error = response.error;
-    if (error != null) {
-      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
-    }
-    if (response.status == 200) {
-      final dataResponse = response.data as List;
-      return dataResponse;
-    }
-  }
-  //TODO: UPDATE BUTTON ACTION
-  updateData({required String tableName, required Map<dynamic, dynamic> values, required Map<dynamic, dynamic> matchValues, required context}) async {
-    final response = await client.from(tableName).update(values).match(
-        matchValues).execute();
-    final error = response.error;
-    if (error != null) {
-      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
-    }
-    if (response.status == 200) {
-      final dataResponse = response.data as List;
-      return dataResponse;
-    }
-  }
-  //TODO: DELETE BUTTON ACTION
-  deleteData({required String tableName, required Map<dynamic, dynamic> values, required context}) async {
-    final response = await client.from(tableName).delete().match(values).execute();
-    final error = response.error;
-    if (error != null) {
-      AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
-    }
-    if (response.status == 200) {
-      final dataResponse = response.data as List;
-      return dataResponse;
-    }
-  }
+  deleteRow({required String tableName, required Map<dynamic, dynamic> values, required context}) async {}
 }
