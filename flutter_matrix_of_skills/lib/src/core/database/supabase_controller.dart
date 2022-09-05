@@ -70,13 +70,13 @@ class SupaBaseController {
     }
   }
 
-  insertNewTable({required String newTableName, required context}) async {
-    if(newTableName.isNotEmpty){
+  insertNewTable({required String newTableName, required context, required List<String> columns}) async {
+    if(newTableName.isNotEmpty && columns.isNotEmpty){
       final response = await client.from("user_tables").insert(
         {
           'table_name': newTableName,
           'user_id': App.supaBaseController?.client.auth.currentUser?.id,
-          'table': json.encode({})
+          'table': json.encode([columns])
         },
       ).execute();
       final error = response.error;
@@ -93,9 +93,7 @@ class SupaBaseController {
   insertRow({required String tableName, required Map<dynamic, dynamic> values, required context}) async {}
 
   insertColumn({required String tableName, required String columnName, required Map<dynamic, dynamic> table, required context}) async {
-    final response = await client.from(tableName).insert(
-        table[columnName] = []
-    ).execute();
+    final response = await client.from(tableName).insert(tableName).execute();
     final error = response.error;
     if (error != null) {
       print(error);
@@ -111,7 +109,11 @@ class SupaBaseController {
     }
     if (response.status == 200 && response.data != null) {
       if(tableName != null){
-        (response.data as List<dynamic>).forEach((element) {if(element[tableName] == tableName) return response.data[element];});
+        (response.data as List<dynamic>).forEach((element) {
+          if(element['table_name'] == tableName) {
+            return element['table'];
+          }
+        });
       }
       final dataResponse = response.data as List;
       return dataResponse;

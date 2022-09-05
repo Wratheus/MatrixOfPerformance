@@ -14,6 +14,7 @@ class GroupTableView extends StatelessWidget {
     return BlocBuilder<MainManagementPageCubit, MainManagementPageState>(
       builder: (context, state) {
         if ((state as MainManagementPageLoadedState).tableData.isEmpty == false) {
+          print(state.tableData);
           return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
           // Desktop layout
           SingleChildScrollView(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/classes/app.dart';
 import '../../../../../core/constants/constants.dart';
 import '../../cubit/main_management_page_cubit.dart';
 
@@ -12,7 +13,7 @@ class GroupManagementDropDownMenu extends StatefulWidget {
 
 class _SampleDropDownMenuState extends State<GroupManagementDropDownMenu> {
   String? selectedValue;
-
+  List<Map>? selectedTableData;
   dropDownCallBack(String? dropDownValue) {
     if (dropDownValue is String) {
       setState(() {
