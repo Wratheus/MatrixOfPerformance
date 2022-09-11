@@ -35,12 +35,12 @@ class RegistrationPage extends StatelessWidget {
               const SizedBox(height: 5,),
               Center(child: Text('Complete registration to use the app', style: whiteTextColor, textAlign: TextAlign.center)),
               const SizedBox(height: 10,),
-              SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor),
+              SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
               const SizedBox(height: 15,),
-              SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor),
+              SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
               const SizedBox(height: 15,),
               // TODO: name required
-              SampleTextField(textController: _textControllerName, labelText: 'Name', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor),
+              SampleTextField(textController: _textControllerName, labelText: 'Name', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
               const SizedBox(height: 10,),
               ElevatedButton(
                   onPressed: () async => {

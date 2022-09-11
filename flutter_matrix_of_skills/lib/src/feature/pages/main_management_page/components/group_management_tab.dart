@@ -12,6 +12,7 @@ class GroupManagementTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GroupManagementDropDownMenu managementTabDropDownMenu = GroupManagementDropDownMenu();
     return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
         // Desktop Layout
     Row(
@@ -24,13 +25,28 @@ class GroupManagementTab extends StatelessWidget {
               Text("Select table",
                   style: whiteTextColor
               ),
-              const GroupManagementDropDownMenu(),
+              managementTabDropDownMenu,
               const SizedBox(width: 10),
-              ElevatedButton(
-                  onPressed: ()=>{
-                  AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(newTable: true, context: context)),
-                  },
-                  child: Text("New", style: whiteTextColor))
+              Row(
+                children: [
+                  ElevatedButton(
+                      onPressed: ()=>{
+                      AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(newTable: true, context: context)),
+                      },
+                      child: Text("New", style: whiteTextColor)),
+                  const SizedBox(width: 5),
+                  ElevatedButton(
+                      onPressed: ()=>{
+                        AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(deleteTable: true, tableName: managementTabDropDownMenu.selectedValue, context: context)),
+                      },
+                      child: Text("Delete", style: whiteTextColor)),
+                  // TODO: Copy from another table method later
+                  ElevatedButton(
+                      onPressed: ()=>{
+                      },
+                      child: Text("Copy", style: whiteTextColor)),
+                ],
+              )
             ],
           ),
         ),
@@ -100,12 +116,25 @@ class GroupManagementTab extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const GroupManagementDropDownMenu(),
+                    managementTabDropDownMenu,
+                    const SizedBox(width: 5),
                     ElevatedButton(
                         onPressed: ()=>{
                           AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(newTable: true, context: context)),
                         },
-                        child: Text("New", style: whiteTextColor))
+                        child: Text("New", style: whiteTextColor)),
+                    const SizedBox(width: 5),
+                    ElevatedButton(
+                        onPressed: ()=>{
+                          AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(deleteTable: true, tableName: managementTabDropDownMenu.selectedValue, context: context)),
+                        },
+                        child: Text("Delete", style: whiteTextColor)),
+                    const SizedBox(width: 5),
+                    ElevatedButton(
+                        onPressed: ()=>{
+                          AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(deleteTable: true, tableName: managementTabDropDownMenu.selectedValue, context: context)),
+                        },
+                        child: Text("Copy", style: whiteTextColor)),
                   ],
                 ),
               ]),

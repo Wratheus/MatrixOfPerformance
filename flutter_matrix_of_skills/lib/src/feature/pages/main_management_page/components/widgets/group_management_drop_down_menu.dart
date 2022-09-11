@@ -1,25 +1,26 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/classes/app.dart';
 import '../../../../../core/constants/constants.dart';
 import '../../cubit/main_management_page_cubit.dart';
 
 class GroupManagementDropDownMenu extends StatefulWidget {
-  const GroupManagementDropDownMenu({Key? key}) : super(key: key);
+  String? selectedValue;
+  GroupManagementDropDownMenu({Key? key}) : super(key: key);
   @override
-  State<GroupManagementDropDownMenu> createState() => _SampleDropDownMenuState();
+  State<GroupManagementDropDownMenu> createState() => _GroupDropDownMenuState();
 }
 
-class _SampleDropDownMenuState extends State<GroupManagementDropDownMenu> {
-  String? selectedValue;
+class _GroupDropDownMenuState extends State<GroupManagementDropDownMenu> {
   List<Map>? selectedTableData;
   dropDownCallBack(String? dropDownValue) {
     if (dropDownValue is String) {
       setState(() {
-        selectedValue = dropDownValue;
+        widget.selectedValue = dropDownValue;
         context.read<MainManagementPageCubit>().loadMainManagementPage(
-            tableName: selectedValue, context: context);
+            tableName: widget.selectedValue, context: context);
       });
     }
   }
@@ -33,7 +34,7 @@ class _SampleDropDownMenuState extends State<GroupManagementDropDownMenu> {
           return DropdownButton<String>(
             style: whiteTextColor,
             dropdownColor: MyColors.mainInnerColor,
-            value: selectedValue,
+            value: widget.selectedValue,
             items: state.values.map((item) =>
                 DropdownMenuItem<String>(
                     value: item['table_name'],

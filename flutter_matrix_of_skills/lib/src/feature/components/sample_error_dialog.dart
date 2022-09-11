@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../core/constants/constants.dart';
 
@@ -11,19 +9,19 @@ class SampleErrorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoAlertDialog(
-      scrollController: ScrollController(),
+    return AlertDialog(
+      backgroundColor: MyColors.mainInnerColor,
       actions: [
-        CupertinoDialogAction(
-          child: Text("OK", style: darkTextColor),
+        TextButton(
+          child: Text("OK", style: whiteTextColor),
           onPressed: () => {
             if (route == null) {Navigator.pop(context)},
             if (route != null){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => route!))}
           },
         )
       ],
-      title: Text("🥺 Error", style: darkTextColor),
-      content: Text(errorMessage, style: darkTextColor),
+      title: Text("Error 🥺", style: whiteTextColor),
+      content: Text(errorMessage, style: whiteTextColor),
     );
   }
 }

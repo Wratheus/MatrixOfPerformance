@@ -15,7 +15,7 @@ class ResponsiveLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth < 800) {
+        if (constraints.maxWidth < 1200) {
           return mobileBody;
         } else {
           return desktopBody;
@@ -26,6 +26,6 @@ class ResponsiveLayout extends StatelessWidget {
   static bool desktopPlatformSizeCheck(){ // check method if platform is Desktop or Android
     var physicalScreenSize = window.physicalSize;
     var physicalWidth = physicalScreenSize.width;
-    return (physicalWidth < 750) ? false : true; // if desktop return false
+    return (physicalWidth < 1200) ? false : true; // if desktop return false
   }
 }

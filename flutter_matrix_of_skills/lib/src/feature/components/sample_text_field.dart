@@ -9,7 +9,8 @@ class SampleTextField extends StatefulWidget {
   bool hideText;
   Color borderColor;
   TextStyle textColor;
-  SampleTextField({Key? key, required this.textController, required this.labelText, required this.hideText, required this.borderColor, required this.textColor}) : super(key: key);
+  double width;
+  SampleTextField({Key? key, required this.textController, required this.labelText, required this.hideText, required this.borderColor, required this.textColor, required this.width}) : super(key: key);
 
   @override
   State<SampleTextField> createState() => _SampleTextFieldState();
@@ -20,7 +21,7 @@ class _SampleTextFieldState extends State<SampleTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
+      width: widget.width,
       child: TextField(
         cursorColor: MyColors.mainBeige,
         obscureText: widget.hideText,

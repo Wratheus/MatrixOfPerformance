@@ -9,7 +9,7 @@ import '../classes/app.dart';
 import '../services/app_ui_modals.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-
+// TODO: function return type
 
 class SupaBaseController {
   final SupabaseClient client = SupabaseClient(ClientCredentials().url, ClientCredentials().key);
@@ -70,13 +70,30 @@ class SupaBaseController {
     }
   }
 
-  insertNewTable({required String newTableName, required context, required List<String> columns}) async {
-    if(newTableName.isNotEmpty && columns.isNotEmpty){
+  insertNewTable({required String tableName, required context, required List<String> columns}) async {
+    if(tableName.isNotEmpty && columns.isNotEmpty){
       final response = await client.from("user_tables").insert(
         {
-          'table_name': newTableName,
+          'table_name': tableName,
           'user_id': App.supaBaseController?.client.auth.currentUser?.id,
           'table': json.encode([columns])
+        },
+      ).execute();
+      final error = response.error;
+      if (error != null) {
+        if (kDebugMode) {
+          print(error);
+        }
+        AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
+      }
+    }
+  }
+
+  deleteTable({required String tableName, required context}) async {
+    if(tableName.isNotEmpty){
+      final response = await client.from("user_tables").delete().match(
+        {
+          'table_name': tableName,
         },
       ).execute();
       final error = response.error;
@@ -96,7 +113,6 @@ class SupaBaseController {
     final response = await client.from(tableName).insert(tableName).execute();
     final error = response.error;
     if (error != null) {
-      print(error);
       AppUI.showCupertinoModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
     }
   }
@@ -109,12 +125,13 @@ class SupaBaseController {
     }
     if (response.status == 200 && response.data != null) {
       if(tableName != null){
-        (response.data as List<dynamic>).forEach((element) {
+        for (var element in (response.data as List<dynamic>)) {
           if(element['table_name'] == tableName) {
-            return element['table'];
+            continue;
           }
-        });
+        }
       }
+      // TODO: else
       final dataResponse = response.data as List;
       return dataResponse;
     }
