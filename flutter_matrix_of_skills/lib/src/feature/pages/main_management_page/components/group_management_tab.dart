@@ -22,16 +22,20 @@ class GroupManagementTab extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Select table",
-                  style: whiteTextColor
+              Row(
+                children: [
+                  Text("Select table: ",
+                      style: whiteTextColor
+                  ),
+                  const SizedBox(width: 30),
+                  managementTabDropDownMenu,
+                ],
               ),
-              managementTabDropDownMenu,
-              const SizedBox(width: 10),
               Row(
                 children: [
                   ElevatedButton(
                       onPressed: ()=>{
-                      AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(newTable: true, context: context)),
+                      AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(newTable: true, tableValues: managementTabDropDownMenu.values, context: context)),
                       },
                       child: Text("New", style: whiteTextColor)),
                   const SizedBox(width: 5),
@@ -41,6 +45,7 @@ class GroupManagementTab extends StatelessWidget {
                       },
                       child: Text("Delete", style: whiteTextColor)),
                   // TODO: Copy from another table method later
+                  const SizedBox(width: 5),
                   ElevatedButton(
                       onPressed: ()=>{
                       },
@@ -55,6 +60,7 @@ class GroupManagementTab extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              const SizedBox(height: 10),
               ElevatedButton(
                   onPressed: ()=>{},
                   child: Text("Add row", style: whiteTextColor)
@@ -72,6 +78,7 @@ class GroupManagementTab extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              const SizedBox(height: 10),
               ElevatedButton(
                   onPressed: ()=>{},
                   child: Text("Edit row", style: whiteTextColor)
@@ -89,6 +96,7 @@ class GroupManagementTab extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              const SizedBox(height: 10),
               ElevatedButton(
                   onPressed: ()=>{},
                   child: Text("Delete row", style: whiteTextColor)

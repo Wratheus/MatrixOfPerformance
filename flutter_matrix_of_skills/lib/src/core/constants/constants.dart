@@ -12,7 +12,6 @@ List<Widget> pageList = <Widget>[ // navigation pages list
   LoginPage(), // page 3
   RegistrationPage(), // page 4
 ];
-List<String> groupValues = ['ratings', 'group_2', 'team_4'];
 
 var whiteTextColor = const TextStyle(
   color: Colors.white,

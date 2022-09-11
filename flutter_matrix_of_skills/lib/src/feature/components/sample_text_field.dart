@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../core/constants/constants.dart';
 
@@ -10,7 +11,9 @@ class SampleTextField extends StatefulWidget {
   Color borderColor;
   TextStyle textColor;
   double width;
-  SampleTextField({Key? key, required this.textController, required this.labelText, required this.hideText, required this.borderColor, required this.textColor, required this.width}) : super(key: key);
+  TextInputType? inputType;
+  List<TextInputFormatter>? textInputFormatters;
+  SampleTextField({Key? key, required this.textController, required this.labelText, required this.hideText, required this.borderColor, required this.textColor, required this.width, this.inputType = TextInputType.text, this.textInputFormatters}) : super(key: key);
 
   @override
   State<SampleTextField> createState() => _SampleTextFieldState();
@@ -23,6 +26,8 @@ class _SampleTextFieldState extends State<SampleTextField> {
     return SizedBox(
       width: widget.width,
       child: TextField(
+        keyboardType: widget.inputType,
+        inputFormatters: widget.textInputFormatters,
         cursorColor: MyColors.mainBeige,
         obscureText: widget.hideText,
         controller: widget.textController,
@@ -41,7 +46,6 @@ class _SampleTextFieldState extends State<SampleTextField> {
 
           ),
         style: widget.textColor,
-        keyboardType: TextInputType.text,
         onSubmitted: (text) => {
           setState(() {
             textControllerText = widget.textController.text;

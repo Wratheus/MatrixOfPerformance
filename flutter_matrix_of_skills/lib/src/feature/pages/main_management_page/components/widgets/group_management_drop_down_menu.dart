@@ -8,6 +8,7 @@ import '../../cubit/main_management_page_cubit.dart';
 
 class GroupManagementDropDownMenu extends StatefulWidget {
   String? selectedValue;
+  List<dynamic> values = [];
   GroupManagementDropDownMenu({Key? key}) : super(key: key);
   @override
   State<GroupManagementDropDownMenu> createState() => _GroupDropDownMenuState();
@@ -31,6 +32,8 @@ class _GroupDropDownMenuState extends State<GroupManagementDropDownMenu> {
     return BlocBuilder<MainManagementPageCubit, MainManagementPageState>(
       builder: (context, state) {
         if ((state as MainManagementPageLoadedState).values.isEmpty == false) {
+          widget.values = state.values;
+          widget.selectedValue = state.values[0]['table_name'];
           return DropdownButton<String>(
             style: whiteTextColor,
             dropdownColor: MyColors.mainInnerColor,

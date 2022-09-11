@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_matrix_of_skills/src/core/services/app_ui_modals.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_alert_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
@@ -17,26 +18,28 @@ class GroupManagementDialog extends StatelessWidget {
 
   String? tableName;
   int? newTableColumnsAmount;
-  GroupManagementDialog({Key? key, required context, this.newRow, this.newTable, this.newColumn, this.newTableColumnsAmount, this.deleteTable, this.tableName}) : super(key: key);
+  List<dynamic>? tableValues;
+  GroupManagementDialog({Key? key, required context, this.newRow, this.newTable, this.newColumn, this.newTableColumnsAmount, this.deleteTable, this.tableName, this.tableValues}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // new table creation dialog
-    if (newTable == true) {
+    if (newTable == true  && tableValues != null) {
       TextEditingController tableNameTextController = TextEditingController();
       TextEditingController columnAmountTextController = TextEditingController();
+      bool tableAlreadyExist = false;
       return AlertDialog(
           backgroundColor: MyColors.mainInnerColor,
           title: Text("Create new table 🧵", style: whiteTextColor),
           content: SizedBox(
-            height: 135,
+            height: 150,
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   const SizedBox(height: 5),
                   SampleTextField(textController: tableNameTextController, labelText: "Table name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
                   const SizedBox(height: 10),
-                  SampleTextField(textController: columnAmountTextController, labelText: "Amount of columns", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250)
+                  SampleTextField(textController: columnAmountTextController, labelText: "Amount of columns", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250,  textInputFormatters: [FilteringTextInputFormatter.digitsOnly], inputType: TextInputType.number,)
                 ],
               ),
             ),
@@ -44,15 +47,26 @@ class GroupManagementDialog extends StatelessWidget {
           actions: [
             TextButton(
               child: Text("OK", style: whiteTextColor),
-              onPressed: () => {
+              onPressed: () =>
+              {
                 Navigator.pop(context),
-                if(tableNameTextController.text.isNotEmpty && int.parse(columnAmountTextController.text) > 0){
-                  AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(context: context, tableName: tableNameTextController.text, newTableColumnsAmount: int.parse(columnAmountTextController.text)))
+                for(int i = 0; i < tableValues!.length; i++) {
+                  if (tableValues![i]['table_name'] == tableNameTextController.text){
+                    tableAlreadyExist = true
+                  }
+                },
+                if(tableNameTextController.text.isEmpty){
+                  AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table name or columns values provided.')) // wrong values
+                } else if(int.parse(columnAmountTextController.text) >= 50){                                                      // hard cap
+                  AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'wrong columns value.')) // wrong values
+                } else if(tableAlreadyExist == true){
+                  AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Table with such name is already exist.')) // wrong values
                 }
-                else{
-                  AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table name or columns provided'))
-                }
-              },
+                else
+                  {
+                    AppUI.showMaterialModalDialog(context: context, child: GroupManagementDialog(context: context, tableName: tableNameTextController.text, newTableColumnsAmount: int.parse(columnAmountTextController.text))) // to column names dialog
+                  }
+              }
             ),
             const SizedBox(height: 10),
             TextButton(
@@ -66,7 +80,7 @@ class GroupManagementDialog extends StatelessWidget {
     }
     // new columns list for new table
     if(newTableColumnsAmount != null && tableName != null){
-      List<String> columnNames = [];
+      Map<String, dynamic> columnNames = {};
       List<TextEditingController> textControllers = [];
       return AlertDialog(
           backgroundColor: MyColors.mainInnerColor,
@@ -98,8 +112,12 @@ class GroupManagementDialog extends StatelessWidget {
             TextButton(
               child: Text("OK", style: whiteTextColor),
               onPressed: () async => {
-                for(int i = 0; i < textControllers.length; i++) columnNames.add(textControllers[i].text),
-                await App.supaBaseController?.insertNewTable(tableName: tableName!, columns: columnNames, context: context),
+                for(int i = 0; i < textControllers.length; i++) {
+                  if(textControllers[i].text.isNotEmpty) {
+                    columnNames[textControllers[i].text] = null
+                  }
+                },
+                await App.supaBaseController?.insertNewTable(table: 'user_tables', tableName: tableName!, columns: columnNames, context: context),
                 Navigator.pop(context),
                 AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success',))
               },
@@ -134,7 +152,7 @@ class GroupManagementDialog extends StatelessWidget {
               child: Text("OK", style: whiteTextColor),
               onPressed: () async =>
               {
-                await App.supaBaseController?.deleteTable(tableName: tableName!, context: context),
+                await App.supaBaseController?.deleteTable(table: 'user_tables', tableName: tableName!, context: context),
                 Navigator.pop(context),
                 AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success',))
               },

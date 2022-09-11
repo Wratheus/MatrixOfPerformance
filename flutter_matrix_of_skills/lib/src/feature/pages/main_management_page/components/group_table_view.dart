@@ -14,7 +14,6 @@ class GroupTableView extends StatelessWidget {
     return BlocBuilder<MainManagementPageCubit, MainManagementPageState>(
       builder: (context, state) {
         if ((state as MainManagementPageLoadedState).tableData.isEmpty == false) {
-          print(state.tableData);
           return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
           // Desktop layout
           SingleChildScrollView(
@@ -26,7 +25,7 @@ class GroupTableView extends StatelessWidget {
                   controller: ScrollController(),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: (state).tableData.length+1,
+                  itemCount: (state).tableData.length,
                   itemBuilder: (context, row) {
                     if(row == 0) {
                       return SampleBorderContainerCell(
@@ -44,7 +43,7 @@ class GroupTableView extends StatelessWidget {
                                 return Center(child: Text((state).tableData[row].keys.elementAt(column).toString(), style: whiteTextColor));
                               }));
                     }
-                    row--;
+                    // row--; hide first row
                     return SampleBorderContainerCell(
                       color: MyColors.mainOuterColor,
                       child: GridView.builder(
@@ -91,7 +90,7 @@ class GroupTableView extends StatelessWidget {
                                 return Center(child: Text((state).tableData[row].keys.elementAt(column).toString(), style: whiteTextColor));
                               }));
                     }
-                    row--;
+                    // row--; hide first row
                     return SampleBorderContainerCell(
                       color: MyColors.mainOuterColor,
                       child: GridView.builder(

@@ -13,7 +13,6 @@ import '../login_page/login_page.dart';
 class RegistrationPage extends StatelessWidget {
   final TextEditingController _textControllerLogin = TextEditingController();
   final TextEditingController _textControllerPassword = TextEditingController();
-  final TextEditingController _textControllerName = TextEditingController();
   RegistrationPage({Key? key}) : super(key: key);
 
   @override
@@ -39,13 +38,10 @@ class RegistrationPage extends StatelessWidget {
               const SizedBox(height: 15,),
               SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
               const SizedBox(height: 15,),
-              // TODO: name required
-              SampleTextField(textController: _textControllerName, labelText: 'Name', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-              const SizedBox(height: 10,),
               ElevatedButton(
                   onPressed: () async => {
                     if (await App.supaBaseController?.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
-                      AppUI.showCupertinoModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done", route: LoginPage())),
+                      AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done", route: LoginPage())),
                     }
                   },
                   child: Text('Register', style: whiteTextColor)

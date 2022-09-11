@@ -19,7 +19,7 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
     try{
       if (!isClosed) {
         emit(MainManagementPageLoadedState(
-            tableData: tableName != null ? await App.supaBaseController?.readData(table: "user_tables", context: context, tableName: tableName) : const [],
+            tableData: tableName != null ? (await App.supaBaseController?.readData(table: "user_tables", context: context, tableName: tableName)) : const [],
             values: await App.supaBaseController?.readData(table: "user_tables", context: context)
         ));
         if (kDebugMode) {
