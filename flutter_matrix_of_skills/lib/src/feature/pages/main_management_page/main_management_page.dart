@@ -24,6 +24,8 @@ class MainManagementPage extends StatelessWidget {
               return const SampleLoadingPage();
             }
             if (state is MainManagementPageLoadedState) {
+              print(state.tableData);
+              print(state.values);
               return const MainManagementPageLayout();
             }
             if (state is MainManagementPageErrorState) {

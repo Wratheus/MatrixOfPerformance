@@ -28,7 +28,6 @@ class _GroupDropDownMenuState extends State<GroupManagementDropDownMenu> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<MainManagementPageCubit, MainManagementPageState>(
       builder: (context, state) {
         if ((state as MainManagementPageLoadedState).values.isEmpty == false) {

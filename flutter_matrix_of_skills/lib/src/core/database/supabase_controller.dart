@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/classes/secure_storage_controller.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
 
+import '../../feature/components/sample_alert_dialog.dart';
 import 'client_credentials/auth.dart';
 import '../classes/app.dart';
 import '../services/app_ui_modals.dart';
@@ -146,7 +148,29 @@ class SupaBaseController {
   }
 
   //TODO: ADD BUTTON ACTION
-  insertRow({required String tableName, required Map<dynamic, dynamic> values, required context}) async {}
+  Future<bool> insertNewRow({required String table, required String tableName, required context, required List<dynamic> columns}) async {
+    if(tableName.isNotEmpty && columns.isNotEmpty){
+      final response = await client.from(table).update(
+        {
+          'table_name': tableName,
+          'user_id': App.supaBaseController?.client.auth.currentUser?.id,
+          'table': columns
+        },
+      ).execute();
+      final error = response.error;
+      print(error);
+      Navigator.pop(context);
+      if (error != null) {
+        AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
+        return false; // error != null
+      }else {
+        AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success',));
+        return true; // body complete normally
+      }
+    }else{
+      return false; // tableName.isEmpty or columns.isEmpty
+    }
+  }
 
   insertColumn({required String tableName, required String columnName, required Map<dynamic, dynamic> table, required context}) async {
     final response = await client.from(tableName).insert(tableName).execute();
