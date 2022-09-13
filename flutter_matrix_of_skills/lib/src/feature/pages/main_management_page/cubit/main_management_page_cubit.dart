@@ -27,7 +27,6 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
         }
       }
     }catch (e) {
-      print(e);
       if (!isClosed) {
         emit(MainManagementPageErrorState());
       }

@@ -73,7 +73,7 @@ class GroupTableView extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   controller: ScrollController(),
                   shrinkWrap: true,
-                  itemCount: (state).tableData.length+1,
+                  itemCount: (state).tableData.length,
                   itemBuilder: (context, row) {
                     if(row == 0) {
                       return SampleBorderContainerCell(

@@ -156,9 +156,11 @@ class SupaBaseController {
           'user_id': App.supaBaseController?.client.auth.currentUser?.id,
           'table': columns
         },
-      ).execute();
+      ).match({
+        'table_name': tableName,
+        'user_id': App.supaBaseController?.client.auth.currentUser?.id,
+      }).execute();
       final error = response.error;
-      print(error);
       Navigator.pop(context);
       if (error != null) {
         AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));

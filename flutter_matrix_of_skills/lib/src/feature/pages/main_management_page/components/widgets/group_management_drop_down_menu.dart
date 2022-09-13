@@ -32,7 +32,7 @@ class _GroupDropDownMenuState extends State<GroupManagementDropDownMenu> {
       builder: (context, state) {
         if ((state as MainManagementPageLoadedState).values.isEmpty == false) {
           widget.values = state.values;
-          widget.selectedValue = state.values[0]['table_name'];
+          widget.selectedValue ??= state.values[0]['table_name'];
           return DropdownButton<String>(
             style: whiteTextColor,
             dropdownColor: MyColors.mainInnerColor,

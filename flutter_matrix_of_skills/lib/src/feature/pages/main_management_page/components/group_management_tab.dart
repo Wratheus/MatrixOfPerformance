@@ -168,7 +168,7 @@ class GroupManagementTab extends StatelessWidget {
                 const SizedBox(width: 10),
                 ElevatedButton(
                     onPressed: ()=>{},
-                    child: Text("Add row", style: whiteTextColor)
+                    child: Text("Add column", style: whiteTextColor)
                 ),
               ],
             ),

@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:flutter_matrix_of_skills/src/core/services/app_ui_modals.dart';
-import 'package:flutter_matrix_of_skills/src/feature/components/sample_alert_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_text_field.dart';
 
 import '../../../../../core/classes/app.dart';
@@ -60,10 +58,11 @@ class NewRowDialog extends StatelessWidget {
               for(int i = 0; i < textControllers.length; i++) {
                 if(textControllers[i].text.isNotEmpty) {
                   newRow[(tableValues[0] as Map).keys.elementAt(i)] = textControllers[i].text,
+                } else{
+                  newRow[(tableValues[0] as Map).keys.elementAt(i)] = null,
                 }
               },
               tableValues.add(newRow),
-              print(tableValues),
               await App.supaBaseController?.insertNewRow(table: 'user_tables',
                   tableName: tableName!,
                   columns: tableValues,
