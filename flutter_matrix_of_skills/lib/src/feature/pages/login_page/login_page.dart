@@ -13,11 +13,23 @@ import '../../responsive/responsive_layout.dart';
 import '../password_reset_page/password_reset_page.dart';
 
 class LoginPage extends StatelessWidget {
+
+  void loginAction({required String email, required String password, required context}) async{
+    if (await App.supaBaseController?.signIn(email: email, password: password, context: context) == true) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) =>
+            const ResponsiveLayout(
+                desktopBody: DesktopScaffold(),
+                mobileBody: MobileScaffold()
+            )
+          )
+      );
+    }
+  }
+  // Init
+  LoginPage({Key? key}) : super(key: key);
   final TextEditingController _textControllerLogin = TextEditingController();
   final TextEditingController _textControllerPassword = TextEditingController();
-
-  LoginPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,26 +49,13 @@ class LoginPage extends StatelessWidget {
             SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
             const SizedBox(height: 15,),
             ElevatedButton(
-              onPressed: () async =>
-              {
-                if (await App.supaBaseController?.signIn(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true){
-                  Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (context) =>
-                      const ResponsiveLayout(
-                          desktopBody: DesktopScaffold(),
-                          mobileBody: MobileScaffold()
-                      )
-                    )
-                  ),
-                }
-              },
+              onPressed: () {loginAction(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context);},
               child: Text('Login', style: whiteTextColor),
             ),
             const SizedBox(height: 10,),
             Center(
               child: InkWell(
-                onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
-                },
+                onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegistrationPage()));},
                 child: Text("Register",
                   style: whiteTextColor,
                 ),

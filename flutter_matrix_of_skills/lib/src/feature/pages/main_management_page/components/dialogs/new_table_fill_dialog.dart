@@ -5,17 +5,29 @@ import 'package:flutter/material.dart';
 import '../../../../../core/classes/app.dart';
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/services/app_ui_modals.dart';
-import '../../../../components/sample_alert_dialog.dart';
+import '../../../../components/dialogs/sample_alert_dialog.dart';
 import '../../../../components/sample_text_field.dart';
 
 class NewTableFillDialog extends StatelessWidget {
+  void fillNewTableAction({required context, required List<TextEditingController> textControllers, required String tableName}) async {
+    Map<String, dynamic> columnNames = {};
+    for(int i = 0; i < textControllers.length; i++) {
+      if(textControllers[i].text.isNotEmpty) {
+        columnNames[textControllers[i].text] = null;
+      }
+    }
+    await App.supaBaseController?.insertNewTable(table: 'user_tables', tableName: tableName, columns: columnNames, context: context);
+    Navigator.pop(context);
+    AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success'));
+  }
+
+  // Init
   String tableName;
   int newTableColumnsAmount;
   NewTableFillDialog({Key? key, required context, required this.newTableColumnsAmount, required this.tableName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> columnNames = {};
     List<TextEditingController> textControllers = [];
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
@@ -46,16 +58,7 @@ class NewTableFillDialog extends StatelessWidget {
         actions: [
           TextButton(
             child: Text("OK", style: whiteTextColor),
-            onPressed: () async => {
-              for(int i = 0; i < textControllers.length; i++) {
-                if(textControllers[i].text.isNotEmpty) {
-                  columnNames[textControllers[i].text] = null
-                }
-              },
-              await App.supaBaseController?.insertNewTable(table: 'user_tables', tableName: tableName, columns: columnNames, context: context),
-              Navigator.pop(context),
-              AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success',))
-            },
+            onPressed: () {fillNewTableAction(context: context, textControllers: textControllers, tableName: tableName);},
           ),
           TextButton(
             child: Text("Cancel", style: whiteTextColor),

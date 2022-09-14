@@ -2,17 +2,40 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/widgets/new_table_fill_dialog.dart';
 
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/services/app_ui_modals.dart';
-import '../../../../components/sample_error_dialog.dart';
+import '../../../../components/dialogs/sample_error_dialog.dart';
 import '../../../../components/sample_text_field.dart';
+import 'new_table_fill_dialog.dart';
 
 class NewTableDialog extends StatelessWidget {
+
+  void fillTableColumns({required context, required List<dynamic>? tableValues, required TextEditingController tableNameTextController, required TextEditingController columnAmountTextController, required bool tableAlreadyExist})
+  {
+    Navigator.pop(context);
+    for(int i = 0; i < tableValues!.length; i++) {
+      if (tableValues[i]['table_name'] == tableNameTextController.text){
+        tableAlreadyExist = true;
+      }
+    }
+    if(tableNameTextController.text.isEmpty){
+      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table name or columns values provided.')); // wrong values
+    } else if(int.parse(columnAmountTextController.text) >= 50){                                                      // hard cap
+      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'wrong columns value.')); // wrong values
+    } else if(tableAlreadyExist == true){
+      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Table with such name is already exist.')); // wrong values
+    }
+    else
+    {
+      AppUI.showMaterialModalDialog(context: context, child: NewTableFillDialog(context: context, tableName: tableNameTextController.text, newTableColumnsAmount: int.parse(columnAmountTextController.text))); // to column names dialog
+    }
+  }
+
+
+  // init
   List<dynamic>? tableValues;
   NewTableDialog({Key? key, required context, required this.tableValues}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     TextEditingController tableNameTextController = TextEditingController();
@@ -36,27 +59,8 @@ class NewTableDialog extends StatelessWidget {
         ),
         actions: [
           TextButton(
-              child: Text("OK", style: whiteTextColor),
-              onPressed: () =>
-              {
-                Navigator.pop(context),
-                for(int i = 0; i < tableValues!.length; i++) {
-                  if (tableValues![i]['table_name'] == tableNameTextController.text){
-                    tableAlreadyExist = true
-                  }
-                },
-                if(tableNameTextController.text.isEmpty){
-                  AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table name or columns values provided.')) // wrong values
-                } else if(int.parse(columnAmountTextController.text) >= 50){                                                      // hard cap
-                  AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'wrong columns value.')) // wrong values
-                } else if(tableAlreadyExist == true){
-                  AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Table with such name is already exist.')) // wrong values
-                }
-                else
-                  {
-                    AppUI.showMaterialModalDialog(context: context, child: NewTableFillDialog(context: context, tableName: tableNameTextController.text, newTableColumnsAmount: int.parse(columnAmountTextController.text))) // to column names dialog
-                  }
-              }
+            onPressed: () {fillTableColumns(tableAlreadyExist: tableAlreadyExist, tableNameTextController: tableNameTextController, tableValues: tableValues, context: context, columnAmountTextController: columnAmountTextController);},
+            child: Text("OK", style: whiteTextColor),
           ),
           const SizedBox(height: 10),
           TextButton(

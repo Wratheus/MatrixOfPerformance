@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
+import 'package:flutter_matrix_of_skills/src/feature/components/dialogs/sample_error_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_loading_page.dart';
 
 import '../../responsive/desktop_body.dart';
