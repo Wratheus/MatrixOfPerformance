@@ -3,18 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/constants/constants.dart';
-import '../../cubit/main_management_page_cubit.dart';
+import '../../../../core/constants/constants.dart';
+import '../cubit/main_management_page_cubit.dart';
 
-class GroupManagementDropDownMenu extends StatefulWidget {
+class GroupDropDownMenu extends StatefulWidget {
   String? selectedValue;
   List<dynamic> values = [];
-  GroupManagementDropDownMenu({Key? key}) : super(key: key);
+  GroupDropDownMenu({Key? key}) : super(key: key);
   @override
-  State<GroupManagementDropDownMenu> createState() => _GroupDropDownMenuState();
+  State<GroupDropDownMenu> createState() => _GroupDropDownMenuState();
 }
 
-class _GroupDropDownMenuState extends State<GroupManagementDropDownMenu> {
+class _GroupDropDownMenuState extends State<GroupDropDownMenu> {
   List<Map>? selectedTableData;
   dropDownCallBack(String? dropDownValue) {
     if (dropDownValue is String) {

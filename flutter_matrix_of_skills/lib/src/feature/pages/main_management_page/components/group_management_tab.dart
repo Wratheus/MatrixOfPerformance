@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_matrix_of_skills/src/feature/components/dialogs/sample_error_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
-import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/widgets/delete_table_dialog.dart';
-import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/widgets/group_management_drop_down_menu.dart';
-import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/widgets/new_table_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layout.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/services/app_ui_modals.dart';
 import '../cubit/main_management_page_cubit.dart';
-import 'widgets/new_row_dialog.dart';
+import 'dialogs/delete_table_dialog.dart';
+import 'dialogs/new_row_dialog.dart';
+import 'dialogs/new_table_dialog.dart';
+import 'group_drop_down_menu.dart';
 
 class GroupManagementTab extends StatelessWidget {
   const GroupManagementTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    GroupManagementDropDownMenu managementTabDropDownMenu = GroupManagementDropDownMenu();
+    GroupDropDownMenu managementTabDropDownMenu = GroupDropDownMenu();
 
     return BlocBuilder<MainManagementPageCubit, MainManagementPageState>(builder: (context, state) {
       return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
@@ -47,7 +48,10 @@ class GroupManagementTab extends StatelessWidget {
                     const SizedBox(width: 5),
                     ElevatedButton(
                         onPressed: ()=>{
-                          AppUI.showMaterialModalDialog(context: context, child: DeleteTableDialog(tableName: managementTabDropDownMenu.selectedValue, context: context)),
+                          (managementTabDropDownMenu.selectedValue != null) ?
+                          AppUI.showMaterialModalDialog(context: context, child: DeleteTableDialog(tableName: managementTabDropDownMenu.selectedValue!, context: context))
+                              :
+                          AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                         },
                         child: Text("Delete", style: whiteTextColor)),
                     // TODO: Copy from another table method later
@@ -69,13 +73,21 @@ class GroupManagementTab extends StatelessWidget {
                 const SizedBox(height: 10),
                 ElevatedButton(
                     onPressed: ()=>{
-                      AppUI.showMaterialModalDialog(context: context, child: NewRowDialog(tableName: managementTabDropDownMenu.selectedValue, context: context, tableValues: (state as MainManagementPageLoadedState).tableData)),
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      AppUI.showMaterialModalDialog(context: context, child: NewRowDialog(tableName: managementTabDropDownMenu.selectedValue, context: context, tableValues: state.tableData))
+                      :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                     },
                     child: Text("Add row", style: whiteTextColor)
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                    onPressed: ()=>{},
+                    onPressed: ()=>{
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      {}
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                    },
                     child: Text("Add column", style: whiteTextColor)
                 ),
               ],
@@ -88,13 +100,23 @@ class GroupManagementTab extends StatelessWidget {
               children: <Widget>[
                 const SizedBox(height: 10),
                 ElevatedButton(
-                    onPressed: ()=>{},
-                    child: Text("Edit row", style: whiteTextColor)
+                    onPressed: ()=>{
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      {}
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                    },
+                    child: Text("Delete row", style: whiteTextColor)
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                    onPressed: ()=>{},
-                    child: Text("Edit column", style: whiteTextColor)
+                    onPressed: ()=>{
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      {}
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                    },
+                    child: Text("Delete column", style: whiteTextColor)
                 ),
               ],
             ),
@@ -106,18 +128,27 @@ class GroupManagementTab extends StatelessWidget {
               children: <Widget>[
                 const SizedBox(height: 10),
                 ElevatedButton(
-                    onPressed: ()=>{},
-                    child: Text("Delete row", style: whiteTextColor)
+                    onPressed: ()=>{
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      {}
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                    },
+                    child: Text("Edit row", style: whiteTextColor)
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                    onPressed: ()=>{},
-                    child: Text("Delete column", style: whiteTextColor)
+                    onPressed: ()=>{
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      {}
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                    },
+                    child: Text("Edit column", style: whiteTextColor)
                 ),
               ],
             ),
           ),
-
         ],
       ) :
       // Mobile Layout
@@ -127,9 +158,7 @@ class GroupManagementTab extends StatelessWidget {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Select table",
-                      style: whiteTextColor
-                  ),
+                  Text("Select table", style: whiteTextColor),
                   Row(
                     children: [
                       managementTabDropDownMenu,
@@ -142,12 +171,19 @@ class GroupManagementTab extends StatelessWidget {
                       const SizedBox(width: 5),
                       ElevatedButton(
                           onPressed: ()=>{
-                            AppUI.showMaterialModalDialog(context: context, child: DeleteTableDialog(tableName: managementTabDropDownMenu.selectedValue, context: context)),
+                            (managementTabDropDownMenu.selectedValue != null) ?
+                            AppUI.showMaterialModalDialog(context: context, child: DeleteTableDialog(tableName: managementTabDropDownMenu.selectedValue!, context: context))
+                                :
+                            AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                           },
                           child: Text("Delete", style: whiteTextColor)),
                       const SizedBox(width: 5),
                       ElevatedButton(
                           onPressed: ()=>{
+                            (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty)  ?
+                            {}
+                                :
+                            AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                           },
                           child: Text("Copy", style: whiteTextColor)),
                     ],
@@ -161,13 +197,21 @@ class GroupManagementTab extends StatelessWidget {
               children: <Widget>[
                 ElevatedButton(
                     onPressed: ()=>{
-                      AppUI.showMaterialModalDialog(context: context, child: NewRowDialog(tableName: managementTabDropDownMenu.selectedValue, context: context, tableValues: (state as MainManagementPageLoadedState).tableData)),
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      AppUI.showMaterialModalDialog(context: context, child: NewRowDialog(tableName: managementTabDropDownMenu.selectedValue, context: context, tableValues: state.tableData))
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                     },
                     child: Text("Add row", style: whiteTextColor)
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: ()=>{},
+                    onPressed: ()=>{
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      {}
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                    },
                     child: Text("Add column", style: whiteTextColor)
                 ),
               ],
@@ -179,13 +223,23 @@ class GroupManagementTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ElevatedButton(
-                    onPressed: ()=>{},
-                    child: Text("Edit row", style: whiteTextColor)
+                    onPressed: ()=>{
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      {}
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                    },
+                    child: Text("Delete row", style: whiteTextColor)
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: ()=>{},
-                    child: Text("Edit column", style: whiteTextColor)
+                    onPressed: ()=>{
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      {}
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                    },
+                    child: Text("Delete column", style: whiteTextColor)
                 ),
               ],
             ),
@@ -196,18 +250,27 @@ class GroupManagementTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ElevatedButton(
-                    onPressed: ()=>{},
-                    child: Text("Delete row", style: whiteTextColor)
+                    onPressed: ()=>{
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      {}
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                    },
+                    child: Text("Edit row", style: whiteTextColor)
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: ()=>{},
-                    child: Text("Delete column", style: whiteTextColor)
+                    onPressed: ()=>{
+                      (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
+                      {}
+                          :
+                      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                    },
+                    child: Text("Edit column", style: whiteTextColor)
                 ),
               ],
             ),
           ),
-
         ],
       );
     });

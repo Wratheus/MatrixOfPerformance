@@ -9,7 +9,21 @@ import '../../../../../core/constants/constants.dart';
 class NewRowDialog extends StatelessWidget {
   List<dynamic> tableValues;
   String? tableName;
-
+  void newRowAction({required List<TextEditingController> textControllers, required Map<String, dynamic> newRow, required context}) async {
+    for(int i = 0; i < textControllers.length; i++) {
+      if(textControllers[i].text.isNotEmpty) {
+        newRow[(tableValues[0] as Map).keys.elementAt(i)] = textControllers[i].text;
+      } else{
+        newRow[(tableValues[0] as Map).keys.elementAt(i)] = null;
+      }
+    }
+    tableValues.add(newRow);
+    await App.supaBaseController?.insertNewRow(table: 'user_tables',
+        tableName: tableName!,
+        columns: tableValues,
+        context: context
+    );
+  }
   NewRowDialog(
       {Key? key, required context, required this.tableValues, required this.tableName})
       : super(key: key);
@@ -52,23 +66,8 @@ class NewRowDialog extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            child: Text("OK", style: whiteTextColor),
-            onPressed: () async =>
-            {
-              for(int i = 0; i < textControllers.length; i++) {
-                if(textControllers[i].text.isNotEmpty) {
-                  newRow[(tableValues[0] as Map).keys.elementAt(i)] = textControllers[i].text,
-                } else{
-                  newRow[(tableValues[0] as Map).keys.elementAt(i)] = null,
-                }
-              },
-              tableValues.add(newRow),
-              await App.supaBaseController?.insertNewRow(table: 'user_tables',
-                  tableName: tableName!,
-                  columns: tableValues,
-                  context: context
-              )
-            },
+            onPressed: () {newRowAction(textControllers: textControllers, newRow: newRow, context: context);},
+            child: Text("OK", style: whiteTextColor)
           ),
           TextButton(
             child: Text("Cancel", style: whiteTextColor),

@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/classes/secure_storage_controller.dart';
-import 'package:flutter_matrix_of_skills/src/feature/components/sample_error_dialog.dart';
+import 'package:flutter_matrix_of_skills/src/feature/components/dialogs/sample_error_dialog.dart';
 
-import '../../feature/components/sample_alert_dialog.dart';
+import '../../feature/components/dialogs/sample_alert_dialog.dart';
 import 'client_credentials/auth.dart';
 import '../classes/app.dart';
 import '../services/app_ui_modals.dart';
@@ -146,8 +146,7 @@ class SupaBaseController {
     }
       return []; //any other case, TEST
   }
-
-  //TODO: ADD BUTTON ACTION
+  // add new row to table
   Future<bool> insertNewRow({required String table, required String tableName, required context, required List<dynamic> columns}) async {
     if(tableName.isNotEmpty && columns.isNotEmpty){
       final response = await client.from(table).update(

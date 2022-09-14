@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../core/classes/app.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/services/app_ui_modals.dart';
-import '../../components/sample_alert_dialog.dart';
+import '../../components/dialogs/sample_alert_dialog.dart';
 import '../../components/sample_appbar.dart';
 import '../../components/sample_text_field.dart';
 import '../login_page/login_page.dart';

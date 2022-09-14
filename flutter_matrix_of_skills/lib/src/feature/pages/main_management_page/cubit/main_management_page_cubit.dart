@@ -19,7 +19,14 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
     try{
       if (!isClosed) {
         emit(MainManagementPageLoadedState(
-            tableData: tableName != null ? (await App.supaBaseController?.readData(table: "user_tables", context: context, tableName: tableName)) : const [],
+            tableData: tableName != null
+                ?                                                                                                           // if tableName is not provided,
+              (await App.supaBaseController?.readData(table: "user_tables", context: context, tableName: tableName))
+                :
+              (((await App.supaBaseController?.readData(table: "user_tables", context: context)) as List).isNotEmpty) ?     // try to check if at least 1 table exist
+                ((await App.supaBaseController?.readData(table: "user_tables", context: context))[0]['table'])
+                  :
+                const [],                                                                                                   // and to open it else return []
             values: await App.supaBaseController?.readData(table: "user_tables", context: context)
         ));
         if (kDebugMode) {
@@ -27,6 +34,7 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
         }
       }
     }catch (e) {
+      print(e);
       if (!isClosed) {
         emit(MainManagementPageErrorState());
       }
