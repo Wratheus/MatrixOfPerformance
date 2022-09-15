@@ -10,15 +10,16 @@ class NewRowDialog extends StatelessWidget {
   List<dynamic> tableValues;
   String? tableName;
   void newRowAction({required List<TextEditingController> textControllers, required Map<String, dynamic> newRow, required context}) async {
+    newRow[(tableValues.last as Map).keys.elementAt(0)] = (tableValues.last as Map).values.elementAt(0) + 1; // increment id and save as string
     for(int i = 0; i < textControllers.length; i++) {
       if(textControllers[i].text.isNotEmpty) {
-        newRow[(tableValues[0] as Map).keys.elementAt(i)] = textControllers[i].text;
+        newRow[(tableValues[0] as Map).keys.elementAt(i+1)] = textControllers[i].text;
       } else{
-        newRow[(tableValues[0] as Map).keys.elementAt(i)] = null;
+        newRow[(tableValues[0] as Map).keys.elementAt(i+1)] = null;
       }
     }
     tableValues.add(newRow);
-    await App.supaBaseController?.insertNewRow(table: 'user_tables',
+    await App.supaBaseController?.updateRow(table: 'user_tables',
         tableName: tableName!,
         columns: tableValues,
         context: context
@@ -44,20 +45,24 @@ class NewRowDialog extends StatelessWidget {
                 child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: tableValues[0].length,
-                    itemBuilder: (BuildContext context, int index) {
-                      textControllers.add(TextEditingController());
-                      return Column(
-                        children: [
-                          const SizedBox(height: 5),
-                          SampleTextField(
-                              labelText: '${(tableValues[0] as Map).keys.elementAt(index)} value:',
-                              textColor: whiteTextColor,
-                              hideText: false,
-                              textController: textControllers[index],
-                              borderColor: MyColors.mainBeige,
-                              width: 250),
-                        ],
-                      );
+                    itemBuilder: (BuildContext context, index) {
+                      if(index == 0) {
+                        return const SizedBox();
+                      }else{
+                        textControllers.add(TextEditingController());
+                        return Column(
+                          children: [
+                            const SizedBox(height: 5),
+                            SampleTextField(
+                                labelText: '${(tableValues[0] as Map).keys.elementAt(index)} value:',
+                                textColor: whiteTextColor,
+                                hideText: false,
+                                textController: textControllers[index-1],
+                                borderColor: MyColors.mainBeige,
+                                width: 250),
+                          ],
+                        );
+                      }
                     }
                 ),
               ),

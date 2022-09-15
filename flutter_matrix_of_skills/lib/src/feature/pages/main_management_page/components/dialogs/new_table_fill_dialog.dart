@@ -11,6 +11,7 @@ import '../../../../components/sample_text_field.dart';
 class NewTableFillDialog extends StatelessWidget {
   void fillNewTableAction({required context, required List<TextEditingController> textControllers, required String tableName}) async {
     Map<String, dynamic> columnNames = {};
+    columnNames['id'] = 0;
     for(int i = 0; i < textControllers.length; i++) {
       if(textControllers[i].text.isNotEmpty) {
         columnNames[textControllers[i].text] = null;

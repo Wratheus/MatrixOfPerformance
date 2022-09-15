@@ -146,8 +146,8 @@ class SupaBaseController {
     }
       return []; //any other case, TEST
   }
-  // add new row to table
-  Future<bool> insertNewRow({required String table, required String tableName, required context, required List<dynamic> columns}) async {
+  // add update row to table
+  Future<bool> updateRow({required String table, required String tableName, required context, required List<dynamic> columns}) async {
     if(tableName.isNotEmpty && columns.isNotEmpty){
       final response = await client.from(table).update(
         {
@@ -194,5 +194,7 @@ class SupaBaseController {
     }
   }
 
-  deleteRow({required String tableName, required Map<dynamic, dynamic> values, required context}) async {}
+  deleteRow({required String tableName, required Map<dynamic, dynamic> values, required context}) async {
+
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/dialogs/sample_error_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/dialogs/delete_row_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layout.dart';
 
 import '../../../../core/constants/constants.dart';
@@ -102,7 +103,7 @@ class GroupManagementTab extends StatelessWidget {
                 ElevatedButton(
                     onPressed: ()=>{
                       (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
-                      {}
+                      AppUI.showMaterialModalDialog(context: context, child: DeleteRowDialog(context: context, tableValues: state.tableData, tableName: managementTabDropDownMenu.selectedValue,))
                           :
                       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                     },
@@ -225,7 +226,7 @@ class GroupManagementTab extends StatelessWidget {
                 ElevatedButton(
                     onPressed: ()=>{
                       (managementTabDropDownMenu.selectedValue != null && (state as MainManagementPageLoadedState).tableData.isNotEmpty) ?
-                      {}
+                      AppUI.showMaterialModalDialog(context: context, child: DeleteRowDialog(context: context, tableValues: state.tableData, tableName: managementTabDropDownMenu.selectedValue,))
                           :
                       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                     },
