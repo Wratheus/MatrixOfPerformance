@@ -148,6 +148,7 @@ class SupaBaseController {
   }
   // add update row to table
   Future<bool> updateRow({required String table, required String tableName, required context, required List<dynamic> columns}) async {
+    print(columns);
     if(tableName.isNotEmpty && columns.isNotEmpty){
       final response = await client.from(table).update(
         {
