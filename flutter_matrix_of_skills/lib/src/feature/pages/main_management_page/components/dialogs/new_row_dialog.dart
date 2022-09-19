@@ -1,14 +1,19 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_text_field.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_table_view_controller.dart';
 
 import '../../../../../core/classes/app.dart';
 import '../../../../../core/constants/constants.dart';
 
 // Group Management Dialog Builder
 class NewRowDialog extends StatelessWidget {
+
+  final TableController tableController;
   List<dynamic> tableValues;
   String? tableName;
+
+
   void newRowAction({required List<TextEditingController> textControllers, required Map<String, dynamic> newRow, required context}) async {
     newRow[(tableValues.last as Map).keys.elementAt(0)] = (tableValues.last as Map).values.elementAt(0) + 1; // increment id and save as string
     for(int i = 0; i < textControllers.length; i++) {
@@ -19,15 +24,17 @@ class NewRowDialog extends StatelessWidget {
       }
     }
     tableValues.add(newRow);
-    await App.supaBaseController?.updateRow(table: 'user_tables',
-        tableName: tableName!,
+    await App.supaBaseController?.updateTable(table: 'user_tables',
+        tableName: tableName,
         columns: tableValues,
         context: context
     );
+    await tableController.update(tableName: tableName);
   }
   NewRowDialog(
-      {Key? key, required context, required this.tableValues, required this.tableName})
+      {Key? key, required context, required this.tableValues, required this.tableName, required this.tableController})
       : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

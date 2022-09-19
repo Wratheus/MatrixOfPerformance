@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_text_field.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_table_view_controller.dart';
 
 import '../../../../../core/classes/app.dart';
 import '../../../../../core/constants/constants.dart';
@@ -10,9 +11,13 @@ import '../../../../components/dialogs/sample_error_dialog.dart';
 
 // Group Management Dialog Builder
 class DeleteRowDialog extends StatelessWidget {
+
+  final TableController tableController;
   List<dynamic> tableValues;
   String? tableName;
   int? id;
+
+
   Future<bool> deleteRowAction({required String rowID, required context, required List<dynamic> tableValues}) async {
     Map<String, dynamic>? match;
     try{
@@ -34,11 +39,12 @@ class DeleteRowDialog extends StatelessWidget {
         AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Table does not have that id match.')); // no id match found
         return false;
       }
-      await App.supaBaseController?.updateRow(table: 'user_tables', // update table if match was found
-          tableName: tableName!,
+      await App.supaBaseController?.updateTable(table: 'user_tables', // update table if match was found
+          tableName: tableName,
           columns: tableValues,
           context: context
       );
+      await tableController.update(tableName: tableName);
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success'));
       return true;
@@ -49,8 +55,9 @@ class DeleteRowDialog extends StatelessWidget {
     }
   }
 
+
   DeleteRowDialog(
-      {Key? key, required context, required this.tableValues, required this.tableName})
+      {Key? key, required context, required this.tableValues, required this.tableName, required this.tableController})
       : super(key: key);
 
   @override

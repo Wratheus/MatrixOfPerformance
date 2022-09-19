@@ -25,8 +25,7 @@ class MainManagementPage extends StatelessWidget {
             }
             if (state is MainManagementPageLoadedState) {
               print(state.tableData);
-              print(state.values);
-              return const MainManagementPageLayout();
+              return MainManagementPageLayout();
             }
             if (state is MainManagementPageErrorState) {
               return SampleErrorDialog(errorMessage: "Main management page\nCubit error state", route: const ResponsiveLayout(

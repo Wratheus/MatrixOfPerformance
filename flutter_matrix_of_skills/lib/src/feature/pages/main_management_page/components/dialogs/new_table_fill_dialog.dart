@@ -7,25 +7,33 @@ import '../../../../../core/constants/constants.dart';
 import '../../../../../core/services/app_ui_modals.dart';
 import '../../../../components/dialogs/sample_alert_dialog.dart';
 import '../../../../components/sample_text_field.dart';
+import '../group_table_view_controller.dart';
 
 class NewTableFillDialog extends StatelessWidget {
+
+  String tableName;
+  int newTableColumnsAmount;
+  final TableController tableController;
+
   void fillNewTableAction({required context, required List<TextEditingController> textControllers, required String tableName}) async {
     Map<String, dynamic> columnNames = {};
     columnNames['id'] = 0;
+
     for(int i = 0; i < textControllers.length; i++) {
       if(textControllers[i].text.isNotEmpty) {
         columnNames[textControllers[i].text] = null;
       }
     }
+
     await App.supaBaseController?.insertNewTable(table: 'user_tables', tableName: tableName, columns: columnNames, context: context);
+    await tableController.update(tableName: null);
     Navigator.pop(context);
     AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success'));
   }
 
+
   // Init
-  String tableName;
-  int newTableColumnsAmount;
-  NewTableFillDialog({Key? key, required context, required this.newTableColumnsAmount, required this.tableName}) : super(key: key);
+  NewTableFillDialog({Key? key, required context, required this.newTableColumnsAmount, required this.tableName, required this.tableController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

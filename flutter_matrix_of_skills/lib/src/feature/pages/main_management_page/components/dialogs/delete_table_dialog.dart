@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_table_view_controller.dart';
 
 import '../../../../../core/classes/app.dart';
 import '../../../../../core/constants/constants.dart';
@@ -8,15 +9,20 @@ import '../../../../../core/services/app_ui_modals.dart';
 import '../../../../components/dialogs/sample_alert_dialog.dart';
 
 class DeleteTableDialog extends StatelessWidget {
+
+  final TableController tableController;
+  String tableName;
+
+
   void deleteTableAction({required context, required String tableName}) async{
       await App.supaBaseController?.deleteTable(table: 'user_tables', tableName: tableName, context: context);
+      await tableController.update(tableName: null);
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success',));
   }
 
   // Init
-  String tableName;
-  DeleteTableDialog({Key? key, required context, required this.tableName}) : super(key: key);
+  DeleteTableDialog({Key? key, required context, required this.tableName, required this.tableController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

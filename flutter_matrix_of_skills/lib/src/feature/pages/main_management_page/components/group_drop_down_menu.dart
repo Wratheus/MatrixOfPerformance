@@ -2,14 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_table_view_controller.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../cubit/main_management_page_cubit.dart';
 
 class GroupDropDownMenu extends StatefulWidget {
+
+  final TableController tableController;
   String? selectedValue;
   List<dynamic> values = [];
-  GroupDropDownMenu({Key? key}) : super(key: key);
+
+
+  GroupDropDownMenu({Key? key, required this.tableController}) : super(key: key);
   @override
   State<GroupDropDownMenu> createState() => _GroupDropDownMenuState();
 }
@@ -19,12 +24,14 @@ class _GroupDropDownMenuState extends State<GroupDropDownMenu> {
   dropDownCallBack(String? dropDownValue) {
     if (dropDownValue is String) {
       setState(() {
+        widget.tableController.selectedValue = dropDownValue; //save to controller
         widget.selectedValue = dropDownValue;
-        context.read<MainManagementPageCubit>().loadMainManagementPage(
-            tableName: widget.selectedValue, context: context);
+        // TODO: fix controller does not save dropdown value after new emit
+        widget.tableController.update(tableName: widget.selectedValue);
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +39,7 @@ class _GroupDropDownMenuState extends State<GroupDropDownMenu> {
       builder: (context, state) {
         if ((state as MainManagementPageLoadedState).values.isEmpty == false) {
           widget.values = state.values;
-          widget.selectedValue ??= state.values[0]['table_name'];
+          widget.tableController.selectedValue != null ? widget.selectedValue == widget.tableController.selectedValue : widget.selectedValue = state.values[0]['table_name'];
           return DropdownButton<String>(
             style: whiteTextColor,
             dropdownColor: MyColors.mainInnerColor,

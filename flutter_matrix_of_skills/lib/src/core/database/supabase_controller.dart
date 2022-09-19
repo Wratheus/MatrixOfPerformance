@@ -11,7 +11,6 @@ import '../classes/app.dart';
 import '../services/app_ui_modals.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-// TODO: function return type
 
 class SupaBaseController {
   final SupabaseClient client = SupabaseClient(ClientCredentials().url, ClientCredentials().key);
@@ -128,8 +127,6 @@ class SupaBaseController {
   }
 // return user's table data
   Future readData({required String table, required context, String? tableName}) async {
-    // TODO: subscription stream
-    // Stream<List<Map<String, dynamic>>> streamResponse = client.from(table).stream(['id']).execute();
     final response = await client.from(table).select().execute();
     final error = response.error;
     if (error != null) {
@@ -147,9 +144,8 @@ class SupaBaseController {
       return []; //any other case, TEST
   }
   // add update row to table
-  Future<bool> updateRow({required String table, required String tableName, required context, required List<dynamic> columns}) async {
-    print(columns);
-    if(tableName.isNotEmpty && columns.isNotEmpty){
+  Future<bool> updateTable({required String table, required String? tableName, required context, required List<dynamic> columns}) async {
+    if(columns.isNotEmpty){
       final response = await client.from(table).update(
         {
           'table_name': tableName,
@@ -172,30 +168,5 @@ class SupaBaseController {
     }else{
       return false; // tableName.isEmpty or columns.isEmpty
     }
-  }
-
-  insertColumn({required String tableName, required String columnName, required Map<dynamic, dynamic> table, required context}) async {
-    final response = await client.from(tableName).insert(tableName).execute();
-    final error = response.error;
-    if (error != null) {
-      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
-    }
-  }
-  //TODO: UPDATE BUTTON ACTION
-  updateData({required String tableName, required Map<dynamic, dynamic> values, required Map<dynamic, dynamic> matchValues, required context}) async {}
-
-  //TODO: DELETE BUTTON ACTION
-  deleteColumn({required String tableName, required String columnName, required Map<dynamic, dynamic> table, required context}) async {
-    final response = await client.from(tableName).update(
-        table.remove(columnName)
-    ).execute();
-    final error = response.error;
-    if (error != null) {
-      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
-    }
-  }
-
-  deleteRow({required String tableName, required Map<dynamic, dynamic> values, required context}) async {
-
   }
 }

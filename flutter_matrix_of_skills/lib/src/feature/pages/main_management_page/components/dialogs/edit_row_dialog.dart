@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_text_field.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/dialogs/edit_row_fill_dialog.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_table_view_controller.dart';
 
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/services/app_ui_modals.dart';
@@ -9,9 +10,13 @@ import '../../../../components/dialogs/sample_error_dialog.dart';
 
 // Group Management Dialog Builder
 class EditRowDialog extends StatelessWidget {
+
+  final TableController tableController;
   List<dynamic> tableValues;
   String? tableName;
   int? id;
+
+
   Future<bool> editRowAction({required String rowID, required context, required List<dynamic> tableValues, required String tableName}) async {
     Map<String, dynamic>? match;
     try{
@@ -28,7 +33,7 @@ class EditRowDialog extends StatelessWidget {
       }
       if(match != null)  {
         Navigator.pop(context);
-        AppUI.showMaterialModalDialog(context: context, child: EditRowFillDialog(context: context, tableValues: tableValues, tableName: tableName, rowID: id!));
+        AppUI.showMaterialModalDialog(context: context, child: EditRowFillDialog(context: context, tableValues: tableValues, tableName: tableName, rowID: id!, tableController: tableController));
         return true;
       } else{
         Navigator.pop(context);
@@ -42,9 +47,7 @@ class EditRowDialog extends StatelessWidget {
     }
   }
 
-  EditRowDialog(
-      {Key? key, required context, required this.tableValues, required this.tableName})
-      : super(key: key);
+  EditRowDialog({Key? key, required context, required this.tableValues, required this.tableName, required this.tableController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
