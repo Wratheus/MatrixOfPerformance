@@ -10,7 +10,6 @@ import '../cubit/main_management_page_cubit.dart';
 class GroupDropDownMenu extends StatefulWidget {
 
   final TableController tableController;
-  String? selectedValue;
   List<dynamic> values = [];
 
 
@@ -24,10 +23,8 @@ class _GroupDropDownMenuState extends State<GroupDropDownMenu> {
   dropDownCallBack(String? dropDownValue) {
     if (dropDownValue is String) {
       setState(() {
-        widget.tableController.selectedValue = dropDownValue; //save to controller
-        widget.selectedValue = dropDownValue;
-        // TODO: fix controller does not save dropdown value after new emit
-        widget.tableController.update(tableName: widget.selectedValue);
+        widget.tableController.selectedValue = dropDownValue;
+        widget.tableController.update(tableName: widget.tableController.selectedValue, selectedValue: widget.tableController.selectedValue);
       });
     }
   }
@@ -39,11 +36,11 @@ class _GroupDropDownMenuState extends State<GroupDropDownMenu> {
       builder: (context, state) {
         if ((state as MainManagementPageLoadedState).values.isEmpty == false) {
           widget.values = state.values;
-          widget.tableController.selectedValue != null ? widget.selectedValue == widget.tableController.selectedValue : widget.selectedValue = state.values[0]['table_name'];
+          widget.tableController.selectedValue ??= state.values[0]['table_name'];
           return DropdownButton<String>(
             style: whiteTextColor,
             dropdownColor: MyColors.mainInnerColor,
-            value: widget.selectedValue,
+            value: widget.tableController.selectedValue,
             items: state.values.map((item) =>
                 DropdownMenuItem<String>(
                     value: item['table_name'],

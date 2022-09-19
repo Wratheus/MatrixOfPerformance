@@ -15,10 +15,11 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
     }
   }
 
-  Future<void> loadMainManagementPage({tableName, context}) async {
+  Future<void> loadMainManagementPage({String? tableName, context, String? selectedValue}) async {
     try{
       if (!isClosed) {
         emit(MainManagementPageLoadedState(
+            allUserTables: (await App.supaBaseController?.readData(table: "user_tables", context: context)),
             tableData: tableName != null
                 ?                                                                                                           // if tableName is not provided,
               (await App.supaBaseController?.readData(table: "user_tables", context: context, tableName: tableName))
@@ -27,14 +28,15 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
                 ((await App.supaBaseController?.readData(table: "user_tables", context: context))[0]['table'])
                   :
                 const [],                                                                                                   // and to open it else return []
-            values: await App.supaBaseController?.readData(table: "user_tables", context: context)
+            values: await App.supaBaseController?.readData(table: "user_tables", context: context),
+            tableControllerSelectedValue: selectedValue
         ));
         if (kDebugMode) {
           print("main page is loaded");
         }
       }
     }catch (e) {
-      print(e);
+      // print(e);
       if (!isClosed) {
         emit(MainManagementPageErrorState());
       }

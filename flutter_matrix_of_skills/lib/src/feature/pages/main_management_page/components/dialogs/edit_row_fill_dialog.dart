@@ -42,7 +42,7 @@ class EditRowFillDialog extends StatelessWidget {
         columns: newTableValues,
         context: context
     );
-    await tableController.update(tableName: tableName);
+    await tableController.update(tableName: tableName, selectedValue: tableController.selectedValue);
     Navigator.pop(context);
     AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success'));
     return true;

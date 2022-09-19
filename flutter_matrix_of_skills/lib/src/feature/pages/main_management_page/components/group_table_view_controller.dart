@@ -5,8 +5,8 @@ import '../cubit/main_management_page_cubit.dart';
 class TableController extends ChangeNotifier {
   BuildContext? cubitContext;
   String? selectedValue;
-  Future<void> update({required String? tableName}) async{
-    cubitContext!.read<MainManagementPageCubit>().loadMainManagementPage(tableName: tableName, context: cubitContext);
+  Future<void> update({required String? tableName, required String? selectedValue}) async{
+    cubitContext!.read<MainManagementPageCubit>().loadMainManagementPage(tableName: tableName, context: cubitContext, selectedValue: selectedValue);
     notifyListeners();
   }
 }

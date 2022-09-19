@@ -37,7 +37,7 @@ class EditColumnDialog extends StatelessWidget {
       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: "New column name rejected: it's already defined in table")); // such column does not exist
       return false;
     }else{
-
+      // TODO: fix order replacement, check dart functional
       for(int i = 0; i < tableValues.length; i++){
         var currentKeyValueSave = (tableValues[i] as Map)[columnNameTextController.text]; // save old value
         (tableValues[i] as Map).remove(columnNameTextController.text); // remove old key
@@ -49,7 +49,7 @@ class EditColumnDialog extends StatelessWidget {
           columns: tableValues,
           context: context
       );
-      await tableController.update(tableName: tableName);
+      await tableController.update(tableName: tableName, selectedValue: tableController.selectedValue);
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success'));
       return true;

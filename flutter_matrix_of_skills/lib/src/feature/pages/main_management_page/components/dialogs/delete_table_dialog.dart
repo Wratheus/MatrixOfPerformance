@@ -16,7 +16,7 @@ class DeleteTableDialog extends StatelessWidget {
 
   void deleteTableAction({required context, required String tableName}) async{
       await App.supaBaseController?.deleteTable(table: 'user_tables', tableName: tableName, context: context);
-      await tableController.update(tableName: null);
+      await tableController.update(tableName: null, selectedValue: null);
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success',));
   }

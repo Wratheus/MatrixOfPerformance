@@ -29,7 +29,7 @@ class NewRowDialog extends StatelessWidget {
         columns: tableValues,
         context: context
     );
-    await tableController.update(tableName: tableName);
+    await tableController.update(tableName: tableName, selectedValue: tableController.selectedValue);
   }
   NewRowDialog(
       {Key? key, required context, required this.tableValues, required this.tableName, required this.tableController})

@@ -88,13 +88,13 @@ class SupaBaseController {
   }
 
  // creates new table
-  Future<bool> insertNewTable({required String table, required String tableName, required context, required Map<String, dynamic> columns}) async {
+  Future<bool> insertNewTable({required String table, required String tableName, required context, required List<dynamic> columns}) async {
     if(tableName.isNotEmpty && columns.isNotEmpty){
       final response = await client.from(table).insert(
         {
           'table_name': tableName,
           'user_id': App.supaBaseController?.client.auth.currentUser?.id,
-          'table': [columns]
+          'table': columns
         },
       ).execute();
       final error = response.error;

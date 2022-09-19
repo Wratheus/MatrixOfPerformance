@@ -12,11 +12,12 @@ import '../../../../components/sample_text_field.dart';
 
 class NewColumnDialog extends StatelessWidget {
 
+  List<TextEditingController> textControllers = [];
   List<dynamic> tableValues;
   String? tableName;
   final TableController tableController;
 
-  Future<bool> addNewColumn({required List<dynamic> tableValues, required context, required TextEditingController columnNameTextController, required String? tableName}) async {
+  Future<bool> addNewColumn({required List<dynamic> tableValues, required context, required TextEditingController columnNameTextController, required String? tableName, required List<TextEditingController> textControllers}) async {
     bool columnAlreadyExist = false;
 
     if((tableValues[0] as Map).containsKey(columnNameTextController.text) == true){columnAlreadyExist = true;} // if such column name is already defined
@@ -30,15 +31,19 @@ class NewColumnDialog extends StatelessWidget {
       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Such column name is already exist.')); // wrong values
       return false;
     }else{
-      for(int i = 0; i < tableValues.length; i++){
-        tableValues[i][columnNameTextController.text] = null; // add such key to every Row of table
+      for(int i = 0; i < textControllers.length; i++){
+        if(textControllers[i].text.isNotEmpty){
+          tableValues[i][columnNameTextController.text] = textControllers[i].text; // add such key to every Row of table and give it text variable if it was provided
+        }else{
+          tableValues[i][columnNameTextController.text] = null;
+        }
       }
       await App.supaBaseController?.updateTable(table: 'user_tables', // update table if match was found
           tableName: tableName,
           columns: tableValues,
           context: context
       );
-      await tableController.update(tableName: tableName);
+      await tableController.update(tableName: tableName, selectedValue: tableController.selectedValue);
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success'));
       return true;
@@ -53,21 +58,46 @@ class NewColumnDialog extends StatelessWidget {
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
         title: Text("Add new column 🧵", style: whiteTextColor),
-        content: SizedBox(
-          height: 150,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 5),
-                SampleTextField(textController: columnNameTextController, labelText: "Column name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                const SizedBox(height: 10),
-              ],
-            ),
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 5),
+              SampleTextField(textController: columnNameTextController, labelText: "Column name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: 250,
+                height: 400,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: tableValues.length,
+                    itemBuilder: (BuildContext context, index) {
+                      if(index == 0) {
+                        textControllers.add(TextEditingController());
+                        return const SizedBox(height: 5,);
+                      }else{
+                        textControllers.add(TextEditingController());
+                        return Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            SampleTextField(
+                                labelText: 'id $index value:',
+                                textColor: whiteTextColor,
+                                hideText: false,
+                                textController: textControllers[index],
+                                borderColor: MyColors.mainBeige,
+                                width: 250),
+                          ],
+                        );
+                      }
+                    }
+                ),
+              ),
+            ],
           ),
         ),
         actions: [
           TextButton(
-            onPressed: () {addNewColumn(tableName: tableName, tableValues: tableValues, columnNameTextController: columnNameTextController, context: context);},
+            onPressed: () {addNewColumn(textControllers: textControllers, tableName: tableName, tableValues: tableValues, columnNameTextController: columnNameTextController, context: context);},
             child: Text("OK", style: whiteTextColor),
           ),
           const SizedBox(height: 10),

@@ -25,8 +25,8 @@ class NewTableFillDialog extends StatelessWidget {
       }
     }
 
-    await App.supaBaseController?.insertNewTable(table: 'user_tables', tableName: tableName, columns: columnNames, context: context);
-    await tableController.update(tableName: null);
+    await App.supaBaseController?.insertNewTable(table: 'user_tables', tableName: tableName, columns: [columnNames], context: context);
+    await tableController.update(tableName: null, selectedValue: tableController.selectedValue);
     Navigator.pop(context);
     AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success'));
   }
