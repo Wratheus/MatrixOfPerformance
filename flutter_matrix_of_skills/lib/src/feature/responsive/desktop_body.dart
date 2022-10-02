@@ -28,7 +28,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
           ),
           // routing implementation
           Expanded(
-            flex: 7,
+            flex: 8,
               child: PageView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: pageController,

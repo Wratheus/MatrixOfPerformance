@@ -20,7 +20,7 @@ class GroupTableView extends StatelessWidget {
             controller: ScrollController(),
             scrollDirection: Axis.horizontal,
             child: SampleStyleContainer(
-              width: 900,
+              width: 1000,
               child: ListView.builder(
                   controller: ScrollController(),
                   shrinkWrap: true,
