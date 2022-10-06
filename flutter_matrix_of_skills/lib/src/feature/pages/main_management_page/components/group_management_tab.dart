@@ -42,7 +42,7 @@ class GroupManagementTab extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text("Select table: ", style: whiteTextColor),
+                          Text("Select: ", style: whiteTextColor),
                           Expanded(child: GroupDropDownMenu(tableController: tableController)),
                         ],
                       ),
@@ -64,7 +64,7 @@ class GroupManagementTab extends StatelessWidget {
                                       :
                                   AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                                 },
-                                child: Text("Delete", style: whiteTextColor)),
+                                child: Text("Del", style: whiteTextColor)),
                           ),
                           const SizedBox(width: 5),
                           Expanded(
@@ -211,7 +211,7 @@ class GroupManagementTab extends StatelessWidget {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Select table", style: whiteTextColor),
+                  Text("Select:", style: whiteTextColor),
                   Row(
                     children: [
                       Expanded(child: GroupDropDownMenu(tableController: tableController)),
@@ -232,7 +232,7 @@ class GroupManagementTab extends StatelessWidget {
                                   :
                               AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                             },
-                            child: Text("Delete", style: whiteTextColor)),
+                            child: Text("Del", style: whiteTextColor)),
                       ),
                       const SizedBox(width: 5),
                       Expanded(

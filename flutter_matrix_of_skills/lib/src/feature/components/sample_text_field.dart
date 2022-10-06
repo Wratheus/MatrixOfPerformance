@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import '../../core/constants/constants.dart';
 
 // ignore: must_be_immutable
-class SampleTextField extends StatefulWidget {
+class SampleTextField extends StatelessWidget {
   TextEditingController textController;
   String labelText;
   bool hideText;
@@ -16,24 +16,19 @@ class SampleTextField extends StatefulWidget {
   SampleTextField({Key? key, required this.textController, required this.labelText, required this.hideText, required this.borderColor, required this.textColor, required this.width, this.inputType = TextInputType.text, this.textInputFormatters}) : super(key: key);
 
   @override
-  State<SampleTextField> createState() => _SampleTextFieldState();
-}
-
-class _SampleTextFieldState extends State<SampleTextField> {
-  String textControllerText = '';
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: widget.width,
+      width: width,
       child: TextField(
-        keyboardType: widget.inputType,
-        inputFormatters: widget.textInputFormatters,
+        keyboardType: inputType,
+        inputFormatters: textInputFormatters,
         cursorColor: MyColors.mainBeige,
-        obscureText: widget.hideText,
-        controller: widget.textController,
+        obscureText: hideText,
+        controller: textController,
         textAlign: TextAlign.start,
         textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
+            iconColor: MyColors.mainBeige,
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: MyColors.mainBeige, width: 0.0),
             ),
@@ -41,17 +36,11 @@ class _SampleTextFieldState extends State<SampleTextField> {
               borderSide: BorderSide(color: MyColors.mainBeige, width: 0.0),
             ),
             border: const OutlineInputBorder(),
-            labelText: widget.labelText,
+            labelText: labelText,
             labelStyle: whiteTextColor,
 
           ),
-        style: widget.textColor,
-        onSubmitted: (text) => {
-          setState(() {
-            textControllerText = widget.textController.text;
-          }
-          )
-        }
+        style: textColor,
       ),
     );
   }

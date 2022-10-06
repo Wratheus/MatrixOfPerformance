@@ -20,7 +20,11 @@ class GroupTableView extends StatelessWidget {
             controller: ScrollController(),
             scrollDirection: Axis.horizontal,
             child: SampleStyleContainer(
-              width: 1000,
+              width: (state.tableData[0] as Map).length < 8  // if there is more than 8 columns increase width
+                  ?
+                    MediaQuery.of(context).size.width * 0.795
+                  :
+                    (150 * (state.tableData[0].length)).toDouble(),
               child: ListView.builder(
                   controller: ScrollController(),
                   shrinkWrap: true,
@@ -63,12 +67,16 @@ class GroupTableView extends StatelessWidget {
               ),
             ),
           ) :
-          // Phone Layout
+          // Mobile Layout
           SingleChildScrollView(
             controller: ScrollController(),
             scrollDirection: Axis.horizontal,
             child: SampleStyleContainer(
-              width: 800,
+              width: (state.tableData[0] as Map).length < 8  // if there is more than 8 columns increase width
+                  ?
+              MediaQuery.of(context).size.width * 0.97
+                  :
+              (100 * (state.tableData[0].length)).toDouble(),
               child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   controller: ScrollController(),
