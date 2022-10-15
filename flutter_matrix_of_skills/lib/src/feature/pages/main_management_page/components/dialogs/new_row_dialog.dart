@@ -5,6 +5,8 @@ import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/
 
 import '../../../../../core/classes/app.dart';
 import '../../../../../core/constants/constants.dart';
+import '../../../../../core/services/app_ui_modals.dart';
+import '../../../../components/dialogs/sample_error_dialog.dart';
 
 // Group Management Dialog Builder
 class NewRowDialog extends StatelessWidget {
@@ -18,9 +20,19 @@ class NewRowDialog extends StatelessWidget {
     newRow[(tableValues.last as Map).keys.elementAt(0)] = (tableValues.last as Map).values.elementAt(0) + 1; // increment id and save as string
     for(int i = 0; i < textControllers.length; i++) {
       if(textControllers[i].text.isNotEmpty) {
-        newRow[(tableValues[0] as Map).keys.elementAt(i+1)] = textControllers[i].text;
-      } else{
-        newRow[(tableValues[0] as Map).keys.elementAt(i+1)] = null;
+        if(i == 0) {
+          newRow[(tableValues[0] as Map).keys.elementAt(i+1)] = textControllers[i].text;
+        }else if(isDigit(textControllers[i].text)){
+          newRow[(tableValues[0] as Map).keys.elementAt(i+1)] = int.parse(textControllers[i].text);
+        }else{
+          Navigator.pop(context);
+          AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Skill values is not integer.')); // default value is not int
+          return;
+        }
+      }else{
+        Navigator.pop(context);
+        AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Empty value.')); // default value is not int
+        return;
       }
     }
     tableValues.add(newRow);

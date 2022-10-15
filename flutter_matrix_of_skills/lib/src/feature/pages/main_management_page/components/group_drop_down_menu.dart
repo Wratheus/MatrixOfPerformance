@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_table_view_controller.dart';
 
 import '../../../../core/constants/constants.dart';
-import '../cubit/main_management_page_cubit.dart';
+import '../../../cubit/user_data/user_data_cubit.dart';
 
 class GroupDropDownMenu extends StatefulWidget {
 
@@ -32,9 +32,9 @@ class _GroupDropDownMenuState extends State<GroupDropDownMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MainManagementPageCubit, MainManagementPageState>(
+    return BlocBuilder<UserDataCubit, UserDataState>(
       builder: (context, state) {
-        if ((state as MainManagementPageLoadedState).values.isEmpty == false) {
+        if ((state as UserDataLoadedState).values.isEmpty == false) {
           widget.values = state.values;
           widget.tableController.selectedValue ??= state.values[0]['table_name'];
           return DropdownButton<String>(

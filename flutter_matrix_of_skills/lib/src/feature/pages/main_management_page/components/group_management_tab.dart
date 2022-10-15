@@ -12,7 +12,7 @@ import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layou
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/services/app_ui_modals.dart';
-import '../cubit/main_management_page_cubit.dart';
+import '../../../cubit/user_data/user_data_cubit.dart';
 import 'dialogs/delete_table_dialog.dart';
 import 'dialogs/new_row_dialog.dart';
 import 'dialogs/new_table_dialog.dart';
@@ -25,10 +25,10 @@ class GroupManagementTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MainManagementPageCubit, MainManagementPageState>(builder: (context, state) {
+    return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
 
       tableController.cubitContext = context; // share cubit context to tableController to have ability to update
-      tableController.selectedValue = (state as MainManagementPageLoadedState).tableControllerSelectedValue; // share selected value if it was saved to state with controller
+      tableController.selectedValue = (state as UserDataLoadedState).tableControllerSelectedValue; // share selected value if it was saved to state with controller
 
       return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
       // Desktop Layout

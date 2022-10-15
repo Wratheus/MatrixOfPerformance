@@ -1,24 +1,24 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import '../../../../core/classes/app.dart';
+import '../../../core/classes/app.dart';
 
-part 'main_management_page_state.dart';
+part 'user_data_state.dart';
 
-class MainManagementPageCubit extends Cubit<MainManagementPageState> {
-  MainManagementPageCubit() : super(MainManagementPageInitialState());
+class UserDataCubit extends Cubit<UserDataState> {
+  UserDataCubit() : super(UserDataInitialState());
 
   Future<void> informInitial() async {
     if (!isClosed) {
       if (kDebugMode) {
-        print("main page is loading");
+        print("User data is loading");
       }
     }
   }
 
-  Future<void> loadMainManagementPage({String? tableName, context, String? selectedValue}) async {
+  Future<void> loadUserData({String? tableName, context, String? selectedValue}) async {
     try{
       if (!isClosed) {
-        emit(MainManagementPageLoadedState(
+        emit(UserDataLoadedState(
             allUserTables: (await App.supaBaseController?.readData(table: "user_tables", context: context)),
             tableData: tableName != null
                 ?                                                                                                           // if tableName is not provided,
@@ -28,25 +28,24 @@ class MainManagementPageCubit extends Cubit<MainManagementPageState> {
                 ((await App.supaBaseController?.readData(table: "user_tables", context: context))[0]['table'])
                   :
                 const [],                                                                                                   // and to open it else return []
-            values: await App.supaBaseController?.readData(table: "user_tables", context: context),
+              values: await App.supaBaseController?.readData(table: "user_tables", context: context),
             tableControllerSelectedValue: selectedValue
         ));
         if (kDebugMode) {
-          print("main page is loaded");
+          print("User data is loaded");
         }
       }
     }catch (e) {
       // print(e);
       if (!isClosed) {
-        emit(MainManagementPageErrorState());
+        emit(UserDataErrorState());
       }
     }
   }
-
-    Future<void> reloadMainManagementPage() async {
-      if (!isClosed){
-        emit(MainManagementPageInitialState());
-      }
+  Future<void> reloadUserData() async {
+    if (!isClosed){
+      emit(UserDataInitialState());
     }
+  }
   }
 

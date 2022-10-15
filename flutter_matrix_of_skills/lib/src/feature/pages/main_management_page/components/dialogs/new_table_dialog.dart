@@ -59,7 +59,7 @@ class NewTableDialog extends StatelessWidget {
                 const SizedBox(height: 5),
                 SampleTextField(textController: tableNameTextController, labelText: "Table name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
                 const SizedBox(height: 10),
-                SampleTextField(textController: columnAmountTextController, labelText: "Amount of columns", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250,  textInputFormatters: [FilteringTextInputFormatter.digitsOnly], inputType: TextInputType.number,)
+                SampleTextField(textController: columnAmountTextController, labelText: "Amount of skills", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250,  textInputFormatters: [FilteringTextInputFormatter.digitsOnly], inputType: TextInputType.number,)
               ],
             ),
           ),

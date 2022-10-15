@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 
+import '../../../cubit/user_data/user_data_cubit.dart';
 import '../components/group_management_tab.dart';
 import '../components/group_table_view.dart';
 import '../components/group_table_view_controller.dart';
-import '../cubit/main_management_page_cubit.dart';
 
-class MainManagementPageLayout extends StatelessWidget {
+class TableManagementPageLayout extends StatelessWidget {
   final TableController tableController = TableController();
-  MainManagementPageLayout({Key? key}) : super(key: key);
+  TableManagementPageLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,8 @@ class MainManagementPageLayout extends StatelessWidget {
         ),
       ),
       onRefresh: () =>
-          context.read<MainManagementPageCubit>()
-              .reloadMainManagementPage(),
+          context.read<UserDataCubit>()
+              .reloadUserData(),
     );
   }
 }

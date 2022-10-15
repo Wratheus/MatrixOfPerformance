@@ -15,15 +15,14 @@ class EditColumnDialog extends StatelessWidget {
   final TableController tableController;
   List<dynamic> tableValues;
   String? tableName;
-
+  List<String> restrictedValues = ['id', 'name', ''];
 
   Future<bool> editColumn({required List<dynamic> tableValues, required context, required TextEditingController columnNameTextController, required TextEditingController newColumnNameTextController, required String? tableName}) async {
     bool columnExist = false;
     bool newColumnExist = false;
     if((tableValues[0] as Map).containsKey(columnNameTextController.text) == true){columnExist = true;} // check if column does already defined in table
     if((tableValues[0] as Map).containsKey(newColumnNameTextController.text) == true){columnExist = true;} // check if new column does already defined in table
-
-    if(columnNameTextController.text == 'id' || newColumnNameTextController.text == 'id' || columnNameTextController.text.isEmpty || newColumnNameTextController.text.isEmpty){
+    if(restrictedValues.contains(newColumnNameTextController.text) || restrictedValues.contains(columnNameTextController.text)){
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Removing id or leaving blank space in column name restricted.')); // wrong values
       return false;

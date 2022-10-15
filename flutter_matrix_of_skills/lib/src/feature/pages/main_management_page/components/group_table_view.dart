@@ -3,17 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_border_container_cell.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
-import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/cubit/main_management_page_cubit.dart';
 import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layout.dart';
+
+import '../../../cubit/user_data/user_data_cubit.dart';
 
 class GroupTableView extends StatelessWidget {
   const GroupTableView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MainManagementPageCubit, MainManagementPageState>(
+    return BlocBuilder<UserDataCubit, UserDataState>(
       builder: (context, state) {
-        if ((state as MainManagementPageLoadedState).tableData.isEmpty == false) {
+        if ((state as UserDataLoadedState).tableData.isEmpty == false) {
           return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
           // Desktop layout
           SingleChildScrollView(
@@ -72,7 +73,7 @@ class GroupTableView extends StatelessWidget {
             controller: ScrollController(),
             scrollDirection: Axis.horizontal,
             child: SampleStyleContainer(
-              width: (state.tableData[0] as Map).length < 8  // if there is more than 8 columns increase width
+              width: (state.tableData[0] as Map).length < 6  // if there is more than 6 columns increase width
                   ?
               MediaQuery.of(context).size.width * 0.97
                   :

@@ -18,7 +18,7 @@ class NewTableFillDialog extends StatelessWidget {
   void fillNewTableAction({required context, required List<TextEditingController> textControllers, required String tableName}) async {
     Map<String, dynamic> columnNames = {};
     columnNames['id'] = 0;
-
+    columnNames['name'] = null;
     for(int i = 0; i < textControllers.length; i++) {
       if(textControllers[i].text.isNotEmpty) {
         columnNames[textControllers[i].text] = null;
@@ -26,7 +26,7 @@ class NewTableFillDialog extends StatelessWidget {
     }
 
     await App.supaBaseController?.insertNewTable(table: 'user_tables', tableName: tableName, columns: [columnNames], context: context);
-    await tableController.update(tableName: null, selectedValue: tableController.selectedValue);
+    await tableController.update(tableName: tableName, selectedValue: tableName);
     Navigator.pop(context);
     AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success'));
   }
@@ -55,7 +55,7 @@ class NewTableFillDialog extends StatelessWidget {
                       return Column(
                         children: [
                           const SizedBox(height: 5),
-                          SampleTextField(labelText: 'Column ${index+1}:', textColor: whiteTextColor, hideText: false, textController: textControllers[index], borderColor: MyColors.mainBeige, width: 250),
+                          SampleTextField(labelText: 'Skill ${index+1}:', textColor: whiteTextColor, hideText: false, textController: textControllers[index], borderColor: MyColors.mainBeige, width: 250),
                         ],
                       );
                     }
