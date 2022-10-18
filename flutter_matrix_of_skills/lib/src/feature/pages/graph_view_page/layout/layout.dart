@@ -48,8 +48,7 @@ class GraphViewPageLayout extends StatelessWidget {
                         ],
                       ),
                     ],
-                  )
-
+                  ),
                 ]
             ),
           ),
