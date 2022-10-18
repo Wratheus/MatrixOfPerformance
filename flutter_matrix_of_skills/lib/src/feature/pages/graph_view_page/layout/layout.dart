@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/graph_management_tab.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/col_chart.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/group_col_chart.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/pie_chart.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/pyramid_chart.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../cubit/user_data/user_data_cubit.dart';
 import '../../main_management_page/components/group_table_view_controller.dart';
-import '../components/widgets/circular_chart.dart';
 
 class GraphViewPageLayout extends StatelessWidget {
   final TableController tableController = TableController();
@@ -26,7 +29,27 @@ class GraphViewPageLayout extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GraphManagementTab(tableController: tableController),
-                  CircularChart(data: (state).tableData.sublist(1))
+                  GroupColumnChart(data: (state).tableData.sublist(1)),
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          ColumnChart(data: (state).tableData.sublist(1)),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          PieChart(data: (state).tableData.sublist(1)),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          PyramidChart(data: (state).tableData.sublist(1)),
+                        ],
+                      ),
+                    ],
+                  )
+
                 ]
             ),
           ),
