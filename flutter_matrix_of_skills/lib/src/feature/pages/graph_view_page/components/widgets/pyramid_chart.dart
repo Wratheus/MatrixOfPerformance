@@ -26,25 +26,23 @@ class PyramidChart extends StatelessWidget {
               height: 650,
               width: 650,
               child: SampleStyleContainer(
-                child: SfCartesianChart(
-                  title: ChartTitle(
-                    text: '${e['name']}\'s pie chart:',
-                    alignment: ChartAlignment.near,
-                    textStyle: whiteTextColor,
-                  ),
-                  primaryXAxis: CategoryAxis(labelStyle: whiteTextColor, isVisible: false),
-                  primaryYAxis: NumericAxis(minimum: 0, maximum: 12, interval: 10, labelStyle: whiteTextColor, isVisible: false),
-                  series: [
-                    ColumnSeries(
-                      dataSource: e.keys.toList().sublist(2),
-                      dataLabelSettings: const DataLabelSettings(textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 20), isVisible: true, showZeroValue: false),
-                      xValueMapper: (key, index) => key,
-                      yValueMapper: (key, index) => e[key],
-                      pointColorMapper: (data, _) => randomColors[_],
+                child: SfPyramidChart(
+                    title: ChartTitle(
+                      text: '${e['name']}\'s pyramid chart:',
+                      alignment: ChartAlignment.near,
+                      textStyle: whiteTextColor,
                     ),
-                  ]),
+                    legend: Legend(isVisible: true, textStyle: whiteTextColor),
+                    series:PyramidSeries(
+                        dataSource: e.keys.toList().sublist(2),
+                        xValueMapper: (key, index) => key,
+                        yValueMapper: (key, index) => e[key],
+                        dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 16), showZeroValue: false),
+                        gapRatio: 0.1
+                    )
+                ),
               ),
-            ),
+            )
           ],
         );
       }

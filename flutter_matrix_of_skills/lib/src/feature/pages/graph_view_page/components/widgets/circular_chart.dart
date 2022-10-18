@@ -26,23 +26,26 @@ class CircularChart extends StatelessWidget {
                 height: 650,
                 width: 650,
                 child: SampleStyleContainer(
-                  child: SfPyramidChart(
-                      title: ChartTitle(
-                        text: '${e['name']}\'s circular chart:',
-                        alignment: ChartAlignment.near,
-                        textStyle: whiteTextColor,
+                  child: SfCircularChart(
+                    title: ChartTitle(
+                      text: '${e['name']}\'s circular chart:',
+                      alignment: ChartAlignment.near,
+                      textStyle: whiteTextColor,
+                    ),
+                    legend: Legend(isVisible: true, overflowMode: LegendItemOverflowMode.scroll, textStyle: whiteTextColor),
+                    series: [
+                      PieSeries(
+                        explode: true,
+                        explodeAll: true,
+                        dataSource: e.keys.toList().sublist(2),
+                        dataLabelSettings: const DataLabelSettings(isVisible: true, showZeroValue: false, textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 16)),
+                        xValueMapper: (key, index) => key,
+                        yValueMapper: (key, index) => e[key],
                       ),
-                      legend: Legend(isVisible: true, textStyle: whiteTextColor),
-                      series:PyramidSeries(
-                          dataSource: e.keys.toList().sublist(2),
-                          xValueMapper: (key, index) => key,
-                          yValueMapper: (key, index) => e[key],
-                          dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 16), showZeroValue: false),
-                          gapRatio: 0.1
-                      )
+                    ],
                   ),
                 ),
-              )
+              ),
             ],
           );
         }

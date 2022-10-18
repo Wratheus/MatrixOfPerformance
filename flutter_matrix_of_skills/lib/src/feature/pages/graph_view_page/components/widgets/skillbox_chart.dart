@@ -7,10 +7,10 @@ import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_con
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 
-class PieChart extends StatelessWidget {
+class SkillBoxChart extends StatelessWidget {
   List<dynamic> data;
   List<MaterialColor> randomColors = [];
-  PieChart({super.key, required this.data}) {
+  SkillBoxChart({super.key, required this.data}) {
     for(int i = 0; i < data[0].keys.toList().length - 2; i++){
       randomColors.add(Colors.primaries[Random().nextInt(Colors.primaries.length)]);
     }
@@ -28,7 +28,7 @@ class PieChart extends StatelessWidget {
               child: SampleStyleContainer(
                 child: SfCircularChart(
                   title: ChartTitle(
-                    text: '${e['name']}\'s pie chart:',
+                    text: '${e['name']}\'s skill box chart:',
                     alignment: ChartAlignment.near,
                     textStyle: whiteTextColor,
                   ),

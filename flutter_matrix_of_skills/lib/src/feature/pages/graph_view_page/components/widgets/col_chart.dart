@@ -28,11 +28,11 @@ class ColumnChart extends StatelessWidget {
               child: SampleStyleContainer(
                 child: SfCartesianChart(
                     title: ChartTitle(
-                      text: '${e['name']}\'s pie chart:',
+                      text: '${e['name']}\'s column chart:',
                       alignment: ChartAlignment.near,
                       textStyle: whiteTextColor,
                     ),
-                    primaryXAxis: CategoryAxis(labelStyle: whiteTextColor, isVisible: false),
+                    primaryXAxis: CategoryAxis(labelStyle: whiteTextColor),
                     primaryYAxis: NumericAxis(minimum: 0, maximum: 12, interval: 10, labelStyle: whiteTextColor, isVisible: false),
                     series: [
                       ColumnSeries(
