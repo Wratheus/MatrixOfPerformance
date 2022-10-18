@@ -18,129 +18,34 @@ class CircularChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: ScrollController(),
-      scrollDirection: Axis.horizontal,
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: ((data[0].keys.length-2) * data.length * 50).toDouble(),
-                  child: SampleStyleContainer(
-                    child: SfCartesianChart(
+    return Column(
+        children: data.map((e) {
+          return Row(
+            children: [
+              SizedBox(
+                height: 650,
+                width: 650,
+                child: SampleStyleContainer(
+                  child: SfPyramidChart(
                       title: ChartTitle(
-                        text: 'Overall performance',
+                        text: '${e['name']}\'s circular chart:',
+                        alignment: ChartAlignment.near,
                         textStyle: whiteTextColor,
-                        alignment: ChartAlignment.near
                       ),
-                      tooltipBehavior: TooltipBehavior(textStyle: whiteTextColor),
-                      primaryXAxis: CategoryAxis(),
-                      primaryYAxis: NumericAxis(minimum: 0, maximum: 12, interval: 5),
-                      legend: Legend(
-                        isVisible: true,
-                        textStyle: whiteTextColor,
-                        position: LegendPosition.left
-                      ),
-                      series: data[0].keys.toList().sublist(2).map<ChartSeries<dynamic, dynamic>>((key) => ColumnSeries(
-                        dataLabelSettings: const DataLabelSettings(textStyle: TextStyle(color: MyColors.mainBeige), isVisible: true),
-                        dataSource: data,
-                        legendItemText: key,
-
-                        xValueMapper: (data, index) => data['name'],
-                        yValueMapper: (data, index) => data[key],
-                        enableTooltip: true,
-                      )).toList()
-                    ),
+                      legend: Legend(isVisible: true, textStyle: whiteTextColor),
+                      series:PyramidSeries(
+                          dataSource: e.keys.toList().sublist(2),
+                          xValueMapper: (key, index) => key,
+                          yValueMapper: (key, index) => e[key],
+                          dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 16), showZeroValue: false),
+                          gapRatio: 0.1
+                      )
                   ),
                 ),
-              ],
-            ),
-            Row(
-                children: [
-                  Column(
-                    children: data.map((e) {
-                      return Row(
-                        children: [
-                          SizedBox(
-                            height: 650,
-                            width: 650,
-                            child: SampleStyleContainer(
-                              child: SfCartesianChart(
-                                  title: ChartTitle(
-                                    text: '${e['name']}\'s pie chart:',
-                                    alignment: ChartAlignment.near,
-                                    textStyle: whiteTextColor,
-                                  ),
-                                  primaryXAxis: CategoryAxis(),
-                                  primaryYAxis: NumericAxis(minimum: 0, maximum: 12, interval: 10),
-                                  series: [
-                                    ColumnSeries(
-                                      dataSource: e.keys.toList().sublist(2),
-                                      dataLabelSettings: const DataLabelSettings(textStyle: TextStyle(color: MyColors.mainBeige), isVisible: true),
-                                      xValueMapper: (key, index) => key,
-                                      yValueMapper: (key, index) => e[key],
-                                      pointColorMapper: (data, _) => randomColors[_],
-                                    ),
-                                  ]),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 650,
-                            width: 650,
-                            child: SampleStyleContainer(
-                              child: SfCircularChart(
-                                title: ChartTitle(
-                                  text: '${e['name']}\'s pie chart:',
-                                  alignment: ChartAlignment.near,
-                                  textStyle: whiteTextColor,
-                                ),
-                                legend: Legend(isVisible: true, overflowMode: LegendItemOverflowMode.scroll, textStyle: whiteTextColor),
-                                series: [
-                                  PieSeries(
-                                    dataSource: e.keys.toList().sublist(2),
-                                    dataLabelSettings: const DataLabelSettings(isVisible: true),
-                                    xValueMapper: (key, index) => key,
-                                    yValueMapper: (key, index) => e[key],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 650,
-                            width: 650,
-                            child: SampleStyleContainer(
-                              child: SfCircularChart(
-                                title: ChartTitle(
-                                  text: '${e['name']}\'s pie chart:',
-                                  alignment: ChartAlignment.near,
-                                  textStyle: whiteTextColor,
-                                ),
-                                legend: Legend(isVisible: true, textStyle: whiteTextColor),
-                                  series: <CircularSeries>[
-                                    RadialBarSeries(
-                                      dataSource: e.keys.toList().sublist(2),
-                                      dataLabelSettings: const DataLabelSettings(isVisible: true),
-                                      xValueMapper: (key, index) => key,
-                                      yValueMapper: (key, index) => e[key],
-                                      maximumValue: 10,
-                                      trackColor: MyColors.mainInnerColor.withOpacity(0.1)
-                                    )
-                                  ],
-                              ),
-                            ),
-                          )
-                        ],
-                      );
-                    }
-                  ).toList()),
-                ]
-            ),
-          ]
-      ),
-    );
+              )
+            ],
+          );
+        }
+        ).toList());
   }
 }

@@ -21,6 +21,11 @@ bool isDigit(String str){
 var whiteTextColor = const TextStyle(
   color: Colors.white,
 );
+var chartsTextStyle = const TextStyle(
+    color: Colors.black,
+    fontSize: 20
+);
+
 var darkTextColor = const TextStyle(
   color: MyColors.customDeepPurple,
 );
