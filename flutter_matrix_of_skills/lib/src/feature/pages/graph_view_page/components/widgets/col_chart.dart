@@ -34,13 +34,14 @@ class ColumnChart extends StatelessWidget {
                     ),
                     primaryXAxis: CategoryAxis(labelStyle: whiteTextColor),
                     primaryYAxis: NumericAxis(minimum: 0, maximum: 12, interval: 10, labelStyle: whiteTextColor, isVisible: false),
+                    legend: Legend(isVisible: true, overflowMode: LegendItemOverflowMode.scroll, textStyle: whiteTextColor),
                     series: [
                       ColumnSeries(
                         dataSource: e.keys.toList().sublist(2),
-                        dataLabelSettings: const DataLabelSettings(textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 20), isVisible: true, showZeroValue: false),
+                        dataLabelSettings: const DataLabelSettings(isVisible: true, showZeroValue: false, textStyle: TextStyle(color: MyColors.mainBeige, fontWeight: FontWeight.bold, fontSize: 14)),
                         xValueMapper: (key, index) => key,
                         yValueMapper: (key, index) => e[key],
-                        pointColorMapper: (data, _) => randomColors[_],
+
                       ),
                     ]),
               ),

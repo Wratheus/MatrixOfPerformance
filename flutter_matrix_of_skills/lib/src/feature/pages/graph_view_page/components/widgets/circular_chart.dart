@@ -38,7 +38,7 @@ class CircularChart extends StatelessWidget {
                         explode: true,
                         explodeAll: true,
                         dataSource: e.keys.toList().sublist(2),
-                        dataLabelSettings: const DataLabelSettings(isVisible: true, showZeroValue: false, textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 16)),
+                        dataLabelSettings: const DataLabelSettings(isVisible: true, showZeroValue: false, textStyle: TextStyle(color: MyColors.mainBeige, fontWeight: FontWeight.bold, fontSize: 14)),
                         xValueMapper: (key, index) => key,
                         yValueMapper: (key, index) => e[key],
                       ),

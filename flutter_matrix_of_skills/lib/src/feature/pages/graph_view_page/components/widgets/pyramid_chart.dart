@@ -37,7 +37,7 @@ class PyramidChart extends StatelessWidget {
                         dataSource: e.keys.toList().sublist(2),
                         xValueMapper: (key, index) => key,
                         yValueMapper: (key, index) => e[key],
-                        dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 16), showZeroValue: false),
+                        dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 14, fontWeight: FontWeight.bold), showZeroValue: false),
                         gapRatio: 0.1
                     )
                 ),

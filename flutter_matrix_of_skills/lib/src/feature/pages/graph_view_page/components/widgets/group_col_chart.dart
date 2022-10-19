@@ -37,7 +37,7 @@ class GroupColumnChart extends StatelessWidget {
                             alignment: ChartAlignment.near
                         ),
                         tooltipBehavior: TooltipBehavior(textStyle: whiteTextColor),
-                        primaryXAxis: CategoryAxis(labelStyle: whiteTextColor, isVisible: false),
+                        primaryXAxis: CategoryAxis(labelStyle: whiteTextColor),
                         enableSideBySideSeriesPlacement: true,
                         primaryYAxis: NumericAxis(minimum: 0, maximum: 12, interval: 5, labelStyle: whiteTextColor, isVisible: false),
                         legend: Legend(
@@ -48,10 +48,9 @@ class GroupColumnChart extends StatelessWidget {
                         series: data[0].keys.toList().sublist(2).map<ChartSeries<dynamic, dynamic>>((key) => ColumnSeries(
                           opacity: 0.9,
                           width: 0.7,
-                          dataLabelSettings: const DataLabelSettings(textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 20), isVisible: true, showZeroValue: false),
+                          dataLabelSettings: const DataLabelSettings(textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 16, fontWeight: FontWeight.bold), isVisible: true, showZeroValue: false),
                           dataSource: data,
                           legendItemText: key,
-
                           xValueMapper: (data, index) => data['name'],
                           yValueMapper: (data, index) => data[key],
                           enableTooltip: true,

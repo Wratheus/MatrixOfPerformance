@@ -39,7 +39,7 @@ class SkillBoxChart extends StatelessWidget {
                         trackOpacity: 0.05,
                         cornerStyle: CornerStyle.bothCurve,
                         dataSource: e.keys.toList().sublist(2),
-                        dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 16)),
+                        dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 14, fontWeight: FontWeight.bold)),
                         xValueMapper: (key, index) => key,
                         yValueMapper: (key, index) => e[key],
                         maximumValue: 10,
