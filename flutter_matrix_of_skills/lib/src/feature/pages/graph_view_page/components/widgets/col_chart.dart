@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
@@ -9,12 +8,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ColumnChart extends StatelessWidget {
   final List<dynamic> data;
-  List<MaterialColor> randomColors = [];
-  ColumnChart({super.key, required this.data}) {
-    for(int i = 0; i < data[0].keys.toList().length - 2; i++){
-      randomColors.add(Colors.primaries[Random().nextInt(Colors.primaries.length)]);
-    }
-  }
+  const ColumnChart({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +28,13 @@ class ColumnChart extends StatelessWidget {
                     ),
                     primaryXAxis: CategoryAxis(labelStyle: whiteTextColor),
                     primaryYAxis: NumericAxis(minimum: 0, maximum: 12, interval: 10, labelStyle: whiteTextColor, isVisible: false),
-                    legend: Legend(isVisible: true, overflowMode: LegendItemOverflowMode.scroll, textStyle: whiteTextColor),
                     series: [
                       ColumnSeries(
                         dataSource: e.keys.toList().sublist(2),
                         dataLabelSettings: const DataLabelSettings(isVisible: true, showZeroValue: false, textStyle: TextStyle(color: MyColors.mainBeige, fontWeight: FontWeight.bold, fontSize: 14)),
                         xValueMapper: (key, index) => key,
                         yValueMapper: (key, index) => e[key],
-
+                        pointColorMapper: (key, index) => chartColors.elementAt(index % 10)
                       ),
                     ]),
               ),

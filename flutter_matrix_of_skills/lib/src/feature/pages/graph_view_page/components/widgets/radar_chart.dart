@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
@@ -10,14 +9,8 @@ import '../../../../../core/constants/constants.dart';
 class SampleRadarChart extends StatelessWidget {
   final List<dynamic> data;
   final double angleValue = 0.0;
-  List<MaterialColor> randomColors = [];
 
-  SampleRadarChart({super.key, required this.data}) {
-    for(int i = 0; i <= data.length; i++){
-      randomColors.add(Colors.primaries[Random().nextInt(Colors.primaries.length)]);
-    }
-  }
-
+  const SampleRadarChart({super.key, required this.data});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -55,11 +48,11 @@ class SampleRadarChart extends StatelessWidget {
       index++;
       return RadarDataSet(
         fillColor: Colors.transparent,
-        borderColor: randomColors[index],
+        borderColor: chartColors[index%10],
         entryRadius: 2,
         dataEntries:
         e.values.toList().sublist(2).map<RadarEntry>((value) => RadarEntry(value: value.toDouble())).toList(),
-        borderWidth: 2,
+        borderWidth: 3,
       );
     }).toList();
   }

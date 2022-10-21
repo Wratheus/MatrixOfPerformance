@@ -43,6 +43,14 @@ class GraphViewPageLayout extends StatelessWidget {
                           ],
                         ),
                         Column(
+                          children: (state).tableData.sublist(1).map((e){
+                            return Row(
+                              children: [
+                                SampleRadarChart(data: [e])
+                              ],
+                            );
+                          }).toList()),
+                        Column(
                           children: [
                             SkillBoxChart(data: (state).tableData.sublist(1)),
                           ],
