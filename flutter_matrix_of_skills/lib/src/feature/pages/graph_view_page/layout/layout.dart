@@ -4,6 +4,7 @@ import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/compo
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/circular_chart.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/col_chart.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/group_col_chart.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/radar_chart.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/skillbox_chart.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/pyramid_chart.dart';
 
@@ -31,6 +32,7 @@ class GraphViewPageLayout extends StatelessWidget {
                 children: [
                   GraphManagementTab(tableController: tableController),
                   GroupColumnChart(data: (state).tableData.sublist(1)),
+                  SampleRadarChart(data: (state).tableData.sublist(1)),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(

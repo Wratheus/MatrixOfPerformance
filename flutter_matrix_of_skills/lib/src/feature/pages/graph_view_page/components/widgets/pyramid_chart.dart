@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
@@ -8,13 +7,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 
 class PyramidChart extends StatelessWidget {
-  List<dynamic> data;
-  List<MaterialColor> randomColors = [];
-  PyramidChart({super.key, required this.data}) {
-    for(int i = 0; i < data[0].keys.toList().length - 2; i++){
-      randomColors.add(Colors.primaries[Random().nextInt(Colors.primaries.length)]);
-    }
-  }
+  final List<dynamic> data;
+  const PyramidChart({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {

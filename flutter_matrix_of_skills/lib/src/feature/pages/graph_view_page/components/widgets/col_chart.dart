@@ -8,7 +8,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 
 class ColumnChart extends StatelessWidget {
-  List<dynamic> data;
+  final List<dynamic> data;
   List<MaterialColor> randomColors = [];
   ColumnChart({super.key, required this.data}) {
     for(int i = 0; i < data[0].keys.toList().length - 2; i++){
