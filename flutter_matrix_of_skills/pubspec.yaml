@@ -21,7 +21,8 @@ dependencies:
   flutter_native_splash: ^2.2.11
   supabase_flutter: ^0.3.3
   flutter_launcher_icons: ^0.10.0
-  syncfusion_flutter_charts: ^20.3.50
+  syncfusion_flutter_charts: ^20.3.49
+  fl_chart: ^0.55.2
 
 dev_dependencies:
   flutter_test:
