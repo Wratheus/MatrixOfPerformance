@@ -22,6 +22,7 @@ class GraphViewPageLayout extends StatelessWidget {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       tableController.cubitContext = context; // share cubit context to tableController to have ability to update
       tableController.selectedValue = (state as UserDataLoadedState).tableControllerSelectedValue; // share selected value if it was saved to state with controller
+      tableController.sortingList = state.sortingList;
       return RefreshIndicator(
         child: Scaffold(
           backgroundColor: MyColors.mainCanvas,
@@ -30,7 +31,7 @@ class GraphViewPageLayout extends StatelessWidget {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  GraphManagementTab(tableController: tableController),
+                  GraphManagementTab(tableController: tableController, data: (state).tableData.sublist(1)),
                   GroupColumnChart(data: (state).tableData.sublist(1)),
                   SampleRadarChart(data: (state).tableData.sublist(1)),
                   SingleChildScrollView(

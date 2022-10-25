@@ -15,19 +15,20 @@ class UserDataCubit extends Cubit<UserDataState> {
     }
   }
 
-  Future<void> loadUserData({String? tableName, context, String? selectedValue}) async {
+  Future<void> loadUserData({String? tableName, context, String? selectedValue, List<dynamic>? tableData, List<String>? sortingList}) async {
     try{
       if (!isClosed) {
         emit(UserDataLoadedState(
+            sortingList: sortingList ?? [],
             allUserTables: (await App.supaBaseController?.readData(table: "user_tables", context: context)),
-            tableData: tableName != null
+            tableData: (tableData != null && tableData.isNotEmpty) ? tableData : (tableName != null // if tableData was not provided (most cases)
                 ?                                                                                                           // if tableName is not provided,
               (await App.supaBaseController?.readData(table: "user_tables", context: context, tableName: tableName))
                 :
               (((await App.supaBaseController?.readData(table: "user_tables", context: context)) as List).isNotEmpty) ?     // try to check if at least 1 table exist
                 ((await App.supaBaseController?.readData(table: "user_tables", context: context))[0]['table'])
                   :
-                const [],                                                                                                   // and to open it else return []
+                const []),                                                                                                   // and to open it else return []
               values: await App.supaBaseController?.readData(table: "user_tables", context: context),
             tableControllerSelectedValue: selectedValue
         ));
