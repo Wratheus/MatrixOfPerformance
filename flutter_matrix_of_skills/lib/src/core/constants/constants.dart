@@ -1,9 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/graph_view_page.dart';
 
-import '../../feature/pages/login_page/login_page.dart';
 import '../../feature/pages/main_management_page/main_management_page.dart';
-import '../../feature/pages/registration_page/registration_page.dart';
 
 part './colors.dart';
 
@@ -23,14 +23,28 @@ const List<Color> chartColors = [
 List<Widget> pageList = <Widget>[ // navigation pages list
   const TableManagementPage(), // Drawer page 1..
   const GraphViewPage(), // page 2
-  LoginPage(), // page 3
-  RegistrationPage(), // page 4
 ];
 bool isDigit(String str){
   RegExp intRegExp = RegExp(r"^\d+$");
   return intRegExp.hasMatch(str);
 }
-
+double longestName(List<dynamic> data){
+  int longestName = data[0]['name'].length;
+  for (var element in data) {
+    if (element['name'].length > longestName) longestName = element['name'].length;
+  }
+  return longestName.toDouble();
+}
+double maxValue(List<dynamic> data){
+  int maxValue = 0;
+  for (var element in data) {
+    List values = (element as Map).values.toSet().toList().sublist(2);
+    final int tmpMax = values.cast<int>().reduce(max);
+    if (tmpMax > maxValue) maxValue = tmpMax;
+  }
+  if(maxValue < 10) maxValue = 10;
+  return maxValue.toDouble();
+}
 var whiteTextColor = const TextStyle(
   color: Colors.white,
 );

@@ -18,8 +18,8 @@ class SkillBoxChart extends StatelessWidget {
         return Row(
           children: [
             SizedBox(
-              height: 650,
-              width: 650,
+              height: (data[0].keys.toList().length > 5) ? (MediaQuery.of(context).size.width * 0.4) : (MediaQuery.of(context).size.width * 0.20),
+              width: (data[0].keys.toList().length > 5) ? (MediaQuery.of(context).size.width * 0.4) : (MediaQuery.of(context).size.width * 0.20),
               child: SampleStyleContainer(
                 child: SfCircularChart(
                   title: ChartTitle(
@@ -37,7 +37,7 @@ class SkillBoxChart extends StatelessWidget {
                         dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: MyColors.mainBeige, fontSize: 14, fontWeight: FontWeight.bold)),
                         xValueMapper: (key, index) => key,
                         yValueMapper: (key, index) => e[key],
-                        maximumValue: 10,
+                        maximumValue: maxValue(data),
                         trackColor: MyColors.mainInnerColor.withOpacity(0.1)
                       )
                     ],

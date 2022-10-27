@@ -1,14 +1,12 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 import '../../core/constants/constants.dart';
 
 class SampleStyleContainer extends StatelessWidget {
-  Widget child;
-  double? width;
-  double? height;
-  SampleStyleContainer({Key? key, required this.child, this.height, this.width}) : super(key: key);
+  final Widget child;
+  final double? width;
+  final double? height;
+  const SampleStyleContainer({Key? key, required this.child, this.height, this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class SampleStyleContainer extends StatelessWidget {
         margin: const EdgeInsets.all(3),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: MyColors.mainOuterColor,
+          color: MyColors.mainOuterColor.withOpacity(0.8),
         ),
         child: child,
     );

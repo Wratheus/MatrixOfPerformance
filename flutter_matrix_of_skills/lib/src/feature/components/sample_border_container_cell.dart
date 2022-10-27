@@ -1,15 +1,12 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 import '../../core/constants/constants.dart';
-
 class SampleBorderContainerCell extends StatelessWidget {
-  Widget child;
-  Color color;
-  double? width;
-  double? height;
-  SampleBorderContainerCell({Key? key, required this.child, required this.color, this.height, this.width}) : super(key: key);
+  final Widget child;
+  final Color color;
+  final double? width;
+  final double? height;
+  const SampleBorderContainerCell({Key? key, required this.child, required this.color, this.height, this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

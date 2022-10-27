@@ -11,7 +11,6 @@ import '../../responsive/responsive_layout.dart';
 
 import 'layout/layout.dart';
 
-// ignore: must_be_immutable
 class TableManagementPage extends StatelessWidget {
   const TableManagementPage({Key? key}) : super(key: key);
   @override

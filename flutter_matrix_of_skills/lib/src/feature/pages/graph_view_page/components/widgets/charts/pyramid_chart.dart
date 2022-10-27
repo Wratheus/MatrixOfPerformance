@@ -17,8 +17,8 @@ class PyramidChart extends StatelessWidget {
         return Row(
           children: [
             SizedBox(
-              height: 650,
-              width: 650,
+              height: (data[0].keys.toList().length > 5) ? (MediaQuery.of(context).size.width * 0.4) : (MediaQuery.of(context).size.width * 0.20),
+              width: (data[0].keys.toList().length > 5) ? (MediaQuery.of(context).size.width * 0.4) : (MediaQuery.of(context).size.width * 0.20),
               child: SampleStyleContainer(
                 child: SfPyramidChart(
                     title: ChartTitle(

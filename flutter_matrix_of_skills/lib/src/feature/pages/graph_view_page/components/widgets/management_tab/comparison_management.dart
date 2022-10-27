@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_table_view_controller.dart';
 
-import '../../../../../core/constants/constants.dart';
-import '../../../../components/sample_drop_down_menu.dart';
+import '../../../../../../core/constants/constants.dart';
+import '../../../../../components/sample_drop_down_menu.dart';
 
 // ignore: must_be_immutable
 class ComparisonManagement extends StatefulWidget {
