@@ -18,7 +18,7 @@ class GroupColumnChart extends StatelessWidget {
         children: [
           SampleStyleContainer(
             height: MediaQuery.of(context).size.height * 0.45,
-            width:  data[0].keys.toList().length >= 6 ? data.length * 300 : data.length * 100,
+            width:  data[0].keys.toList().length >= 6 ? data.length * 300 : data.length * 200,
             child: SfCartesianChart(
                 tooltipBehavior: TooltipBehavior(textStyle: whiteTextColor),
                 primaryXAxis: CategoryAxis(labelStyle: whiteTextColor),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:flutter_matrix_of_skills/src/core/classes/app.dart';
 import 'package:flutter_matrix_of_skills/src/core/services/custom_scroll_behavior.dart';
 
@@ -11,14 +12,14 @@ import 'src/feature/responsive/responsive_layout.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  App.initApp();
+  await App.initApp();
   App.session = await App.supaBaseController?.sessionSignIn();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
