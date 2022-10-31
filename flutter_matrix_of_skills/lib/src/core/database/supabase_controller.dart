@@ -71,7 +71,6 @@ class SupaBaseController {
     }
   }
   // password reset
-  // TODO: password reset
   Future<bool> passwordReset({required context, required String email}) async{
     final response = await client.auth.api.resetPasswordForEmail(
       email,

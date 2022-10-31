@@ -17,7 +17,18 @@ const List<Color> chartColors = [
   Color.fromRGBO(73, 76, 162, 1),
   Color.fromRGBO(255, 205, 96, 1),
   Color.fromRGBO(255, 240, 219, 1),
-  Color.fromRGBO(238, 238, 238, 1)
+  Color.fromRGBO(238, 238, 238, 1),
+  Color.fromRGBO(210, 145, 188, 1),
+  Color.fromRGBO(100, 233, 135, 1),
+  Color.fromRGBO(192, 249, 250, 1),
+  Color.fromRGBO(136, 206, 251, 1),
+  Color.fromRGBO(252, 204, 204, 1),
+  Color.fromRGBO(146, 242, 148, 1),
+  Color.fromRGBO(255, 153, 169, 1),
+  Color.fromRGBO(237, 228, 228, 1),
+  Color.fromRGBO(156, 195, 227, 1),
+  Color.fromRGBO(238, 152, 154, 1),
+  Color.fromRGBO(150, 153, 203, 1),
 ];
 
 List<Widget> pageList = <Widget>[ // navigation pages list
