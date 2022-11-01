@@ -7,12 +7,20 @@ import '../../../../../components/sample_drop_down_menu.dart';
 // ignore: must_be_immutable
 class ComparisonManagement extends StatefulWidget {
   final List<Map<String, dynamic>> data;
+  late List<Map<String, dynamic>> table;
   final TableController tableController;
   List<String> dataNameList = [];
   List<String> selectedList = [];
   String selectedValueDropDown = '';
   ComparisonManagement({super.key, required this.data, required this.tableController}) {
-    for(int i = 0; i <  data.length; i++){dataNameList.add(data[i]['name']);}
+    tableController.selectedValue ??= data[0]['table_name'];
+    for (Map<String, dynamic> element in data) {
+      if(element['table_name'] == tableController.selectedValue){
+        table = element['table'].sublist(1);
+        for(int i = 0; i <  table.length; i++){dataNameList.add(table[i]['name']);}
+      }
+    }
+
   }
   @override
   State<ComparisonManagement> createState() => _ComparisonManagementState();
@@ -75,7 +83,7 @@ class _ComparisonManagementState extends State<ComparisonManagement> {
               ),
               const SizedBox(width: 5,),
               ElevatedButton(onPressed: () => {
-                loadFromSelectedList(data: widget.data)},
+                loadFromSelectedList(data: widget.table)},
                 child: Text("load", style: whiteTextColor),
               ),
               const SizedBox(width: 5,),
@@ -87,31 +95,27 @@ class _ComparisonManagementState extends State<ComparisonManagement> {
               )
             ],
           ),
-          Row(
-            children: [
-              (widget.tableController.sortingList.isNotEmpty)
-                  ?
-                  // TODO: replace TEXT with Clip or smth els
-              Text(widget.tableController.sortingList.toString(), style: whiteTextColor,)
-                  :
-              Container()
-            ],
-          ),
+          (widget.tableController.sortingList.isNotEmpty)
+              ?
+          Row(children: [
+            for(int i = 0; i < widget.tableController.sortingList.length; i++)
+              Padding(
+                padding: const EdgeInsets.only(right: 4.0),
+                child: Chip(
+                  label: Text(widget.tableController.sortingList[i], style: whiteTextColor),
+                  backgroundColor: chartColors.elementAt(i % 10),
+                  avatar: CircleAvatar(
+                    radius: 10,
+                    backgroundColor: Colors.white.withOpacity(0.8),
+                    child: Text(widget.tableController.sortingList[i][0].toUpperCase(), style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: chartColors.elementAt(i % 10)),),
+                  ),
+                ),
+              )
+          ])
+              :
+          Container()
         ],
       ),
     );
   }
 }
-/*              (widget.tableController.sortingList.isNotEmpty)
-                  ?
-                    Row(children: [
-                      for(int i = 0; i < widget.tableController.sortingList.length; i++)
-                        Chip(
-                          label: Text(widget.tableController.sortingList[i], style: whiteTextColor),
-                          backgroundColor: chartColors.elementAt(i % 10),
-                          deleteIcon: const Icon(Icons.cancel, color: Colors.black, size: 18,),
-                          onDeleted: removeFromSelectedList(selectedValue: widget.tableController.sortingList[i]),
-                        )
-                    ])
-                  :
-                    Container()*/

@@ -35,7 +35,7 @@ class GraphViewPageLayout extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GraphManagementTab(tableController: tableController, data: (state).tableData.sublist(1)),
+                    GraphManagementTab(tableController: tableController, data: (state).allUserTables),
                     IntrinsicHeight(
                       child: SizedBox(
                         height: MediaQuery.of(context).size.height * 0.45,

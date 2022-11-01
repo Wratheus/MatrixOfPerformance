@@ -82,7 +82,7 @@ class GroupRadarChart extends StatelessWidget {
         fillColor: chartColors[index%21].withOpacity(0.025),
         borderColor: chartColors[index%21],
         entryRadius: 2,
-        dataEntries: e.values.toList().sublist(2).map<RadarEntry>((value) => RadarEntry(value: value.toDouble())).toList(),
+        dataEntries: e.values.toList().sublist(2).map<RadarEntry>((value) => RadarEntry(value: (value).toDouble())).toList(),
         borderWidth: 3,
       );
     }).toList();
