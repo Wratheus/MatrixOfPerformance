@@ -39,17 +39,17 @@ bool isDigit(String str){
   RegExp intRegExp = RegExp(r"^\d+$");
   return intRegExp.hasMatch(str);
 }
-double longestName(List<dynamic> data){
+double longestName(List<Map<String, dynamic>> data){
   int longestName = data[0]['name'].length;
   for (var element in data) {
     if (element['name'].length > longestName) longestName = element['name'].length;
   }
   return longestName.toDouble();
 }
-double maxValue(List<dynamic> data){
+double maxValue(List<Map<String, dynamic>> data){
   int maxValue = 0;
   for (var element in data) {
-    List values = (element as Map).values.toSet().toList().sublist(2);
+    List values = (element).values.toSet().toList().sublist(2);
     final int tmpMax = values.cast<int>().reduce(max);
     if (tmpMax > maxValue) maxValue = tmpMax;
   }

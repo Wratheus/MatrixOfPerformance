@@ -29,7 +29,7 @@ class GraphViewPage extends StatelessWidget {
               if (kDebugMode) {
                 print('Graph page is loaded');
               }
-              if(state.tableData.isNotEmpty && state.tableData.length >= 3 && (state.tableData[0] as Map).keys.toList().length >= 5) {
+              if(state.tableData.isNotEmpty && state.tableData.length >= 3 && (state.tableData[0]).keys.toList().length >= 5) {
                 return GraphViewPageLayout();
               }else{
                 return Center(child: Text('User has no tables, or tables are empty \n Table should have at least 3 rows with 3 skills', style: whiteTextColor));

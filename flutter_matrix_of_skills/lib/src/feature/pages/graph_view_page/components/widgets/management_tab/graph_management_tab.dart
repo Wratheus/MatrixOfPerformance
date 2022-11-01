@@ -8,7 +8,7 @@ import '../../../../main_management_page/components/group_table_view_controller.
 
 class GraphManagementTab extends StatelessWidget {
   final TableController tableController;
-  final List<dynamic> data;
+  final List<Map<String, dynamic>> data;
 
   const GraphManagementTab({Key? key, required this.tableController, required this.data}) : super(key: key);
   @override

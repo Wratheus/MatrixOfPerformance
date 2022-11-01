@@ -12,13 +12,13 @@ import 'new_table_fill_dialog.dart';
 
 class NewTableDialog extends StatelessWidget {
 
-  List<dynamic>? tableValues;
+  List<Map<String, dynamic>> tableValues;
   final TableController tableController;
 
-  void fillTableColumns({required context, required List<dynamic>? tableValues, required TextEditingController tableNameTextController, required TextEditingController columnAmountTextController}) {
+  void fillTableColumns({required context, required List<Map<String, dynamic>> tableValues, required TextEditingController tableNameTextController, required TextEditingController columnAmountTextController}) {
     bool tableAlreadyExist = false;
 
-    for(int i = 0; i < tableValues!.length; i++) {
+    for(int i = 0; i < tableValues.length; i++) {
       if (tableValues[i]['table_name'] == tableNameTextController.text){
         tableAlreadyExist = true;
       }

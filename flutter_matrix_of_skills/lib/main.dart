@@ -13,7 +13,7 @@ import 'src/feature/responsive/responsive_layout.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await App.initApp();
-  App.session = await App.supaBaseController?.sessionSignIn();
+  App.session = await App.supaBaseController.sessionSignIn();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }

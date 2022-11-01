@@ -5,7 +5,7 @@ import 'package:fl_chart/fl_chart.dart';
 
 
 class GroupRadarChart extends StatelessWidget {
-  final List<dynamic> data;
+  final List<Map<String, dynamic>> data;
   final double angleValue = 0.0;
 
   const GroupRadarChart({super.key, required this.data});
@@ -61,7 +61,7 @@ class GroupRadarChart extends StatelessWidget {
                             ),
                             const SizedBox(width: 5),
                             Text(data[index]['name'], style: whiteTextColor),
-                            Text(" - ${calculateSumOfSkills(personSkillValues: data[index].values.toList().sublist(2))}", style: whiteTextColor,)
+                            Text(" - ${calculateSumOfSkills(personSkillValues: data[index].values.toList().sublist(2)) }", style: whiteTextColor,)
                           ],
                         ),
                       );
@@ -74,7 +74,7 @@ class GroupRadarChart extends StatelessWidget {
     );
   }
 
-  List<RadarDataSet> showingDataSets({required List<dynamic> data}) {
+  List<RadarDataSet> showingDataSets({required List<Map<String, dynamic>> data}) {
     int index = -1;
     return data.map((e) {
       index++;

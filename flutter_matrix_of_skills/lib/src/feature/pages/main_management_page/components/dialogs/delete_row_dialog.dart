@@ -13,12 +13,12 @@ import '../../../../components/dialogs/sample_error_dialog.dart';
 class DeleteRowDialog extends StatelessWidget {
 
   final TableController tableController;
-  List<dynamic> tableValues;
+  List<Map<String, dynamic>> tableValues;
   String? tableName;
   int? id;
 
 
-  Future<bool> deleteRowAction({required String rowID, required context, required List<dynamic> tableValues}) async {
+  Future<bool> deleteRowAction({required String rowID, required context, required List<Map<String, dynamic>> tableValues}) async {
     Map<String, dynamic>? match;
     try{
       id = int.parse(rowID);
@@ -39,7 +39,7 @@ class DeleteRowDialog extends StatelessWidget {
         AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Table does not have that id match.')); // no id match found
         return false;
       }
-      await App.supaBaseController?.updateTable(table: 'user_tables', // update table if match was found
+      await App.supaBaseController.updateTable(table: 'user_tables', // update table if match was found
           tableName: tableName,
           columns: tableValues,
           context: context

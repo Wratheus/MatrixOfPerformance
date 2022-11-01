@@ -15,7 +15,7 @@ import '../password_reset_page/password_reset_page.dart';
 class LoginPage extends StatelessWidget {
 
   void loginAction({required String email, required String password, required context}) async{
-    if (await App.supaBaseController?.signIn(email: email, password: password, context: context) == true) {
+    if (await App.supaBaseController.signIn(email: email, password: password, context: context) == true) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) =>
             const ResponsiveLayout(

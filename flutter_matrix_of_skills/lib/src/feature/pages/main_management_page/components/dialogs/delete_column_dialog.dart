@@ -13,14 +13,14 @@ import '../../../../components/sample_text_field.dart';
 class DeleteColumnDialog extends StatelessWidget {
 
   final TableController tableController;
-  List<dynamic> tableValues;
+  List<Map<String, dynamic>> tableValues;
   String? tableName;
 
 
-  Future<bool> deleteColumn({required List<dynamic> tableValues, required context, required TextEditingController columnNameTextController, required String? tableName}) async {
+  Future<bool> deleteColumn({required List<Map<String, dynamic>> tableValues, required context, required TextEditingController columnNameTextController, required String? tableName}) async {
     bool columnExist = false;
 
-    if((tableValues[0] as Map).containsKey(columnNameTextController.text) == true){columnExist = true;} // check if column does exist
+    if((tableValues[0]).containsKey(columnNameTextController.text) == true){columnExist = true;} // check if column does exist
     if(columnNameTextController.text == 'id'){
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Removing id column restricted.')); // wrong values
@@ -36,9 +36,9 @@ class DeleteColumnDialog extends StatelessWidget {
       return false;
     }else{
       for(int i = 0; i < tableValues.length; i++){
-        (tableValues[i] as Map).remove(columnNameTextController.text); // remove Key and value pair by key
+        (tableValues[i]).remove(columnNameTextController.text); // remove Key and value pair by key
       }
-      await App.supaBaseController?.updateTable(table: 'user_tables', // update table if match was found
+      await App.supaBaseController.updateTable(table: 'user_tables', // update table if match was found
           tableName: tableName,
           columns: tableValues,
           context: context

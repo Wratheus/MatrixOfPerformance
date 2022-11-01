@@ -7,7 +7,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 
 class GroupColumnChart extends StatelessWidget {
-  final List<dynamic> data;
+  final List<Map<String, dynamic>> data;
   const GroupColumnChart({super.key, required this.data});
 
   @override

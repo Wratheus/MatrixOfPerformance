@@ -10,7 +10,7 @@ import '../../../cubit/user_data/user_data_cubit.dart';
 class GroupDropDownMenu extends StatefulWidget {
 
   final TableController tableController;
-  List<dynamic> values = [];
+  List<Map<String, dynamic>> values = [];
 
 
   GroupDropDownMenu({Key? key, required this.tableController}) : super(key: key);

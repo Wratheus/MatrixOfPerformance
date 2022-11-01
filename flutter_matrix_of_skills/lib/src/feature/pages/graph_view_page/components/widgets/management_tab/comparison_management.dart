@@ -6,7 +6,7 @@ import '../../../../../components/sample_drop_down_menu.dart';
 
 // ignore: must_be_immutable
 class ComparisonManagement extends StatefulWidget {
-  final List<dynamic> data;
+  final List<Map<String, dynamic>> data;
   final TableController tableController;
   List<String> dataNameList = [];
   List<String> selectedList = [];
@@ -32,9 +32,9 @@ class _ComparisonManagementState extends State<ComparisonManagement> {
       widget.selectedValueDropDown = selectedValue;
     });
   }
-  loadFromSelectedList({required List<dynamic> data}){
+  loadFromSelectedList({required List<Map<String, dynamic>> data}){
     setState(() {
-      List<dynamic> selectedDataObjects = [{'name': null, 'id':null, 'skill1': null, 'skill2': null, 'skill3': null,}]; // 0 to fix headers sublisting in future methods of re-rendering page
+      List<Map<String, dynamic>> selectedDataObjects = [{'name': null, 'id':null, 'skill1': null, 'skill2': null, 'skill3': null,}]; // 0 to fix headers sublisting in future methods of re-rendering page
       for(int i = 0; i < widget.tableController.sortingList.length; i++){
         for(int k = 0; k < data.length; k++){
           if(data[k]['name'] == widget.tableController.sortingList[i]) selectedDataObjects.add(data[k]);

@@ -15,7 +15,7 @@ class PasswordResetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    App.deepLinkController?.init(buildContext: context); // listener init
+    App.deepLinkController.init(buildContext: context); // listener init
     return Scaffold(
       appBar: SampleAppbar(title: 'Welcome', backgroundColor: MyColors.mainOuterColor, textColor: whiteTextColor),
       backgroundColor: MyColors.mainCanvas,
@@ -31,7 +31,7 @@ class PasswordResetPage extends StatelessWidget {
             SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
             const SizedBox(height: 15,),
             ElevatedButton(
-              onPressed: () async => await App.supaBaseController?.passwordReset(email: _textControllerLogin.text,  context: context),
+              onPressed: () async => await App.supaBaseController.passwordReset(email: _textControllerLogin.text,  context: context),
               child: Text('RESET', style: whiteTextColor),
             ),
             const SizedBox(height: 10,),

@@ -42,7 +42,7 @@ class  SupaBaseController {
       return false; // error != null
     }
     String newSession = (json.encode(
-        App.supaBaseController?.client.auth.session()));
+        App.supaBaseController.client.auth.session()));
     await SecureStorage.setSessionToStorage(newSession);
     return true; // complete normally
   }
@@ -52,11 +52,11 @@ class  SupaBaseController {
     String? lastSession = await SecureStorage.getSessionFromStorage();
     if (lastSession != null) {
       Map<dynamic, dynamic> jsonSession = jsonDecode(lastSession);
-      await App.supaBaseController?.client.auth.setSession(
+      await App.supaBaseController.client.auth.setSession(
           jsonSession['refresh_token']);
-      if (App.supaBaseController?.client.auth.session() != null) {
+      if (App.supaBaseController.client.auth.session() != null) {
         String newSession = (json.encode(
-            App.supaBaseController?.client.auth.session()));
+            App.supaBaseController.client.auth.session()));
         await SecureStorage.setSessionToStorage(newSession);
         return true; // complete normally
       }
@@ -100,8 +100,8 @@ class  SupaBaseController {
   }
  // password recovery set Auth
   Future<bool> passwordResetSetSession({required String token, context}) async {
-    App.supaBaseController?.client.auth.setAuth(token);
-    if(App.supaBaseController?.client.auth.session() == null){
+    App.supaBaseController.client.auth.setAuth(token);
+    if(App.supaBaseController.client.auth.session() == null){
       AppUI.showMaterialModalDialog(context: context,
           child: SampleErrorDialog(errorMessage: 'Something went wrong: session dispatched, try again!'));
       return false; // Session == null
@@ -112,10 +112,10 @@ class  SupaBaseController {
 
   // password reset
   Future<bool> newPasswordCommit({required context, required String newPassword}) async {
-    final response = await App.supaBaseController?.client.auth.update(
+    final response = await App.supaBaseController.client.auth.update(
         UserAttributes(
             password: newPassword));
-    final error = response?.error;
+    final error = response.error;
     if (error != null) {
       AppUI.showMaterialModalDialog(context: context,
           child: SampleErrorDialog(errorMessage: error.message.toString()));
@@ -131,12 +131,12 @@ class  SupaBaseController {
 
 
  // creates new table
-  Future<bool> insertNewTable({required String table, required String tableName, required context, required List<dynamic> columns}) async {
+  Future<bool> insertNewTable({required String table, required String tableName, required context, required List<Map<String, dynamic>> columns}) async {
     if(tableName.isNotEmpty && columns.isNotEmpty){
       final response = await client.from(table).insert(
         {
           'table_name': tableName,
-          'user_id': App.supaBaseController?.client.auth.currentUser?.id,
+          'user_id': App.supaBaseController.client.auth.currentUser?.id,
           'table': columns
         },
       ).execute();
@@ -169,35 +169,59 @@ class  SupaBaseController {
     return false; // error, tableName not provided;
   }
 // return user's table data
-  Future readData({required String table, required context, String? tableName}) async {
-    final response = await client.from(table).select().execute();
+  Future<List<Map<String, dynamic>>> readData({required String postGreTable, required context, String? tableName}) async {
+    List<Map<String, dynamic>> responseCovert = [];
+    final response = await client.from(postGreTable).select().execute();
     final error = response.error;
     if (error != null) {
       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: error.message.toString()));
     }
     if(tableName != null){
-      for (var element in (response.data)) {
-        if(element['table_name'] == tableName) {
-          return element['table']; // List<Map<String, dynamic>>
+      int index = 0;
+      for (var table in (response.data)) {
+        if(table['table_name'] == tableName) {
+          table['table'].forEach((person) {
+            responseCovert.add(<String, dynamic>{});
+            person.forEach((key, value) {
+              responseCovert[index][key] = value;
+            });
+            index++;
+          });
+          index = 0;
+          return responseCovert; // List<Map<String, dynamic>>
         }
       }
     }else{
-      return response.data; // List<Map<String, dynamic>>
+      int index = 0;
+      response.data.forEach((table) {
+        List<Map<String, dynamic>> subTableItem = [];
+        table['table'].forEach((person) {
+          subTableItem.add(<String, dynamic>{});
+          person.forEach((key, value) {
+            subTableItem[index][key] = value;
+          });
+          index++;
+        });
+        index = 0;
+        table['table'] = subTableItem;
+        responseCovert.add(table);
+      });
+      return responseCovert; // List<Map<String, dynamic>>
     }
-      return []; //any other case, TEST
+      return responseCovert; //any other case, TEST
   }
   // add update row to table
-  Future<bool> updateTable({required String table, required String? tableName, required context, required List<dynamic> columns}) async {
+  Future<bool> updateTable({required String table, required String? tableName, required context, required List<Map<String, dynamic>> columns}) async {
     if(columns.isNotEmpty){
       final response = await client.from(table).update(
         {
           'table_name': tableName,
-          'user_id': App.supaBaseController?.client.auth.currentUser?.id,
+          'user_id': App.supaBaseController.client.auth.currentUser?.id,
           'table': columns
         },
       ).match({
         'table_name': tableName,
-        'user_id': App.supaBaseController?.client.auth.currentUser?.id,
+        'user_id': App.supaBaseController.client.auth.currentUser?.id,
       }).execute();
       final error = response.error;
       Navigator.pop(context);

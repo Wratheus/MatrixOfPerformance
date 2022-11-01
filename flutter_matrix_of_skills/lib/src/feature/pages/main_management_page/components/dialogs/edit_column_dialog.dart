@@ -13,15 +13,15 @@ import '../../../../components/sample_text_field.dart';
 class EditColumnDialog extends StatelessWidget {
 
   final TableController tableController;
-  List<dynamic> tableValues;
+  List<Map<String, dynamic>> tableValues;
   String? tableName;
   List<String> restrictedValues = ['id', 'name', ''];
 
-  Future<bool> editColumn({required List<dynamic> tableValues, required context, required TextEditingController columnNameTextController, required TextEditingController newColumnNameTextController, required String? tableName}) async {
+  Future<bool> editColumn({required List<Map<String, dynamic>> tableValues, required context, required TextEditingController columnNameTextController, required TextEditingController newColumnNameTextController, required String? tableName}) async {
     bool columnExist = false;
     bool newColumnExist = false;
-    if((tableValues[0] as Map).containsKey(columnNameTextController.text) == true){columnExist = true;} // check if column does already defined in table
-    if((tableValues[0] as Map).containsKey(newColumnNameTextController.text) == true){columnExist = true;} // check if new column does already defined in table
+    if((tableValues[0]).containsKey(columnNameTextController.text) == true){columnExist = true;} // check if column does already defined in table
+    if((tableValues[0]).containsKey(newColumnNameTextController.text) == true){columnExist = true;} // check if new column does already defined in table
     if(restrictedValues.contains(newColumnNameTextController.text) || restrictedValues.contains(columnNameTextController.text)){
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Removing id or leaving blank space in column name restricted.')); // wrong values
@@ -38,12 +38,12 @@ class EditColumnDialog extends StatelessWidget {
     }else{
       // TODO: fix order replacement, check dart functional
       for(int i = 0; i < tableValues.length; i++){
-        var currentKeyValueSave = (tableValues[i] as Map)[columnNameTextController.text]; // save old value
-        (tableValues[i] as Map).remove(columnNameTextController.text); // remove old key
-        (tableValues[i] as Map)[newColumnNameTextController.text] = currentKeyValueSave; // add old value to new key
+        var currentKeyValueSave = tableValues[i][columnNameTextController.text]; // save old value
+        (tableValues[i]).remove(columnNameTextController.text); // remove old key
+        (tableValues[i])[newColumnNameTextController.text] = currentKeyValueSave; // add old value to new key
       }
 
-      await App.supaBaseController?.updateTable(table: 'user_tables', // update table if match was found
+      await App.supaBaseController.updateTable(table: 'user_tables', // update table if match was found
           tableName: tableName,
           columns: tableValues,
           context: context

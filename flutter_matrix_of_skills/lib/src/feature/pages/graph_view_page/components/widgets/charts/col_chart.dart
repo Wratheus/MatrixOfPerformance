@@ -7,7 +7,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 
 class ColumnChart extends StatelessWidget {
-  final List<dynamic> data;
+  final List<Map<String, dynamic>> data;
   const ColumnChart({super.key, required this.data});
 
   @override
@@ -19,8 +19,8 @@ class ColumnChart extends StatelessWidget {
           return Row(
             children: [
               SizedBox(
-                height: (data[0].keys.toList().length > 5) ? (MediaQuery.of(context).size.width * 0.395) : (MediaQuery.of(context).size.width * 0.195),
-                width: (data[0].keys.toList().length > 5) ? (MediaQuery.of(context).size.width * 0.395) : (MediaQuery.of(context).size.width * 0.195),
+                height: (data[0].keys.toList().length > 6) ? (MediaQuery.of(context).size.width * 0.395) : (MediaQuery.of(context).size.width * 0.195),
+                width: (data[0].keys.toList().length > 6) ? (MediaQuery.of(context).size.width * 0.395) : (MediaQuery.of(context).size.width * 0.195),
                 child: SampleStyleContainer(
                   child: SfCartesianChart(
                       title: ChartTitle(

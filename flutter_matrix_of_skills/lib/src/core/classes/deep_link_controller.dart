@@ -14,6 +14,7 @@ class DeepLinkController {
   void init({required buildContext}) {
     context = buildContext;
     if (Platform.isWindows) {
+      // ignore: unused_local_variable, no_leading_underscores_for_local_identifiers
       StreamSubscription? _windowsSub;
       registerProtocol('io.supabase.flutterquickstart');
       if (!kIsWeb) { // windows web link listener
@@ -32,7 +33,7 @@ class DeepLinkController {
   }
 
   void redirectPasswordReset({required String token, required context}) async{
-    App.supaBaseController?.passwordResetSetSession(token: token).then((value) =>
+    App.supaBaseController.passwordResetSetSession(token: token).then((value) =>
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NewPasswordPage(refreshToken: token))));
   }
 }

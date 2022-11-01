@@ -13,15 +13,15 @@ import '../../../../components/sample_text_field.dart';
 class CopyTableDialog extends StatelessWidget {
 
   final TableController tableController;
-  List<dynamic> allUserTables;
+  List<Map<String, dynamic>> allUserTables;
   String? tableName;
 
 
-  Future<bool> copyTable({required List<dynamic> allUserTables, required context, required TextEditingController tableNameTextController, required TextEditingController newTableNameTextController, required String? tableName}) async {
+  Future<bool> copyTable({required List<Map<String, dynamic>> allUserTables, required context, required TextEditingController tableNameTextController, required TextEditingController newTableNameTextController, required String? tableName}) async {
     bool tableExist = false;
     bool newTableExist = false;
     int? indexOfTable;
-    List<dynamic> tableValues; // new table that will be copied
+    List<Map<String, dynamic>> tableValues; // new table that will be copied
 
     for(int i = 0; i < allUserTables.length; i++){
       if(allUserTables[i]['table_name'] == tableNameTextController.text){
@@ -49,7 +49,7 @@ class CopyTableDialog extends StatelessWidget {
       return false;
     }else{
       tableValues = allUserTables[indexOfTable]['table']; // select picked table from userTables
-      await App.supaBaseController?.insertNewTable(table: 'user_tables', // update table if match was found
+      await App.supaBaseController.insertNewTable(table: 'user_tables', // update table if match was found
           tableName: newTableNameTextController.text,
           columns: tableValues,
           context: context

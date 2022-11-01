@@ -12,21 +12,21 @@ import '../../../../components/dialogs/sample_alert_dialog.dart';
 class EditRowFillDialog extends StatelessWidget {
 
   final TableController tableController;
-  List<dynamic> tableValues;
+  List<Map<String, dynamic>> tableValues;
   String? tableName;
   int rowID;
 
 
   Future<bool> editRowFillAction({required List<TextEditingController> textControllers, required context}) async {
     Map<String, dynamic> editedRow = {};
-    List<dynamic> newTableValues = []; // fix save in for loop
-    editedRow[(tableValues[0] as Map).keys.elementAt(0)] = rowID; // will be defined in id match block
+    List<Map<String, dynamic>> newTableValues = []; // fix save in for loop
+    editedRow[(tableValues[0]).keys.elementAt(0)] = rowID; // will be defined in id match block
 
     for(int i = 0; i < textControllers.length; i++) {
       if(textControllers[i].text.isNotEmpty) {
-        editedRow[(tableValues[0] as Map).keys.elementAt(i+1)] = textControllers[i].text;
+        editedRow[(tableValues[0]).keys.elementAt(i+1)] = textControllers[i].text;
       } else{
-        editedRow[(tableValues[0] as Map).keys.elementAt(i+1)] = null;
+        editedRow[(tableValues[0]).keys.elementAt(i+1)] = null;
       }
     }
     for (Map<String, dynamic> element in tableValues) {
@@ -37,7 +37,7 @@ class EditRowFillDialog extends StatelessWidget {
         newTableValues.add(element);
       }
     }
-    await App.supaBaseController?.updateTable(table: 'user_tables', // update table if match was found
+    await App.supaBaseController.updateTable(table: 'user_tables', // update table if match was found
         tableName: tableName,
         columns: newTableValues,
         context: context
@@ -76,7 +76,7 @@ class EditRowFillDialog extends StatelessWidget {
                           children: [
                             const SizedBox(height: 5),
                             SampleTextField(
-                                labelText: '${(tableValues[0] as Map).keys.elementAt(index)} value:',
+                                labelText: '${(tableValues[0]).keys.elementAt(index)} value:',
                                 textColor: whiteTextColor,
                                 hideText: false,
                                 textController: textControllers[index-1],

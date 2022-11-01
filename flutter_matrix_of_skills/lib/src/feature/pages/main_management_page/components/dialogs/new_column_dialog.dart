@@ -12,13 +12,13 @@ import '../../../../components/sample_text_field.dart';
 
 class NewColumnDialog extends StatelessWidget {
   List<TextEditingController> textControllers = [];
-  List<dynamic> tableValues;
+  List<Map<String, dynamic>> tableValues;
   String? tableName;
   final TableController tableController;
 
-  Future<bool> addNewColumn({required List<dynamic> tableValues, required context, required TextEditingController columnNameTextController, required String? tableName, required List<TextEditingController> textControllers, required TextEditingController defaultValueTextController}) async {
+  Future<bool> addNewColumn({required List<Map<String, dynamic>> tableValues, required context, required TextEditingController columnNameTextController, required String? tableName, required List<TextEditingController> textControllers, required TextEditingController defaultValueTextController}) async {
     bool columnAlreadyExist = false;
-    if((tableValues[0] as Map).containsKey(columnNameTextController.text) == true){columnAlreadyExist = true;} // if such column name is already defined
+    if((tableValues[0]).containsKey(columnNameTextController.text) == true){columnAlreadyExist = true;} // if such column name is already defined
 
     if(columnNameTextController.text.isEmpty){
       Navigator.pop(context);
@@ -40,7 +40,7 @@ class NewColumnDialog extends StatelessWidget {
           tableValues[i][columnNameTextController.text] = defaultValueTextController.text;
         }
       }
-      await App.supaBaseController?.updateTable(table: 'user_tables', // update table if match was found
+      await App.supaBaseController.updateTable(table: 'user_tables', // update table if match was found
           tableName: tableName,
           columns: tableValues,
           context: context

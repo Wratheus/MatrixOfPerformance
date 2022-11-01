@@ -21,7 +21,7 @@ class GroupTableView extends StatelessWidget {
             controller: ScrollController(),
             scrollDirection: Axis.horizontal,
             child: SampleStyleContainer(
-              width: (state.tableData[0] as Map).length < 8  // if there is more than 8 columns increase width
+              width: (state.tableData[0]).length < 8  // if there is more than 8 columns increase width
                   ?
                     MediaQuery.of(context).size.width * 0.795
                   :
@@ -73,7 +73,7 @@ class GroupTableView extends StatelessWidget {
             controller: ScrollController(),
             scrollDirection: Axis.horizontal,
             child: SampleStyleContainer(
-              width: (state.tableData[0] as Map).length < 6  // if there is more than 6 columns increase width
+              width: (state.tableData[0]).length < 6  // if there is more than 6 columns increase width
                   ?
               MediaQuery.of(context).size.width * 0.97
                   :

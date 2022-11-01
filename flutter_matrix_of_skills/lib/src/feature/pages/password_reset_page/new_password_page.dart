@@ -37,7 +37,7 @@ class NewPasswordPage extends StatelessWidget {
             const SizedBox(height: 15,),
             ElevatedButton(
               onPressed: () async =>
-              await App.supaBaseController?.newPasswordCommit(
+              await App.supaBaseController.newPasswordCommit(
                 newPassword: _textControllerPass.text, context: context
               ),
               child: Text('Commit', style: whiteTextColor),

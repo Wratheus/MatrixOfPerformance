@@ -18,14 +18,14 @@ class NewTableFillDialog extends StatelessWidget {
   void fillNewTableAction({required context, required List<TextEditingController> textControllers, required String tableName}) async {
     Map<String, dynamic> columnNames = {};
     columnNames['id'] = 0;
-    columnNames['name'] = null;
+    columnNames['name'] = 'placeholder';
     for(int i = 0; i < textControllers.length; i++) {
       if(textControllers[i].text.isNotEmpty) {
-        columnNames[textControllers[i].text] = null;
+        columnNames[textControllers[i].text] = 0;
       }
     }
 
-    await App.supaBaseController?.insertNewTable(table: 'user_tables', tableName: tableName, columns: [columnNames], context: context);
+    await App.supaBaseController.insertNewTable(table: 'user_tables', tableName: tableName, columns: [columnNames], context: context);
     await tableController.update(tableName: tableName, selectedValue: tableName);
     Navigator.pop(context);
     AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: 'Done', tittleStr: 'Success'));

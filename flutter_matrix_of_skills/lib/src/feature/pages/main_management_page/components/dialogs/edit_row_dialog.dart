@@ -12,12 +12,12 @@ import '../../../../components/dialogs/sample_error_dialog.dart';
 class EditRowDialog extends StatelessWidget {
 
   final TableController tableController;
-  List<dynamic> tableValues;
+  List<Map<String, dynamic>> tableValues;
   String? tableName;
   int? id;
 
 
-  Future<bool> editRowAction({required String rowID, required context, required List<dynamic> tableValues, required String tableName}) async {
+  Future<bool> editRowAction({required String rowID, required context, required List<Map<String, dynamic>> tableValues, required String tableName}) async {
     Map<String, dynamic>? match;
     try{
       id = int.parse(rowID);

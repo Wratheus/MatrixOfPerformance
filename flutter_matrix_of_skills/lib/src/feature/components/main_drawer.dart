@@ -57,8 +57,8 @@ class NavigationDrawer extends StatelessWidget {
                 style: whiteTextColor,
               ),
                 onTap: () async => {
-                await App.supaBaseController?.signOut(context: context),
-                  if(App.supaBaseController?.client.auth.currentUser == null){
+                await App.supaBaseController.signOut(context: context),
+                  if(App.supaBaseController.client.auth.currentUser == null){
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()))
                   },
               }

@@ -12,18 +12,18 @@ import '../../../../components/dialogs/sample_error_dialog.dart';
 class NewRowDialog extends StatelessWidget {
 
   final TableController tableController;
-  List<dynamic> tableValues;
+  List<Map<String, dynamic>> tableValues;
   String? tableName;
 
 
   void newRowAction({required List<TextEditingController> textControllers, required Map<String, dynamic> newRow, required context}) async {
-    newRow[(tableValues.last as Map).keys.elementAt(0)] = (tableValues.last as Map).values.elementAt(0) + 1; // increment id and save as string
+    newRow[(tableValues.last).keys.elementAt(0)] = (tableValues.last).values.elementAt(0) + 1; // increment id and save as string
     for(int i = 0; i < textControllers.length; i++) {
       if(textControllers[i].text.isNotEmpty) {
         if(i == 0) {
-          newRow[(tableValues[0] as Map).keys.elementAt(i+1)] = textControllers[i].text;
+          newRow[(tableValues[0]).keys.elementAt(i+1)] = textControllers[i].text;
         }else if(isDigit(textControllers[i].text)){
-          newRow[(tableValues[0] as Map).keys.elementAt(i+1)] = int.parse(textControllers[i].text);
+          newRow[(tableValues[0]).keys.elementAt(i+1)] = int.parse(textControllers[i].text);
         }else{
           Navigator.pop(context);
           AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Skill values is not integer.')); // default value is not int
@@ -36,7 +36,7 @@ class NewRowDialog extends StatelessWidget {
       }
     }
     tableValues.add(newRow);
-    await App.supaBaseController?.updateTable(table: 'user_tables',
+    await App.supaBaseController.updateTable(table: 'user_tables',
         tableName: tableName,
         columns: tableValues,
         context: context
@@ -73,7 +73,7 @@ class NewRowDialog extends StatelessWidget {
                           children: [
                             const SizedBox(height: 5),
                             SampleTextField(
-                                labelText: '${(tableValues[0] as Map).keys.elementAt(index)} value:',
+                                labelText: '${(tableValues[0]).keys.elementAt(index)} value:',
                                 textColor: whiteTextColor,
                                 hideText: false,
                                 textController: textControllers[index-1],
