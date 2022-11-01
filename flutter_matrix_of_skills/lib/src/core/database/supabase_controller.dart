@@ -94,12 +94,16 @@ class  SupaBaseController {
           child: SampleErrorDialog(errorMessage: error.message.toString()));
       return false; // request error, error != null
     }
+    AppUI.showMaterialModalDialog(context: context,
+        child: SampleAlertDialog(alertMessageStr: 'Restore link has been send,\nCheck your e-mail box.', tittleStr: 'Success',));
     return true;
   }
  // password recovery set Auth
-  Future<bool> passwordResetSetSession({required String token}) async {
+  Future<bool> passwordResetSetSession({required String token, context}) async {
     App.supaBaseController?.client.auth.setAuth(token);
     if(App.supaBaseController?.client.auth.session() == null){
+      AppUI.showMaterialModalDialog(context: context,
+          child: SampleErrorDialog(errorMessage: 'Something went wrong: session dispatched, try again!'));
       return false; // Session == null
     }else{
       return true;
@@ -119,6 +123,8 @@ class  SupaBaseController {
     } else {
       signOut(context: context);
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>LoginPage()));
+      AppUI.showMaterialModalDialog(context: context,
+          child: SampleAlertDialog(alertMessageStr: 'Your password has been changed!', tittleStr: 'Success',));
       return true; // body complete normally
     }
   }

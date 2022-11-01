@@ -10,7 +10,7 @@ import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/compo
 import '../../../../core/constants/constants.dart';
 import '../../../cubit/user_data/user_data_cubit.dart';
 import '../../main_management_page/components/group_table_view_controller.dart';
-import '../components/widgets/charts/radar_chart.dart';
+import '../components/widgets/charts/group_radar_chart.dart';
 
 class GraphViewPageLayout extends StatelessWidget {
   final TableController tableController = TableController();
@@ -37,12 +37,12 @@ class GraphViewPageLayout extends StatelessWidget {
                   children: [
                     GraphManagementTab(tableController: tableController, data: (state).tableData.sublist(1)),
                     IntrinsicHeight(
-                      child: Container(
+                      child: SizedBox(
                         height: MediaQuery.of(context).size.height * 0.45,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            SampleRadarChart(data: (state).tableData.sublist(1)),
+                            GroupRadarChart(data: (state).tableData.sublist(1)),
                             GroupColumnChart(data: (state).tableData.sublist(1)),
                           ]
                         ),

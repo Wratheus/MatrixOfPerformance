@@ -1,15 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 
-class SampleRadarChart extends StatelessWidget {
+class GroupRadarChart extends StatelessWidget {
   final List<dynamic> data;
   final double angleValue = 0.0;
 
-  const SampleRadarChart({super.key, required this.data});
+  const GroupRadarChart({super.key, required this.data});
   @override
   Widget build(BuildContext context) {
     return Padding(
