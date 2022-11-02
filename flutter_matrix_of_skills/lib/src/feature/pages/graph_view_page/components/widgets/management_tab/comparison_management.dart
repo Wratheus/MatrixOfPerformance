@@ -56,7 +56,7 @@ class _ComparisonManagementState extends State<ComparisonManagement> {
 
     @override
   Widget build(BuildContext context) {
-    SampleDropDownMenu nameDropDown = SampleDropDownMenu(values: widget.dataNameList);
+    SampleDropDownMenu nameDropDown = SampleDropDownMenu(values: widget.dataNameList, isExpanded: false);
     if(widget.selectedValueDropDown.isNotEmpty) nameDropDown.selectedValue = widget.selectedValueDropDown;
     return SizedBox(
       child: Column(

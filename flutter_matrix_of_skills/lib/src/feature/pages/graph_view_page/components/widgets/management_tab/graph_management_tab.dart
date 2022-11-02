@@ -28,7 +28,7 @@ class GraphManagementTab extends StatelessWidget {
                       child: Column(
                         children: [
                           Text("Selected table: ", style: whiteTextColor),
-                          GroupDropDownMenu(tableController: tableController),
+                          GroupDropDownMenu(tableController: tableController, isExpanded: false),
                         ],
                       ),
                     ),

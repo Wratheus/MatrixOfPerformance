@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
+import 'package:flutter_matrix_of_skills/src/feature/components/sample_drop_down_menu.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_table_view_controller.dart';
 
 import '../../../../../core/classes/app.dart';
@@ -15,31 +16,16 @@ class EditColumnDialog extends StatelessWidget {
   final TableController tableController;
   List<Map<String, dynamic>> tableValues;
   String? tableName;
-  List<String> restrictedValues = ['id', 'name', ''];
 
-  Future<bool> editColumn({required List<Map<String, dynamic>> tableValues, required context, required TextEditingController columnNameTextController, required TextEditingController newColumnNameTextController, required String? tableName}) async {
-    bool columnExist = false;
-    bool newColumnExist = false;
-    if((tableValues[0]).containsKey(columnNameTextController.text) == true){columnExist = true;} // check if column does already defined in table
-    if((tableValues[0]).containsKey(newColumnNameTextController.text) == true){columnExist = true;} // check if new column does already defined in table
-    if(restrictedValues.contains(newColumnNameTextController.text) || restrictedValues.contains(columnNameTextController.text)){
+  Future<bool> editColumn({required List<Map<String, dynamic>> tableValues, required context, required String columnName, required TextEditingController newColumnNameTextController, required String? tableName}) async {
+    if((tableValues[0]).containsKey(newColumnNameTextController.text) == true){// check if new column does already defined in table
       Navigator.pop(context);
-      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Removing id or leaving blank space in column name restricted.')); // wrong values
-      return false;
-    }
-   if(columnExist == false){
-      Navigator.pop(context);
-      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Such column name does not exist.')); // such column does not exist
-      return false;
-    }else if(newColumnExist == true){
-      Navigator.pop(context);
-      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: "New column name rejected: it's already defined in table")); // such column does not exist
+      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: "New skill name rejected: it's already defined in table")); // such column does not exist
       return false;
     }else{
-      // TODO: fix order replacement, check dart functional
       for(int i = 0; i < tableValues.length; i++){
-        var currentKeyValueSave = tableValues[i][columnNameTextController.text]; // save old value
-        (tableValues[i]).remove(columnNameTextController.text); // remove old key
+        var currentKeyValueSave = tableValues[i][columnName]; // save old value
+        (tableValues[i]).remove(columnName); // remove old key
         (tableValues[i])[newColumnNameTextController.text] = currentKeyValueSave; // add old value to new key
       }
 
@@ -59,30 +45,32 @@ class EditColumnDialog extends StatelessWidget {
   EditColumnDialog({Key? key, required context, required this.tableValues, required this.tableName, required this.tableController}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    TextEditingController columnNameTextController = TextEditingController();
+    SampleDropDownMenu dropDownMenu = SampleDropDownMenu(values: tableValues[0].keys.toList().sublist(2), isExpanded: false);
     TextEditingController newColumnNameTextController = TextEditingController();
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
-        title: Text("Rename column 🧵", style: whiteTextColor),
-        content: SizedBox(
-          height: 150,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 5),
-                SampleTextField(textController: columnNameTextController, labelText: "Old column name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                const SizedBox(height: 10),
-                SampleTextField(textController: newColumnNameTextController, labelText: "New column name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-              ],
-            ),
+        title: Text("Rename skill 🧵", style: whiteTextColor),
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(child: dropDownMenu),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(child: SampleTextField(textController: newColumnNameTextController, labelText: "New skill name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250)),
+                ],
+              ),
+            ],
           ),
         ),
         actions: [
           TextButton(
-            onPressed: () {editColumn(tableName: tableName, tableValues: tableValues, columnNameTextController: columnNameTextController, newColumnNameTextController: newColumnNameTextController, context: context);},
+            onPressed: () {editColumn(tableName: tableName, tableValues: tableValues, columnName: dropDownMenu.selectedValue, newColumnNameTextController: newColumnNameTextController, context: context);},
             child: Text("OK", style: whiteTextColor),
           ),
-          const SizedBox(height: 10),
           TextButton(
             child: Text("Cancel", style: whiteTextColor),
             onPressed: () => {

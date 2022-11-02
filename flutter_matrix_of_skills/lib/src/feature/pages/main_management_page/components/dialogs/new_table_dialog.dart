@@ -26,10 +26,10 @@ class NewTableDialog extends StatelessWidget {
 
     if(tableNameTextController.text.isEmpty){
       Navigator.pop(context);
-      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table name or columns values provided.')); // wrong values
+      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table name or skill values provided.')); // wrong values
     } else if(int.parse(columnAmountTextController.text) >= 50){
       Navigator.pop(context);// hard cap
-      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'wrong columns value.')); // wrong values
+      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'wrong skill value.')); // wrong values
     } else if(tableAlreadyExist == true){
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Table with such name is already exist.')); // wrong values
@@ -51,17 +51,13 @@ class NewTableDialog extends StatelessWidget {
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
         title: Text("Create new table 🧵", style: whiteTextColor),
-        content: SizedBox(
-          height: 150,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 5),
-                SampleTextField(textController: tableNameTextController, labelText: "Table name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                const SizedBox(height: 10),
-                SampleTextField(textController: columnAmountTextController, labelText: "Amount of skills", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250,  textInputFormatters: [FilteringTextInputFormatter.digitsOnly], inputType: TextInputType.number,)
-              ],
-            ),
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              SampleTextField(textController: tableNameTextController, labelText: "Table name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+              const SizedBox(height: 10),
+              SampleTextField(textController: columnAmountTextController, labelText: "Amount of skills", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250,  textInputFormatters: [FilteringTextInputFormatter.digitsOnly], inputType: TextInputType.number,)
+            ],
           ),
         ),
         actions: [

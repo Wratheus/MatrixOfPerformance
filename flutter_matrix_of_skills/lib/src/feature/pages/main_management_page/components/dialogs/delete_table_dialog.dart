@@ -29,15 +29,11 @@ class DeleteTableDialog extends StatelessWidget {
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
         title: Text('Delete table "$tableName"? 🥺', style: whiteTextColor),
-
-        content: SizedBox(
-          height: 50,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Center(child: Text("Are you sure you want to delete $tableName", style: whiteTextColor)),
-              ],
-            ),
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(child: Text("Are you sure you want to delete $tableName", style: whiteTextColor)),
+            ],
           ),
         ),
         actions: [
@@ -45,7 +41,6 @@ class DeleteTableDialog extends StatelessWidget {
             child: Text("OK", style: whiteTextColor),
             onPressed: () {deleteTableAction(context: context, tableName: tableName);}
           ),
-          const SizedBox(height: 10),
           TextButton(
             child: Text("Cancel", style: whiteTextColor),
             onPressed: () =>

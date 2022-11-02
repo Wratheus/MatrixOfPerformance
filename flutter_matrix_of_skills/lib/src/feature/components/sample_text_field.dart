@@ -17,30 +17,38 @@ class SampleTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      child: TextField(
-        keyboardType: inputType,
-        inputFormatters: textInputFormatters,
-        cursorColor: MyColors.mainBeige,
-        obscureText: hideText,
-        controller: textController,
-        textAlign: TextAlign.start,
-        textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
-            iconColor: MyColors.mainBeige,
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: MyColors.mainBeige, width: 0.0),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: MyColors.mainBeige, width: 0.0),
-            ),
-            border: const OutlineInputBorder(),
-            labelText: labelText,
-            labelStyle: whiteTextColor,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: SizedBox(
+        width: width,
+        child: TextField(
+          keyboardType: inputType,
+          inputFormatters: textInputFormatters,
+          cursorColor: MyColors.mainBeige,
+          obscureText: hideText,
+          controller: textController,
+          textAlign: TextAlign.start,
+          textAlignVertical: TextAlignVertical.center,
+            decoration: InputDecoration(
+              iconColor: MyColors.mainBeige,
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: MyColors.mainBeige, width: 2.0),
+                borderRadius: BorderRadius.circular(8.0)
+              ),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: MyColors.mainBeige, width: 2.0),
+                  borderRadius: BorderRadius.circular(8.0)
+              ),
+              border: OutlineInputBorder(
+                  borderSide: const BorderSide(color: MyColors.mainBeige, width: 2.0),
+                  borderRadius: BorderRadius.circular(8.0)
+              ),
+              labelText: labelText,
+              labelStyle: whiteTextColor,
 
-          ),
-        style: textColor,
+            ),
+          style: textColor,
+        ),
       ),
     );
   }

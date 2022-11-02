@@ -55,15 +55,11 @@ class EditRowDialog extends StatelessWidget {
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
         title: Text("Edit row 🧵", style: whiteTextColor),
-        content: SizedBox(
-          height: 80,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 5),
-                SampleTextField(textController: textController, labelText: "Enter row ID", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-              ],
-            ),
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              SampleTextField(textController: textController, labelText: "Enter row ID", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+            ],
           ),
         ),
         actions: [

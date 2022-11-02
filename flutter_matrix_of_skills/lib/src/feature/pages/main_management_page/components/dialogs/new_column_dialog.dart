@@ -22,7 +22,7 @@ class NewColumnDialog extends StatelessWidget {
 
     if(columnNameTextController.text.isEmpty){
       Navigator.pop(context);
-      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Wrong column name value.')); // wrong values
+      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Wrong skill value.')); // wrong values
       return false;
     } else if(!isDigit(defaultValueTextController.text)){
       Navigator.pop(context);
@@ -30,7 +30,7 @@ class NewColumnDialog extends StatelessWidget {
       return false;
     }else if(columnAlreadyExist == true){
       Navigator.pop(context);
-      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Such column name is already exist.')); // wrong values
+      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Such skill is already exist.')); // wrong values
       return false;
     }else{
       for(int i = 0; i < textControllers.length; i++){
@@ -64,11 +64,9 @@ class NewColumnDialog extends StatelessWidget {
         content: SingleChildScrollView(
           child: Column(
             children: [
+              SampleTextField(textController: columnNameTextController, labelText: "New skill name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
               const SizedBox(height: 5),
-              SampleTextField(textController: columnNameTextController, labelText: "Skill name", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-              const SizedBox(height: 5),
-              SampleTextField(textController: defaultColumnValue, labelText: "default value", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-              const SizedBox(height: 10),
+              SampleTextField(textController: defaultColumnValue, labelText: "default skill value", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
               SizedBox(
                 width: 250,
                 height: 400,
@@ -83,9 +81,9 @@ class NewColumnDialog extends StatelessWidget {
                         textControllers.add(TextEditingController());
                         return Column(
                           children: [
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             SampleTextField(
-                                labelText: 'id $index value:',
+                                labelText: "${tableValues[index]['name']} value:",
                                 textColor: whiteTextColor,
                                 hideText: false,
                                 textController: textControllers[index],

@@ -71,7 +71,7 @@ class EditRowFillDialog extends StatelessWidget {
                       if(index == 0) {
                         return const SizedBox();
                       }else{
-                        textControllers.add(TextEditingController());
+                        textControllers.add(TextEditingController(text: (tableValues[rowID]).values.elementAt(index).toString()));
                         return Column(
                           children: [
                             const SizedBox(height: 5),
