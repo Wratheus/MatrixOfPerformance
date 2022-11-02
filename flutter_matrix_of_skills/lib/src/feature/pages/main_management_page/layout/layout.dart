@@ -18,13 +18,16 @@ class TableManagementPageLayout extends StatelessWidget {
         backgroundColor: MyColors.mainCanvas,
         body: SingleChildScrollView(
           controller: ScrollController(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 5),
-              GroupManagementTab(tableController: tableController),
-              const GroupTableView(),
-            ]
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 5),
+                GroupManagementTab(tableController: tableController),
+                const GroupTableView(),
+              ]
+            ),
           ),
         ),
       ),

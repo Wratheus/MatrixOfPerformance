@@ -16,7 +16,7 @@ class SampleElevatedButton extends StatelessWidget {
         backgroundColor: MyColors.mainOuterColor, //button's fill color
         textStyle: whiteTextColor, //specify the button's text TextStyle
         padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 8.0, left: 8.0), //specify the button's Padding
-        minimumSize: const Size(150, 40), //specify the button's first: width and second: height
+        minimumSize: const Size(100, 40), //specify the button's first: width and second: height
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)), // set the buttons shape. Make its birders rounded etc
         enabledMouseCursor: MouseCursor.defer, //used to construct ButtonStyle.mouseCursor
         disabledMouseCursor: MouseCursor.uncontrolled, //used to construct ButtonStyle.mouseCursor

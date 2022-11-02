@@ -17,55 +17,47 @@ class GroupTableView extends StatelessWidget {
         if ((state as UserDataLoadedState).tableData.isEmpty == false) {
           return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
           // Desktop layout
-          SingleChildScrollView(
-            controller: ScrollController(),
-            scrollDirection: Axis.horizontal,
-            child: SampleStyleContainer(
-              width: (state.tableData[0]).length < 8  // if there is more than 8 columns increase width
-                  ?
-                    MediaQuery.of(context).size.width * 0.795
-                  :
-                    (150 * (state.tableData[0].length)).toDouble(),
-              child: ListView.builder(
-                  controller: ScrollController(),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: (state).tableData.length,
-                  itemBuilder: (context, row) {
-                    if(row == 0) {
-                      return SampleBorderContainerCell(
-                          color: MyColors.mainInnerColor,
-                          child: GridView.builder(
-                              controller: ScrollController(),
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: (state).tableData[row].length,
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  childAspectRatio: 2,
-                                  crossAxisCount: (state).tableData[row].length
-                              ),
-                              itemBuilder: (context, column) {
-                                return Center(child: Text((state).tableData[row].keys.elementAt(column).toString(), style: whiteTextColor));
-                              }));
-                    }
-                    // row--; hide first row
+          SampleStyleContainer(
+            width: MediaQuery.of(context).size.width * 1,
+            child: ListView.builder(
+                controller: ScrollController(),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: (state).tableData.length,
+                itemBuilder: (context, row) {
+                  if(row == 0) {
                     return SampleBorderContainerCell(
-                      color: MyColors.mainOuterColor,
-                      child: GridView.builder(
-                          controller: ScrollController(),
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: (state).tableData[row].length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 2,
-                              crossAxisCount: (state).tableData[row].length
-                          ),
-                          itemBuilder: (context, column) {
-                            return Center(child: Text((state).tableData[row].values.elementAt(column).toString(), style: whiteTextColor));
-                          }),
-                    );
+                        color: MyColors.mainInnerColor,
+                        child: GridView.builder(
+                            controller: ScrollController(),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: (state).tableData[row].length,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 2,
+                                crossAxisCount: (state).tableData[row].length
+                            ),
+                            itemBuilder: (context, column) {
+                              return Center(child: Text((state).tableData[row].keys.elementAt(column).toString(), style: whiteTextColor));
+                            }));
                   }
-              ),
+                  // row--; hide first row
+                  return SampleBorderContainerCell(
+                    color: MyColors.mainOuterColor,
+                    child: GridView.builder(
+                        controller: ScrollController(),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: (state).tableData[row].length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 2,
+                            crossAxisCount: (state).tableData[row].length
+                        ),
+                        itemBuilder: (context, column) {
+                          return Center(child: Text((state).tableData[row].values.elementAt(column).toString(), style: whiteTextColor));
+                        }),
+                  );
+                }
             ),
           ) :
           // Mobile Layout

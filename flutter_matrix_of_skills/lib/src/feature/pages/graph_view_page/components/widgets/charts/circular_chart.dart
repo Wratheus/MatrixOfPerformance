@@ -19,8 +19,8 @@ class CircularChart extends StatelessWidget {
             return Row(
               children: [
                 SizedBox(
-                  height: (data[0].keys.toList().length > 6) ? (MediaQuery.of(context).size.width * 0.395) : (MediaQuery.of(context).size.width * 0.195),
-                  width: (data[0].keys.toList().length > 6) ? (MediaQuery.of(context).size.width * 0.395) : (MediaQuery.of(context).size.width * 0.195),
+                  height: (data[0].keys.toList().length > 6) ? (MediaQuery.of(context).size.width * 0.5) : (MediaQuery.of(context).size.width * 0.195),
+                  width: (data[0].keys.toList().length > 6) ? (MediaQuery.of(context).size.width * 0.5) : (MediaQuery.of(context).size.width * 0.195),
                   child: SampleStyleContainer(
                     child: SfCircularChart(
                       title: ChartTitle(

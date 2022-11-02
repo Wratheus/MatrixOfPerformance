@@ -3,13 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/registration_page/registration_page.dart';
-import 'package:flutter_matrix_of_skills/src/feature/responsive/mobile_body.dart';
 
 import '../../../core/classes/app.dart';
 import '../../components/sample_appbar.dart';
 import '../../components/sample_elevated_button.dart';
 import '../../components/sample_text_field.dart';
-import '../../responsive/desktop_body.dart';
 import '../../responsive/responsive_layout.dart';
 import '../password_reset_page/password_reset_page.dart';
 
@@ -20,8 +18,6 @@ class LoginPage extends StatelessWidget {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) =>
             const ResponsiveLayout(
-                desktopBody: DesktopScaffold(),
-                mobileBody: MobileScaffold()
             )
           )
       );

@@ -6,8 +6,6 @@ import 'package:flutter_matrix_of_skills/src/core/services/custom_scroll_behavio
 
 import 'src/core/services/app_theme.dart';
 import 'src/feature/pages/login_page/login_page.dart';
-import 'src/feature/responsive/desktop_body.dart';
-import 'src/feature/responsive/mobile_body.dart';
 import 'src/feature/responsive/responsive_layout.dart';
 
 void main() async {
@@ -29,10 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Matrix of performance App',
       theme: AppTheme.themeData,
       home: (App.session == true) ?
-      const ResponsiveLayout(
-          desktopBody: DesktopScaffold(),
-          mobileBody: MobileScaffold()
-      ) : LoginPage()
+      const ResponsiveLayout() : LoginPage()
     );
   }
 }

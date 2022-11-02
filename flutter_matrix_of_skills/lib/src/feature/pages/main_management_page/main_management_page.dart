@@ -5,8 +5,6 @@ import 'package:flutter_matrix_of_skills/src/feature/components/dialogs/sample_e
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_loading_page.dart';
 
 import '../../cubit/user_data/user_data_cubit.dart';
-import '../../responsive/desktop_body.dart';
-import '../../responsive/mobile_body.dart';
 import '../../responsive/responsive_layout.dart';
 
 import 'layout/layout.dart';
@@ -31,9 +29,7 @@ class TableManagementPage extends StatelessWidget {
               return TableManagementPageLayout();
             }
             if (state is UserDataErrorState) {
-              return SampleErrorDialog(errorMessage: "Main management page\nCubit error state", route: const ResponsiveLayout(
-                  desktopBody: DesktopScaffold(),
-                  mobileBody: MobileScaffold()));
+              return SampleErrorDialog(errorMessage: "Main management page\nCubit error state", route: const ResponsiveLayout());
             }
             return Container();
           }

@@ -130,7 +130,7 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
       child: InkWell(
         onTap: onTap,
         child: SampleStyleContainer(
-            color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainHighlightedBlue,
+            color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
             width: 54, height: 54,
             child: icon
         ),
@@ -144,7 +144,7 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
         child: Row(
           children: [
             SampleStyleContainer(
-                color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainHighlightedBlue,
+                color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
                 width: 54,
                 height: 54,
                 child: icon),

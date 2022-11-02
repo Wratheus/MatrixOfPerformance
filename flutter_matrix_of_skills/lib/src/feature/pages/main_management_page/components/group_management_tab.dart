@@ -36,144 +36,44 @@ class GroupManagementTab extends StatelessWidget {
 
       return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
       // Desktop Layout
-      Column(
-        children: [
-          IntrinsicHeight(
+      SizedBox(
+          width: MediaQuery.of(context).size.width * 1,
+          child: IntrinsicHeight(
             child: Row(
-              children: [
-                Expanded(
-                  child: SampleStyleContainer(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text("Select: ", style: whiteTextColor),
-                            Expanded(child: GroupDropDownMenu(tableController: tableController, isExpanded: true)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: SampleElevatedButton(
-                                  onPressed: ()=>{
-                                  AppUI.showMaterialModalDialog(context: context, child: NewTableDialog(context: context, tableValues: (state).values, tableController: tableController)),
-                                  },
-                                  child: Text("New", style: whiteTextColor)),
-                            ),
-                            const SizedBox(width: 5),
-                            Expanded(
-                              child: SampleElevatedButton(
-                                  onPressed: ()=>{
-                                    (tableController.selectedValue != null) ?
-                                    AppUI.showMaterialModalDialog(context: context, child: DeleteTableDialog(tableName: tableController.selectedValue!, context: context, tableController: tableController))
-                                        :
-                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
-                                  },
-                                  child: Text("Del", style: whiteTextColor)),
-                            ),
-                            const SizedBox(width: 5),
-                            Expanded(
-                              child: SampleElevatedButton(
-                                  onPressed: ()=>{
-                                    AppUI.showMaterialModalDialog(context: context, child: CopyTableDialog(context: context, tableController: tableController, allUserTables: state.allUserTables, values: values))
-                                  },
-                                  child: Text("Copy", style: whiteTextColor)),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: SampleStyleContainer(
+                children: [
+                  Expanded(
                     child: Column(
                       children: <Widget>[
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: SampleElevatedButton(
+                        const Spacer(),
+                        SampleStyleContainer(
+                          color: Colors.transparent,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text("Table ", style: whiteTextColor),
+                              const SizedBox(width: 5),
+                              Expanded(child: GroupDropDownMenu(tableController: tableController, isExpanded: true, backgroundColor: Colors.transparent),)
+                            ],
+                          ),
+                        ),
+                        const Spacer(),
+                        SampleStyleContainer(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text("Rows ", style: whiteTextColor),
+                              const SizedBox(width: 5),
+                              SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: NewRowDialog(tableName: tableController.selectedValue, context: context, tableValues: state.tableData, tableController: tableController))
-                                    :
+                                        :
                                     AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                                   },
                                   child: Text("Add person", style: whiteTextColor)
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: SampleElevatedButton(
-                                  onPressed: ()=>{
-                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
-                                    AppUI.showMaterialModalDialog(context: context, child: NewColumnDialog(tableName: tableController.selectedValue, context: context, tableValues: state.tableData, tableController: tableController))
-                                        :
-                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
-                                  },
-                                  child: Text("Add skill", style: whiteTextColor)
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: SampleStyleContainer(
-                    child: Column(
-                      children: <Widget>[
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: SampleElevatedButton(
-                                  onPressed: ()=>{
-                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
-                                    AppUI.showMaterialModalDialog(context: context, child: DeleteRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
-                                        :
-                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
-                                  },
-                                  child: Text("Delete person", style: whiteTextColor)
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: SampleElevatedButton(
-                                  onPressed: ()=>{
-                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
-                                    AppUI.showMaterialModalDialog(context: context, child: DeleteColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
-                                        :
-                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
-                                  },
-                                  child: Text("Delete skill", style: whiteTextColor)
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: SampleStyleContainer(
-                    child: Column(
-                      children: <Widget>[
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: SampleElevatedButton(
+                              const SizedBox(width: 5),
+                              SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: EditRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
@@ -182,14 +82,40 @@ class GroupManagementTab extends StatelessWidget {
                                   },
                                   child: Text("Edit person", style: whiteTextColor)
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: SampleElevatedButton(
+                              const SizedBox(width: 5),
+                              SampleElevatedButton(
+                                  onPressed: ()=>{
+                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                                    AppUI.showMaterialModalDialog(context: context, child: DeleteRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
+                                        :
+                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                                  },
+                                  child: Text("Delete person", style: whiteTextColor)
+                              ),
+                              const SizedBox(width: 40),
+                              Text("Skills ", style: whiteTextColor),
+                              const SizedBox(width: 5),
+                              SampleElevatedButton(
+                                  onPressed: ()=>{
+                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                                    AppUI.showMaterialModalDialog(context: context, child: NewColumnDialog(tableName: tableController.selectedValue, context: context, tableValues: state.tableData, tableController: tableController))
+                                        :
+                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                                  },
+                                  child: Text("Add skill", style: whiteTextColor)
+                              ),
+                              const SizedBox(width: 5),
+                              SampleElevatedButton(
+                                  onPressed: ()=>{
+                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                                    AppUI.showMaterialModalDialog(context: context, child: DeleteColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
+                                        :
+                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                                  },
+                                  child: Text("Delete skill", style: whiteTextColor)
+                              ),
+                              const SizedBox(width: 5),
+                              SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: EditColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
@@ -198,18 +124,42 @@ class GroupManagementTab extends StatelessWidget {
                                   },
                                   child: Text("Edit skill", style: whiteTextColor)
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
+                  SampleStyleContainer(
+                    child: Column(
+                      children: [
+                        SampleElevatedButton(
+                            onPressed: ()=>{
+                              AppUI.showMaterialModalDialog(context: context, child: NewTableDialog(context: context, tableValues: (state).values, tableController: tableController)),
+                            },
+                            child: Text("New Table", style: whiteTextColor)),
+                        const SizedBox(width: 5),
+                        SampleElevatedButton(
+                            onPressed: ()=>{
+                              (tableController.selectedValue != null) ?
+                              AppUI.showMaterialModalDialog(context: context, child: DeleteTableDialog(tableName: tableController.selectedValue!, context: context, tableController: tableController))
+                                  :
+                              AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                            },
+                            child: Text("Del Table", style: whiteTextColor)),
+                        const SizedBox(width: 5),
+                        SampleElevatedButton(
+                            onPressed: ()=>{
+                              AppUI.showMaterialModalDialog(context: context, child: CopyTableDialog(context: context, tableController: tableController, allUserTables: state.allUserTables, values: values))
+                            },
+                            child: Text("Copy Table", style: whiteTextColor))
+                      ],
+                    ),
+                  ),
+                ]),
           ),
-        ],
-      ) :
+      )
+      :
       // Mobile Layout
       Column(
         children: [

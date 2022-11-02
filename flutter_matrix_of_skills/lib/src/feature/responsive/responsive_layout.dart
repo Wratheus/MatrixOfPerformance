@@ -1,24 +1,23 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_matrix_of_skills/src/feature/responsive/desktop_body.dart';
+import 'package:flutter_matrix_of_skills/src/feature/responsive/mobile_body.dart';
 
 class ResponsiveLayout extends StatelessWidget {
-  final Widget mobileBody;
-  final Widget desktopBody;
 
   const ResponsiveLayout({Key? key,
-    required this.mobileBody,
-    required this.desktopBody,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth < 1200) {
-          return mobileBody;
+        if (!Platform.isWindows) {
+          return const MobileScaffold();
         } else {
-          return desktopBody;
+          return const DesktopScaffold();
         }
       },
     );

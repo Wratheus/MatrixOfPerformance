@@ -5,7 +5,6 @@ import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/compo
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/charts/col_chart.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/charts/group_col_chart.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/charts/skillbox_chart.dart';
-import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/charts/pyramid_chart.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../cubit/user_data/user_data_cubit.dart';
@@ -51,9 +50,8 @@ class GraphViewPageLayout extends StatelessWidget {
                     child: Row(
                       children: [
                         ColumnChart(data: (state).tableData.sublist(1)),
-                        SkillBoxChart(data: (state).tableData.sublist(1)),
+                        ((state).tableData.sublist(1)[0].keys.length > 6) ? Container() :  SkillBoxChart(data: (state).tableData.sublist(1)),
                         CircularChart(data: (state).tableData.sublist(1)),
-                        PyramidChart(data: (state).tableData.sublist(1)),
                       ],
                     ),
                   ),
