@@ -9,10 +9,15 @@ class MyColors {
   static const Color customDeepPurple = Color(0xff1d1b31);
 
   static const Color mainBeige = Color(0xfff3f6ff);
+  static const Color mainHighlightedBlue = Color(0xff45546a);
+  static const Color mainCanvas = Color(0xff111419);
+  static const Color mainOuterColor = Color(0xff25282f);
+  static const Color mainInnerColor = Color(0xff21252a);
+}
+
+// old colors
+/*  static const Color mainBeige = Color(0xfff3f6ff);
   static const Color mainHighlightedBlue = Color(0xff7080b3);
   static const Color mainCanvas = Color(0xff222433);
   static const Color mainOuterColor = Color(0xff333549);
-  static const Color mainInnerColor = Color(0xff2c2e41);
-
-}
-
+  static const Color mainInnerColor = Color(0xff2c2e41);*/

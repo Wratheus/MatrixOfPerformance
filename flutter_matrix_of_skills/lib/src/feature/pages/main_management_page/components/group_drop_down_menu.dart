@@ -42,7 +42,7 @@ class _GroupDropDownMenuState extends State<GroupDropDownMenu> {
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: MyColors.mainOuterColor,
-                  border: Border.all(color: MyColors.mainBeige.withOpacity(0.7), width:2), //border of dropdown button
+                  border: Border.all(color: MyColors.mainBeige.withOpacity(0.4), width:2), //border of dropdown button
                   borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(

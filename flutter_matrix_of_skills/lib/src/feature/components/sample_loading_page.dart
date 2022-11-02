@@ -9,7 +9,9 @@ class SampleLoadingPage extends StatelessWidget {
     return const Scaffold(
         backgroundColor: MyColors.mainCanvas,
         body: Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            color: MyColors.mainBeige,
+          ),
         )
     );
   }

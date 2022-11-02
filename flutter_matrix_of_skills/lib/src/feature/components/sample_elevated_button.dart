@@ -12,7 +12,7 @@ class SampleElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        side: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.7)),
+        side: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
         backgroundColor: MyColors.mainOuterColor, //button's fill color
         textStyle: whiteTextColor, //specify the button's text TextStyle
         padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 8.0, left: 8.0), //specify the button's Padding

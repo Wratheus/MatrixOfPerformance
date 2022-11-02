@@ -29,37 +29,35 @@ class GraphViewPageLayout extends StatelessWidget {
           body: SingleChildScrollView(
             controller: ScrollController(),
             scrollDirection: Axis.vertical,
-            child: SingleChildScrollView(
-              controller: ScrollController(),
-              scrollDirection: Axis.horizontal,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GraphManagementTab(tableController: tableController, data: (state).allUserTables),
-                    IntrinsicHeight(
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.45,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            GroupRadarChart(data: (state).tableData.sublist(1)),
-                            GroupColumnChart(data: (state).tableData.sublist(1)),
-                          ]
-                        ),
-                      ),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GraphManagementTab(tableController: tableController, data: (state).allUserTables),
+                  Row(
+                    children: [
+                      GroupRadarChart(data: (state).tableData.sublist(1)),
+                    ]
+                  ),
+                  SingleChildScrollView(
+                    controller: ScrollController(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                      GroupColumnChart(data: (state).tableData.sublist(1)),
+                      ]
                     ),
-                    IntrinsicHeight(
-                      child: Row(
-                        children: [
-                          ColumnChart(data: (state).tableData.sublist(1)),
-                          SkillBoxChart(data: (state).tableData.sublist(1)),
-                          CircularChart(data: (state).tableData.sublist(1)),
-                          PyramidChart(data: (state).tableData.sublist(1)),
-                        ],
-                      ),
+                  ),
+                  IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        ColumnChart(data: (state).tableData.sublist(1)),
+                        SkillBoxChart(data: (state).tableData.sublist(1)),
+                        CircularChart(data: (state).tableData.sublist(1)),
+                        PyramidChart(data: (state).tableData.sublist(1)),
+                      ],
                     ),
-                  ]
-              ),
+                  ),
+                ]
             ),
           ),
         ),

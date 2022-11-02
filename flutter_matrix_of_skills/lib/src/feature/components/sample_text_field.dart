@@ -32,15 +32,15 @@ class SampleTextField extends StatelessWidget {
             decoration: InputDecoration(
               iconColor: MyColors.mainBeige,
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.7)),
+                borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
                 borderRadius: BorderRadius.circular(8.0)
               ),
               focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.7)),
+                  borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
                   borderRadius: BorderRadius.circular(8.0)
               ),
               border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.7)),
+                  borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
                   borderRadius: BorderRadius.circular(8.0)
               ),
               labelText: labelText,
