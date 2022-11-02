@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_matrix_of_skills/src/feature/components/sample_elevated_button.dart';
 
 import '../../../core/classes/app.dart';
 import '../../../core/constants/constants.dart';
@@ -35,7 +36,7 @@ class NewPasswordPage extends StatelessWidget {
                 textColor: whiteTextColor,
                 width: 250),
             const SizedBox(height: 15,),
-            ElevatedButton(
+            SampleElevatedButton(
               onPressed: () async =>
               await App.supaBaseController.newPasswordCommit(
                 newPassword: _textControllerPass.text, context: context

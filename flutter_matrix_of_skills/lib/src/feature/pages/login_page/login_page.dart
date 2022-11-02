@@ -7,6 +7,7 @@ import 'package:flutter_matrix_of_skills/src/feature/responsive/mobile_body.dart
 
 import '../../../core/classes/app.dart';
 import '../../components/sample_appbar.dart';
+import '../../components/sample_elevated_button.dart';
 import '../../components/sample_text_field.dart';
 import '../../responsive/desktop_body.dart';
 import '../../responsive/responsive_layout.dart';
@@ -48,7 +49,7 @@ class LoginPage extends StatelessWidget {
             const SizedBox(height: 15,),
             SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
             const SizedBox(height: 15,),
-            ElevatedButton(
+            SampleElevatedButton(
               onPressed: () {loginAction(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context);},
               child: Text('Login', style: whiteTextColor),
             ),

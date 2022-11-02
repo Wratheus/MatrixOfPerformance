@@ -6,7 +6,8 @@ class SampleStyleContainer extends StatelessWidget {
   final Widget child;
   final double? width;
   final double? height;
-  const SampleStyleContainer({Key? key, required this.child, this.height, this.width}) : super(key: key);
+  final Color? color;
+  const SampleStyleContainer({Key? key, required this.child, this.height, this.width, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class SampleStyleContainer extends StatelessWidget {
         margin: const EdgeInsets.all(3),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: MyColors.mainOuterColor.withOpacity(0.8),
+          color: color?? MyColors.mainOuterColor.withOpacity(0.8),
         ),
         child: child,
     );

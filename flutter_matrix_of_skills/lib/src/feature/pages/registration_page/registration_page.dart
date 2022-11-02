@@ -7,6 +7,7 @@ import '../../../core/constants/constants.dart';
 import '../../../core/services/app_ui_modals.dart';
 import '../../components/dialogs/sample_alert_dialog.dart';
 import '../../components/sample_appbar.dart';
+import '../../components/sample_elevated_button.dart';
 import '../../components/sample_text_field.dart';
 import '../login_page/login_page.dart';
 
@@ -37,21 +38,23 @@ class RegistrationPage extends StatelessWidget {
               SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
               const SizedBox(height: 15,),
               SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-              const SizedBox(height: 15,),
-              ElevatedButton(
-                  onPressed: () async => {
-                    if (await App.supaBaseController.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
-                      AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done", route: LoginPage())),
-                    }
-                  },
-                  child: Text('Register', style: whiteTextColor)
+              const SizedBox(height: 5,),
+              SizedBox(
+                width: 200,
+                child: SampleElevatedButton(
+                    onPressed: () async => {
+                      if (await App.supaBaseController.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
+                        AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done", route: LoginPage())),
+                      }
+                    },
+                    child: Text('Register', style: whiteTextColor)
+                ),
               ),
-              const SizedBox(height: 15,),
-              ElevatedButton(
+              SampleElevatedButton(
                   onPressed: () async => {
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
                   },
-                  child: Text('Back to login page', style: whiteTextColor)
+                  child: Text('Back', style: whiteTextColor)
               ),
             ],
           ),

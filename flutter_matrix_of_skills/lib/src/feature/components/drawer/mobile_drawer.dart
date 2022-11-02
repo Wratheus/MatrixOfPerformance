@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../core/classes/app.dart';
-import '../../core/constants/constants.dart';
-import '../pages/login_page/login_page.dart';
+import '../../../core/classes/app.dart';
+import '../../../core/constants/constants.dart';
+import '../../pages/login_page/login_page.dart';
 
-class NavigationDrawer extends StatelessWidget {
+class MobileDrawer extends StatelessWidget {
   final PageController pageController;
-  const NavigationDrawer({Key? key, required this.pageController}) : super(key: key);
+  const MobileDrawer({Key? key, required this.pageController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +25,14 @@ class NavigationDrawer extends StatelessWidget {
           Padding(
             padding: tilePadding,
             child: ListTile(
-              leading: const Icon(Icons.storage_rounded, color: MyColors.mainBeige),
-              title: Text(
-                'Tables manager',
-                style: whiteTextColor,
-              ),
-              onTap: () => {
-                pageController.animateToPage(0, duration: const Duration(milliseconds: 350), curve: Curves.ease),
-              }
+                leading: const Icon(Icons.storage_rounded, color: MyColors.mainBeige),
+                title: Text(
+                  'Tables manager',
+                  style: whiteTextColor,
+                ),
+                onTap: () => {
+                  pageController.animateToPage(0, duration: const Duration(milliseconds: 350), curve: Curves.ease),
+                }
             ),
           ),
           Padding(
@@ -51,17 +51,17 @@ class NavigationDrawer extends StatelessWidget {
           Padding(
             padding: tilePadding,
             child: ListTile(
-              leading: const Icon(Icons.logout, color: MyColors.mainBeige),
-              title: Text(
-                'Sign out',
-                style: whiteTextColor,
-              ),
+                leading: const Icon(Icons.logout, color: MyColors.mainBeige),
+                title: Text(
+                  'Sign out',
+                  style: whiteTextColor,
+                ),
                 onTap: () async => {
-                await App.supaBaseController.signOut(context: context),
+                  await App.supaBaseController.signOut(context: context),
                   if(App.supaBaseController.client.auth.currentUser == null){
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()))
                   },
-              }
+                }
             ),
           ),
         ],

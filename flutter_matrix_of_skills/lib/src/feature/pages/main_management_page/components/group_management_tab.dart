@@ -12,6 +12,7 @@ import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layou
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/services/app_ui_modals.dart';
+import '../../../components/sample_elevated_button.dart';
 import '../../../cubit/user_data/user_data_cubit.dart';
 import 'dialogs/delete_table_dialog.dart';
 import 'dialogs/new_row_dialog.dart';
@@ -53,7 +54,7 @@ class GroupManagementTab extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: ElevatedButton(
+                              child: SampleElevatedButton(
                                   onPressed: ()=>{
                                   AppUI.showMaterialModalDialog(context: context, child: NewTableDialog(context: context, tableValues: (state).values, tableController: tableController)),
                                   },
@@ -61,7 +62,7 @@ class GroupManagementTab extends StatelessWidget {
                             ),
                             const SizedBox(width: 5),
                             Expanded(
-                              child: ElevatedButton(
+                              child: SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null) ?
                                     AppUI.showMaterialModalDialog(context: context, child: DeleteTableDialog(tableName: tableController.selectedValue!, context: context, tableController: tableController))
@@ -72,7 +73,7 @@ class GroupManagementTab extends StatelessWidget {
                             ),
                             const SizedBox(width: 5),
                             Expanded(
-                              child: ElevatedButton(
+                              child: SampleElevatedButton(
                                   onPressed: ()=>{
                                     AppUI.showMaterialModalDialog(context: context, child: CopyTableDialog(context: context, tableController: tableController, allUserTables: state.allUserTables, values: values))
                                   },
@@ -92,7 +93,7 @@ class GroupManagementTab extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: ElevatedButton(
+                              child: SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: NewRowDialog(tableName: tableController.selectedValue, context: context, tableValues: state.tableData, tableController: tableController))
@@ -108,7 +109,7 @@ class GroupManagementTab extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: ElevatedButton(
+                              child: SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: NewColumnDialog(tableName: tableController.selectedValue, context: context, tableValues: state.tableData, tableController: tableController))
@@ -132,7 +133,7 @@ class GroupManagementTab extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: ElevatedButton(
+                              child: SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: DeleteRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
@@ -148,7 +149,7 @@ class GroupManagementTab extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: ElevatedButton(
+                              child: SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: DeleteColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
@@ -172,7 +173,7 @@ class GroupManagementTab extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: ElevatedButton(
+                              child: SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: EditRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
@@ -188,7 +189,7 @@ class GroupManagementTab extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: ElevatedButton(
+                              child: SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: EditColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
@@ -222,7 +223,7 @@ class GroupManagementTab extends StatelessWidget {
                       Expanded(child: GroupDropDownMenu(tableController: tableController, isExpanded: true)),
                       const SizedBox(width: 5),
                       Expanded(
-                        child: ElevatedButton(
+                        child: SampleElevatedButton(
                             onPressed: ()=>{
                               AppUI.showMaterialModalDialog(context: context, child: NewTableDialog(context: context, tableValues: (state).values, tableController: tableController)),
                             },
@@ -230,7 +231,7 @@ class GroupManagementTab extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       Expanded(
-                        child: ElevatedButton(
+                        child: SampleElevatedButton(
                             onPressed: ()=>{
                               (tableController.selectedValue != null) ?
                               AppUI.showMaterialModalDialog(context: context, child: DeleteTableDialog(tableName: tableController.selectedValue!, context: context, tableController: tableController))
@@ -241,7 +242,7 @@ class GroupManagementTab extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       Expanded(
-                        child: ElevatedButton(
+                        child: SampleElevatedButton(
                             onPressed: ()=>{
                               AppUI.showMaterialModalDialog(context: context, child: CopyTableDialog(context: context, tableController: tableController, allUserTables: state.allUserTables, values: values))
                             },
@@ -257,7 +258,7 @@ class GroupManagementTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
-                  child: ElevatedButton(
+                  child: SampleElevatedButton(
                       onPressed: ()=>{
                         (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                         AppUI.showMaterialModalDialog(context: context, child: NewRowDialog(tableName: tableController.selectedValue, context: context, tableValues: state.tableData, tableController: tableController))
@@ -269,7 +270,7 @@ class GroupManagementTab extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: ElevatedButton(
+                  child: SampleElevatedButton(
                       onPressed: ()=>{
                         (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                         AppUI.showMaterialModalDialog(context: context, child: NewColumnDialog(tableName: tableController.selectedValue, context: context, tableValues: state.tableData, tableController: tableController))
@@ -288,7 +289,7 @@ class GroupManagementTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
-                  child: ElevatedButton(
+                  child: SampleElevatedButton(
                       onPressed: ()=>{
                         (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                         AppUI.showMaterialModalDialog(context: context, child: DeleteRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
@@ -300,7 +301,7 @@ class GroupManagementTab extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: ElevatedButton(
+                  child: SampleElevatedButton(
                       onPressed: ()=>{
                         (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                         AppUI.showMaterialModalDialog(context: context, child: DeleteColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
@@ -319,7 +320,7 @@ class GroupManagementTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
-                  child: ElevatedButton(
+                  child: SampleElevatedButton(
                       onPressed: ()=>{
                         (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                         AppUI.showMaterialModalDialog(context: context, child: EditRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
@@ -331,7 +332,7 @@ class GroupManagementTab extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: ElevatedButton(
+                  child: SampleElevatedButton(
                       onPressed: ()=>{
                         (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                         AppUI.showMaterialModalDialog(context: context, child: EditColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))

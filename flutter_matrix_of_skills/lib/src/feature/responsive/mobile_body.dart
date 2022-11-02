@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/constants.dart';
-import '../components/main_drawer.dart';
+import '../components/drawer/mobile_drawer.dart';
 import '../components/sample_appbar.dart';
 
 class MobileScaffold extends StatefulWidget {
@@ -18,7 +18,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
     return Scaffold(
       backgroundColor: MyColors.mainCanvas,
       appBar: SampleAppbar(title: 'Matrix of Performance', backgroundColor: MyColors.mainOuterColor, textColor: whiteTextColor),
-      drawer: NavigationDrawer(pageController: pageController),
+      drawer: MobileDrawer(pageController: pageController),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

@@ -3,6 +3,7 @@ import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/
 
 import '../../../../../../core/constants/constants.dart';
 import '../../../../../components/sample_drop_down_menu.dart';
+import '../../../../../components/sample_elevated_button.dart';
 
 // ignore: must_be_immutable
 class ComparisonManagement extends StatefulWidget {
@@ -72,22 +73,22 @@ class _ComparisonManagementState extends State<ComparisonManagement> {
             children: [
               nameDropDown,
               const SizedBox(width: 5,),
-              ElevatedButton(onPressed: () => {
+              SampleElevatedButton(onPressed: () => {
                 addToSelectedList(selectedValue: nameDropDown.selectedValue)},
                   child: Text("add", style: whiteTextColor),
               ),
               const SizedBox(width: 5,),
-              ElevatedButton(onPressed: () => {
+              SampleElevatedButton(onPressed: () => {
                 removeFromSelectedList(selectedValue: nameDropDown.selectedValue)},
                 child: Text("remove", style: whiteTextColor),
               ),
               const SizedBox(width: 5,),
-              ElevatedButton(onPressed: () => {
+              SampleElevatedButton(onPressed: () => {
                 loadFromSelectedList(data: widget.table)},
                 child: Text("load", style: whiteTextColor),
               ),
               const SizedBox(width: 5,),
-              ElevatedButton(
+              SampleElevatedButton(
                 child: Text('Clear', style: whiteTextColor),
                 onPressed: () => {
                   widget.tableController.update(tableName: widget.tableController.selectedValue, selectedValue: widget.tableController.selectedValue)

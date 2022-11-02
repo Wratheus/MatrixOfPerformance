@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/constants.dart';
-import '../components/main_drawer.dart';
+import '../components/drawer/desktop_drawer.dart';
 import '../components/sample_appbar.dart';
 
 class DesktopScaffold extends StatefulWidget {
@@ -17,18 +17,14 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.mainCanvas,
-      appBar: SampleAppbar(title: 'Matrix of Performance', backgroundColor: MyColors.mainInnerColor, textColor: whiteTextColor),
+      appBar: SampleAppbar(title: 'M a t r i x   o f   P e r f o r m a n c e', backgroundColor: MyColors.mainInnerColor, textColor: whiteTextColor),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // open drawer
-          Expanded(
-            flex: 2,
-              child: NavigationDrawer(pageController: pageController)
-          ),
+          DesktopDrawer(pageController: pageController),
           // routing implementation
           Expanded(
-            flex: 8,
               child: PageView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: pageController,
