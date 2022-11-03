@@ -30,6 +30,10 @@ class SampleTextField extends StatelessWidget {
           textAlign: TextAlign.start,
           textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
+              suffixIcon: IconButton(
+                onPressed: textController.clear,
+                icon: CircleAvatar(backgroundColor: MyColors.mainBeige.withOpacity(0.05), child: const Icon(Icons.clear, size: 14, color: MyColors.mainBeige,)),
+              ),
               iconColor: MyColors.mainBeige,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),

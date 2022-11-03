@@ -15,9 +15,9 @@ class ResponsiveLayout extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (!Platform.isWindows) {
-          return const MobileScaffold();
+          return MobileScaffold();
         } else {
-          return const DesktopScaffold();
+          return DesktopScaffold();
         }
       },
     );

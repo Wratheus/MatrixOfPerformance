@@ -4,15 +4,11 @@ import '../../core/constants/constants.dart';
 import '../components/drawer/mobile_drawer.dart';
 import '../components/sample_appbar.dart';
 
-class MobileScaffold extends StatefulWidget {
-  const MobileScaffold({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class MobileScaffold extends StatelessWidget {
+  MobileScaffold({Key? key}) : super(key: key);
 
-  @override
-  State<MobileScaffold> createState() => _MobileScaffoldState();
-}
-
-class _MobileScaffoldState extends State<MobileScaffold> {
-  PageController pageController = PageController(); //
+  PageController pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

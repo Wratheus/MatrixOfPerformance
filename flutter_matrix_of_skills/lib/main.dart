@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_matrix_of_skills/src/core/classes/app.dart';
 import 'package:flutter_matrix_of_skills/src/core/services/custom_scroll_behavior.dart';
+import 'package:flutter_matrix_of_skills/src/feature/responsive/desktop_body.dart';
 
 import 'src/core/services/app_theme.dart';
 import 'src/feature/pages/login_page/login_page.dart';
@@ -14,6 +17,7 @@ void main() async {
   App.session = await App.supaBaseController.sessionSignIn();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
+  if(Platform.isWindows) DesktopScaffold.setUpWindowsEnvironment();
 }
 
 class MyApp extends StatelessWidget {
@@ -31,3 +35,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

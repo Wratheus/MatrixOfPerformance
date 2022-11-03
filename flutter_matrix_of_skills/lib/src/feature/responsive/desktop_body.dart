@@ -1,38 +1,121 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/constants.dart';
 import '../components/drawer/desktop_drawer.dart';
-import '../components/sample_appbar.dart';
 
-class DesktopScaffold extends StatefulWidget {
-  const DesktopScaffold({Key? key}) : super(key: key);
 
-  @override
-  State<DesktopScaffold> createState() => _DesktopScaffoldState();
-}
-
-class _DesktopScaffoldState extends State<DesktopScaffold> {
-  PageController pageController = PageController(); // Navigation element
+class DesktopScaffold extends StatelessWidget {
+  DesktopScaffold({Key? key}) : super(key: key);
+  static void setUpWindowsEnvironment() { // Windows window set up parameters
+    doWhenWindowReady(() {
+      final win = appWindow;
+      const initialSize = Size(1400, 800);
+      win.minSize = initialSize;
+      win.size = initialSize;
+      win.alignment = Alignment.center;
+      win.title = "Matrix Of Performance";
+      win.show();
+    }
+    );
+  }
+  final PageController pageController = PageController();
+ // Navigation element
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.mainCanvas,
-      appBar: SampleAppbar(title: 'M a t r i x   o f   P e r f o r m a n c e', backgroundColor: MyColors.mainInnerColor, textColor: whiteTextColor),
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // open drawer
-          DesktopDrawer(pageController: pageController),
-          // routing implementation
-          Expanded(
-              child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: pageController,
-                children: pageList
+      body: WindowBorder(
+        color: MyColors.mainCanvas,
+        width: 1,
+        child: Row(
+          children: [
+            DesktopDrawer(pageController: pageController, child: WindowTitleBarBox(child: MoveWindow())),
+            RightSide(
+              child: Expanded(
+                child: PageView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    controller: pageController,
+                    children: pageList
+                ),
               ),
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
 }
+
+class RightSide extends StatelessWidget { // right side of Windows window with movable area and buttons title bar row
+  final Widget child;
+  const RightSide({Key? key, required this.child}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        color: MyColors.mainOuterColor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+          WindowTitleBarBox(
+            child: Row(
+              children: [Expanded(child: MoveWindow()), const WindowButtons()],
+            ),
+          ),
+          child
+        ]),
+      ),
+    );
+  }
+}
+
+final buttonColors = WindowButtonColors(
+    iconNormal: MyColors.mainBeige,
+    mouseOver: MyColors.mainInnerColor,
+    mouseDown: MyColors.mainBeige.withOpacity(0.4),
+    iconMouseOver: MyColors.mainBeige,
+    iconMouseDown: MyColors.mainBeige);
+
+final closeButtonColors = WindowButtonColors(
+    mouseOver: const Color(0xFFD32F2F),
+    mouseDown: const Color(0xFFB71C1C),
+    iconNormal: MyColors.mainBeige,
+    iconMouseOver: MyColors.mainBeige);
+
+class WindowButtons extends StatefulWidget {
+  const WindowButtons({Key? key}) : super(key: key);
+
+  @override
+  WindowButtonsState createState() => WindowButtonsState();
+}
+
+class WindowButtonsState extends State<WindowButtons> {
+  void maximizeOrRestore() {
+    setState(() {
+      appWindow.maximizeOrRestore();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        MinimizeWindowButton(colors: buttonColors),
+        appWindow.isMaximized
+            ? RestoreWindowButton(
+          colors: buttonColors,
+          onPressed: maximizeOrRestore,
+        )
+            : MaximizeWindowButton(
+          colors: buttonColors,
+          onPressed: maximizeOrRestore,
+        ),
+        CloseWindowButton(colors: closeButtonColors),
+      ],
+    );
+  }
+}
+
+

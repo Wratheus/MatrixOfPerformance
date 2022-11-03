@@ -7,10 +7,11 @@ import '../../pages/login_page/login_page.dart';
 
 // ignore: must_be_immutable
 class DesktopDrawer extends StatefulWidget {
+  Widget child;
   final PageController pageController;
   bool isCollapsed = true;
   double pageControllerPage = 0;
-  DesktopDrawer({Key? key, required this.pageController}) : super(key: key);
+  DesktopDrawer({Key? key, required this.pageController, required this.child}) : super(key: key);
 
   @override
   State<DesktopDrawer> createState() => _DesktopDrawerState();
@@ -22,7 +23,7 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
   @override
   Widget build(BuildContext context) {
 
-    final double drawerWidth = widget.isCollapsed ? 80 : 250;
+    final double drawerWidth = widget.isCollapsed ? 80 : 240;
     final EdgeInsetsGeometry safeArea = EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top);
     return Drawer(
       width: drawerWidth,
@@ -30,6 +31,7 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
       elevation: 4,
       child: Column(
         children: [
+          widget.child,
           Container(
             padding: safeArea,
               child: Container(
@@ -42,7 +44,7 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
           const SizedBox(height: 12),
           buildElement(
               pageNumber: 0,
-              icon: const Icon(Icons.storage_rounded, color: MyColors.mainBeige, size: 38),
+              icon: const Icon(Icons.storage_rounded, color: MyColors.mainBeige, size: 32),
               onTap: () {
                 setState(() {
                   widget.pageControllerPage = 0;
@@ -53,7 +55,7 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
           ),
           buildElement(
               pageNumber: 1,
-              icon: const Icon(Icons.bar_chart, color: MyColors.mainBeige, size: 38),
+              icon: const Icon(Icons.bar_chart, color: MyColors.mainBeige, size: 32),
               onTap: () {
                 setState(() {
                   widget.pageControllerPage = 1;
@@ -65,7 +67,7 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
           const Spacer(),
           buildElement(
             pageNumber: 3,
-            icon: const Icon(Icons.logout, color: MyColors.mainBeige, size: 38),
+            icon: const Icon(Icons.logout, color: MyColors.mainBeige, size: 32),
             onTap: () async => {
               await App.supaBaseController.signOut(context: context),
               if(App.supaBaseController.client.auth.currentUser == null){
@@ -131,7 +133,7 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
         onTap: onTap,
         child: SampleStyleContainer(
             color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
-            width: 54, height: 54,
+            width: 48, height: 48,
             child: icon
         ),
       ),
@@ -145,10 +147,10 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
           children: [
             SampleStyleContainer(
                 color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
-                width: 54,
-                height: 54,
+                width: 48,
+                height: 48,
                 child: icon),
-            const SizedBox(width: 20),
+            const SizedBox(width: 15),
             text
           ],
         ),
