@@ -10,7 +10,7 @@ class MyColors {
 
   static const Color mainBeige = Color(0xfff3f6ff);
   static const Color mainHighlightedBlue = Color(0xff45546a);
-  static const Color mainCanvas = Color(0xff111419);
+  static const Color mainCanvas = Color(0xff171a20);
   static const Color mainOuterColor = Color(0xff25282f);
   static const Color mainInnerColor = Color(0xff21252a);
 }
