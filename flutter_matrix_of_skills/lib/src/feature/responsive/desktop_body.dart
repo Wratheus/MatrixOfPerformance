@@ -7,10 +7,12 @@ import '../components/drawer/desktop_drawer.dart';
 
 class DesktopScaffold extends StatelessWidget {
   DesktopScaffold({Key? key}) : super(key: key);
-  static void setUpWindowsEnvironment() { // Windows window set up parameters
+
+  static void setUpWindowsEnvironment() {
+    // Windows window set up parameters
     doWhenWindowReady(() {
       final win = appWindow;
-      const initialSize = Size(1400, 800);
+      const initialSize = Size(1200, 800);
       win.minSize = initialSize;
       win.size = initialSize;
       win.alignment = Alignment.center;
@@ -47,6 +49,13 @@ class DesktopScaffold extends StatelessWidget {
   }
 }
 
+
+
+
+
+
+
+
 class RightSide extends StatelessWidget { // right side of Windows window with movable area and buttons title bar row
   final Widget child;
   const RightSide({Key? key, required this.child}) : super(key: key);
@@ -71,18 +80,8 @@ class RightSide extends StatelessWidget { // right side of Windows window with m
   }
 }
 
-final buttonColors = WindowButtonColors(
-    iconNormal: MyColors.mainBeige,
-    mouseOver: MyColors.mainInnerColor,
-    mouseDown: MyColors.mainBeige.withOpacity(0.4),
-    iconMouseOver: MyColors.mainBeige,
-    iconMouseDown: MyColors.mainBeige);
 
-final closeButtonColors = WindowButtonColors(
-    mouseOver: const Color(0xFFD32F2F),
-    mouseDown: const Color(0xFFB71C1C),
-    iconNormal: MyColors.mainBeige,
-    iconMouseOver: MyColors.mainBeige);
+
 
 class WindowButtons extends StatefulWidget {
   const WindowButtons({Key? key}) : super(key: key);
@@ -97,7 +96,6 @@ class WindowButtonsState extends State<WindowButtons> {
       appWindow.maximizeOrRestore();
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Row(

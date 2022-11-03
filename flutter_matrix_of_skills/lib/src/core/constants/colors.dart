@@ -13,11 +13,18 @@ class MyColors {
   static const Color mainCanvas = Color(0xff171a20);
   static const Color mainOuterColor = Color(0xff25282f);
   static const Color mainInnerColor = Color(0xff21252a);
+
 }
 
-// old colors
-/*  static const Color mainBeige = Color(0xfff3f6ff);
-  static const Color mainHighlightedBlue = Color(0xff7080b3);
-  static const Color mainCanvas = Color(0xff222433);
-  static const Color mainOuterColor = Color(0xff333549);
-  static const Color mainInnerColor = Color(0xff2c2e41);*/
+final buttonColors = WindowButtonColors(
+    iconNormal: MyColors.mainBeige,
+    mouseOver: MyColors.mainInnerColor,
+    mouseDown: MyColors.mainBeige.withOpacity(0.4),
+    iconMouseOver: MyColors.mainBeige,
+    iconMouseDown: MyColors.mainBeige);
+
+final closeButtonColors = WindowButtonColors(
+    mouseOver: const Color(0xFFD32F2F),
+    mouseDown: const Color(0xFFB71C1C),
+    iconNormal: MyColors.mainBeige,
+    iconMouseOver: MyColors.mainBeige);

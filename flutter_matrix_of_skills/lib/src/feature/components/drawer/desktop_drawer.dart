@@ -109,6 +109,8 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
       child: Material(
         color: Colors.transparent,
         child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          radius: 0,
           child: SizedBox(
             width: width,
             height: size,
@@ -130,6 +132,8 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        radius: 0,
         onTap: onTap,
         child: SampleStyleContainer(
             color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),

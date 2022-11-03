@@ -23,56 +23,15 @@ class RegistrationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: MyColors.mainCanvas,
-        body: WindowBorder(
+        body: Platform.isWindows ?  WindowBorder(
             color: MyColors.mainCanvas,
             width: 1,
             child: Row(
                 children: [
-                  Platform.isWindows ? RightSide(child:
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.9,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            appIcon,
-                            const SizedBox(height: 5,),
-                            Center(child: Text('Complete registration to use the app', style: whiteTextColor, textAlign: TextAlign.center)),
-                            const SizedBox(height: 15,),
-                            SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                            const SizedBox(height: 15),
-                            SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                            const SizedBox(height: 10,),
-                            SizedBox(
-                              width: 200,
-                              child: SampleElevatedButton(
-                                  onPressed: () async => {
-                                    if (await App.supaBaseController.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
-                                      AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done", route: LoginPage())),
-                                    }
-                                  },
-                                  child: Text('Register', style: whiteTextColor)
-                              ),
-                            ),
-                            const SizedBox(height: 10,),
-                            SampleElevatedButton(
-                                onPressed: () async => {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
-                                },
-                                child: Text('Back', style: whiteTextColor)
-                            ),
-                          ],
-                        ),
-                  ),
-                    ),
-                  ) :
-                  Center(
-                    child: Container(
-                      width: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                  RightSide(child:
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,11 +39,11 @@ class RegistrationPage extends StatelessWidget {
                           appIcon,
                           const SizedBox(height: 5,),
                           Center(child: Text('Complete registration to use the app', style: whiteTextColor, textAlign: TextAlign.center)),
-                          const SizedBox(height: 10,),
-                          SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
                           const SizedBox(height: 15,),
+                          SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                          const SizedBox(height: 15),
                           SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                          const SizedBox(height: 5,),
+                          const SizedBox(height: 10,),
                           SizedBox(
                             width: 200,
                             child: SampleElevatedButton(
@@ -96,6 +55,7 @@ class RegistrationPage extends StatelessWidget {
                                 child: Text('Register', style: whiteTextColor)
                             ),
                           ),
+                          const SizedBox(height: 10,),
                           SampleElevatedButton(
                               onPressed: () async => {
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
@@ -105,9 +65,50 @@ class RegistrationPage extends StatelessWidget {
                         ],
                       ),
                     ),
+                  ),
                   )
                 ]
             )
+        )
+            :
+        Center(
+          child: Container(
+            width: 300,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                appIcon,
+                const SizedBox(height: 5,),
+                Center(child: Text('Complete registration to use the app', style: whiteTextColor, textAlign: TextAlign.center)),
+                const SizedBox(height: 10,),
+                SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                const SizedBox(height: 15,),
+                SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                const SizedBox(height: 5,),
+                SizedBox(
+                  width: 200,
+                  child: SampleElevatedButton(
+                      onPressed: () async => {
+                        if (await App.supaBaseController.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
+                          AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done", route: LoginPage())),
+                        }
+                      },
+                      child: Text('Register', style: whiteTextColor)
+                  ),
+                ),
+                SampleElevatedButton(
+                    onPressed: () async => {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
+                    },
+                    child: Text('Back', style: whiteTextColor)
+                ),
+              ],
+            ),
+          ),
         )
     );
   }

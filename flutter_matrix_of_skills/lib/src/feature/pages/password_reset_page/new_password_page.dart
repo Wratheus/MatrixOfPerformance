@@ -19,12 +19,12 @@ class NewPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: MyColors.mainCanvas,
-        body: WindowBorder(
+        body: Platform.isWindows ?  WindowBorder(
             color: MyColors.mainCanvas,
             width: 1,
             child: Row(
                 children: [
-                  Platform.isWindows ? RightSide(
+                  RightSide(
                       child:SizedBox(
                         height: MediaQuery.of(context).size.height * 0.85,
                         child: Center(
@@ -54,35 +54,36 @@ class NewPasswordPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                      )): Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        appIcon,
-                        const SizedBox(height: 5,),
-                        Center(child: Text('Enter your new password', style: whiteTextColor,
-                            textAlign: TextAlign.center)),
-                        const SizedBox(height: 15,),
-                        SampleTextField(textController: _textControllerPass,
-                            labelText: 'New password',
-                            hideText: false,
-                            borderColor: MyColors.mainBeige,
-                            textColor: whiteTextColor,
-                            width: 250),
-                        const SizedBox(height: 15,),
-                        SampleElevatedButton(
-                          onPressed: () async =>
-                          await App.supaBaseController.newPasswordCommit(
-                              newPassword: _textControllerPass.text, context: context
-                          ),
-                          child: Text('Commit', style: whiteTextColor),
-                        ),
-                      ],
-                    ),
+                      )
                   )
                 ]
             )
+        ): Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              appIcon,
+              const SizedBox(height: 5,),
+              Center(child: Text('Enter your new password', style: whiteTextColor,
+                  textAlign: TextAlign.center)),
+              const SizedBox(height: 15,),
+              SampleTextField(textController: _textControllerPass,
+                  labelText: 'New password',
+                  hideText: false,
+                  borderColor: MyColors.mainBeige,
+                  textColor: whiteTextColor,
+                  width: 250),
+              const SizedBox(height: 15,),
+              SampleElevatedButton(
+                onPressed: () async =>
+                await App.supaBaseController.newPasswordCommit(
+                    newPassword: _textControllerPass.text, context: context
+                ),
+                child: Text('Commit', style: whiteTextColor),
+              ),
+            ],
+          ),
         )
     );
   }

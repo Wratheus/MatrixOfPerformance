@@ -21,73 +21,74 @@ class PasswordResetPage extends StatelessWidget {
   Widget build(BuildContext context) {
     App.deepLinkController.init(buildContext: context); // listener init
     return Scaffold(
-      backgroundColor: MyColors.mainCanvas,
-        body: WindowBorder(
+        backgroundColor: MyColors.mainCanvas,
+        body: Platform.isWindows ?  WindowBorder(
             color: MyColors.mainCanvas,
             width: 1,
             child: Row(
                 children: [
-                  Platform.isWindows ? RightSide(
-                  child:SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.85,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          appIcon,
-                          const SizedBox(height: 5,),
-                          Center(child: Text('Enter e-mail address\n to reset your password', style: whiteTextColor, textAlign: TextAlign.center)),
-                          const SizedBox(height: 10),
-                          SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            width: 160,
-                            child: SampleElevatedButton(
-                              onPressed: () async => await App.supaBaseController.passwordReset(email: _textControllerLogin.text,  context: context),
-                              child: Text('RESET', style: whiteTextColor),
+                  RightSide(
+                    child:SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.85,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            appIcon,
+                            const SizedBox(height: 5,),
+                            Center(child: Text('Enter e-mail address\n to reset your password', style: whiteTextColor, textAlign: TextAlign.center)),
+                            const SizedBox(height: 10),
+                            SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              width: 160,
+                              child: SampleElevatedButton(
+                                onPressed: () async => await App.supaBaseController.passwordReset(email: _textControllerLogin.text,  context: context),
+                                child: Text('RESET', style: whiteTextColor),
+                              ),
                             ),
-                          ),
-                          SampleElevatedButton(
-                              onPressed: () async => {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
-                              },
-                              child: Text('Back', style: whiteTextColor)
-                          ),
-                          const SizedBox(height: 10,),
-                        ],
+                            SampleElevatedButton(
+                                onPressed: () async => {
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
+                                },
+                                child: Text('Back', style: whiteTextColor)
+                            ),
+                            const SizedBox(height: 10,),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  ) : Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          appIcon,
-                          const SizedBox(height: 5,),
-                          Center(child: Text('Enter e-mail address\n to reset your password', style: whiteTextColor, textAlign: TextAlign.center)),
-                          const SizedBox(height: 15,),
-                          SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            width: 200,
-                            child: SampleElevatedButton(
-                              onPressed: () async => await App.supaBaseController.passwordReset(email: _textControllerLogin.text,  context: context),
-                              child: Text('RESET', style: whiteTextColor),
-                            ),
-                          ),
-                          SampleElevatedButton(
-                              onPressed: () async => {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
-                              },
-                              child: Text('Back', style: whiteTextColor)
-                          ),
-                          const SizedBox(height: 10,),
-                        ],
-                      )
                   )
                 ]
+            )
+        )
+            : Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                appIcon,
+                const SizedBox(height: 5,),
+                Center(child: Text('Enter e-mail address\n to reset your password', style: whiteTextColor, textAlign: TextAlign.center)),
+                const SizedBox(height: 15,),
+                SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: 200,
+                  child: SampleElevatedButton(
+                    onPressed: () async => await App.supaBaseController.passwordReset(email: _textControllerLogin.text,  context: context),
+                    child: Text('RESET', style: whiteTextColor),
+                  ),
+                ),
+                SampleElevatedButton(
+                    onPressed: () async => {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
+                    },
+                    child: Text('Back', style: whiteTextColor)
+                ),
+                const SizedBox(height: 10,),
+              ],
             )
         )
     );

@@ -32,19 +32,14 @@ class SampleTextField extends StatelessWidget {
             decoration: InputDecoration(
               suffixIcon: IconButton(
                 onPressed: textController.clear,
-                icon: CircleAvatar(backgroundColor: MyColors.mainBeige.withOpacity(0.05), child: const Icon(Icons.clear, size: 14, color: MyColors.mainBeige,)),
-              ),
+                icon: CircleAvatar(backgroundColor: MyColors.mainBeige.withOpacity(0.05), child: const Icon(Icons.clear, size: 14, color: MyColors.mainBeige,))),
               iconColor: MyColors.mainBeige,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
                 borderRadius: BorderRadius.circular(8.0)
               ),
               focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
-                  borderRadius: BorderRadius.circular(8.0)
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
+                  borderSide: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(1)),
                   borderRadius: BorderRadius.circular(8.0)
               ),
               labelText: labelText,

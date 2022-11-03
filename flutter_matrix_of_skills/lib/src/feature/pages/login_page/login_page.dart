@@ -34,12 +34,12 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.mainCanvas,
-        body: WindowBorder(
+        body: Platform.isWindows ?  WindowBorder(
           color: MyColors.mainCanvas,
           width: 1,
           child: Row(
               children: [
-                Platform.isWindows ? RightSide(child:
+                RightSide(child:
                   Center(child: SizedBox(
                     height: MediaQuery.of(context).size.height * 0.7,
                     child: Column(
@@ -61,6 +61,7 @@ class LoginPage extends StatelessWidget {
                         const SizedBox(height: 10,),
                         Center(
                           child: InkWell(
+                            radius: 0,
                             onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegistrationPage()));},
                             child: Text("Register",
                               style: whiteTextColor,
@@ -70,6 +71,7 @@ class LoginPage extends StatelessWidget {
                         const SizedBox(height: 5),
                         Center(
                           child: InkWell(
+                            radius: 0,
                             onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordResetPage()));},
                             child: Text("Forgot password",
                               style: greyTextColor,
@@ -80,9 +82,13 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                ) :
+                )
+              ]
+          )
+        )
+            :
                 Center(child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     appIcon,
@@ -100,6 +106,7 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: 10,),
                     Center(
                       child: InkWell(
+                        radius: 0,
                         onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegistrationPage()));},
                         child: Text("Register",
                           style: whiteTextColor,
@@ -109,6 +116,7 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: 5),
                     Center(
                       child: InkWell(
+                        radius: 0,
                         onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordResetPage()));},
                         child: Text("Forgot password",
                           style: greyTextColor,
@@ -118,8 +126,6 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 )
-              ]
-          ),
-        ));
+    );
   }
 }

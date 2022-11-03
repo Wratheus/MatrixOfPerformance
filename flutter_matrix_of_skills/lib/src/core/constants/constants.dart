@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/graph_view_page.dart';
 
