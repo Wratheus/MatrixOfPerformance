@@ -13,35 +13,32 @@ class GraphManagementTab extends StatelessWidget {
   const GraphManagementTab({Key? key, required this.tableController, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 2.0, right: 2.0, top: 2.0),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IntrinsicHeight(
-                child: Row(
-                  children: [
-                    SampleStyleContainer(
-                      child: Column(
-                        children: [
-                          Text("Selected table: ", style: whiteTextColor),
-                          GroupDropDownMenu(tableController: tableController, isExpanded: false),
-                        ],
-                      ),
+    return Row(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            IntrinsicHeight(
+              child: Row(
+                children: [
+                  SampleStyleContainer(
+                    child: Column(
+                      children: [
+                        Text("Selected table: ", style: whiteTextColor),
+                        GroupDropDownMenu(tableController: tableController, isExpanded: false),
+                      ],
                     ),
-                    SampleStyleContainer(
-                        child: ComparisonManagement(data: data, tableController: tableController)
-                    ),
-                  ]
-                ),
+                  ),
+                  SampleStyleContainer(
+                      child: ComparisonManagement(data: data, tableController: tableController)
+                  ),
+                ]
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

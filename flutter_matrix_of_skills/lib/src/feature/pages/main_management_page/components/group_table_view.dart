@@ -34,7 +34,7 @@ class GroupTableView extends StatelessWidget {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: (state).tableData[row].length,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 2,
+                                childAspectRatio: (state).tableData[0].keys.toList().length >= 6 ? 1.5 : 5,
                                 crossAxisCount: (state).tableData[row].length
                             ),
                             itemBuilder: (context, column) {
@@ -50,7 +50,7 @@ class GroupTableView extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: (state).tableData[row].length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 2,
+                            childAspectRatio:  (state).tableData[0].keys.toList().length >= 6 ? 1.5 : 6,
                             crossAxisCount: (state).tableData[row].length
                         ),
                         itemBuilder: (context, column) {
