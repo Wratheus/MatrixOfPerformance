@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/management_tab/components/group_filter_chip.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/management_tab/graph_management_tab.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/charts/circular_chart.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/charts/col_chart.dart';
@@ -39,6 +40,7 @@ class GraphViewPageLayout extends StatelessWidget {
                         children: [
                           Column(
                             children: [
+                              GroupFilterChip(isSelected: true, name: "Aleksandr", color: MyColors.customBluePurple.withOpacity(0.5)),
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: GraphManagementTab(tableController: tableController, data: (state).allUserTables),
