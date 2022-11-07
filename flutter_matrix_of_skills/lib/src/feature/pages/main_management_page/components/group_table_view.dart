@@ -64,7 +64,7 @@ class GroupTableView extends StatelessWidget {
           SingleChildScrollView(
             controller: ScrollController(),
             scrollDirection: Axis.horizontal,
-            child: SampleStyleContainer(
+            child: SizedBox(
               width: (state.tableData[0]).length < 6  // if there is more than 6 columns increase width
                   ?
               MediaQuery.of(context).size.width * 0.97
@@ -85,6 +85,7 @@ class GroupTableView extends StatelessWidget {
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: (state).tableData[row].length,
                               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  childAspectRatio: 2,
                                   crossAxisCount: (state).tableData[row].length
                               ),
                               itemBuilder: (context, column) {
@@ -100,7 +101,7 @@ class GroupTableView extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: (state).tableData[row].length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 2,
+                              childAspectRatio: 1.5,
                               crossAxisCount: (state).tableData[row].length
                           ),
                           itemBuilder: (context, column) {

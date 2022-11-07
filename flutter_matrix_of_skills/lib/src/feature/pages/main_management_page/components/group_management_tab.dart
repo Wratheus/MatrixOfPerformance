@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/dialogs/sample_error_dialog.dart';
@@ -8,7 +10,6 @@ import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/
 import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/dialogs/edit_column_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/dialogs/edit_row_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/dialogs/new_column_dialog.dart';
-import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layout.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/services/app_ui_modals.dart';
@@ -34,7 +35,7 @@ class GroupManagementTab extends StatelessWidget {
       tableController.cubitContext = context; // share cubit context to tableController to have ability to update
       tableController.selectedValue = (state).tableControllerSelectedValue; // share selected value if it was saved to state with controller
 
-      return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
+      return (Platform.isWindows) ?
       // Desktop Layout
       SizedBox(
           width: MediaQuery.of(context).size.width * 1,
@@ -161,49 +162,10 @@ class GroupManagementTab extends StatelessWidget {
       )
       :
       // Mobile Layout
-      Column(
-        children: [
-          SampleStyleContainer(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Select:", style: whiteTextColor),
-                  Row(
-                    children: [
-                      Expanded(child: GroupDropDownMenu(tableController: tableController, isExpanded: true)),
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: SampleElevatedButton(
-                            onPressed: ()=>{
-                              AppUI.showMaterialModalDialog(context: context, child: NewTableDialog(context: context, tableValues: (state).values, tableController: tableController)),
-                            },
-                            child: Text("New", style: whiteTextColor)),
-                      ),
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: SampleElevatedButton(
-                            onPressed: ()=>{
-                              (tableController.selectedValue != null) ?
-                              AppUI.showMaterialModalDialog(context: context, child: DeleteTableDialog(tableName: tableController.selectedValue!, context: context, tableController: tableController))
-                                  :
-                              AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
-                            },
-                            child: Text("Del", style: whiteTextColor)),
-                      ),
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: SampleElevatedButton(
-                            onPressed: ()=>{
-                              AppUI.showMaterialModalDialog(context: context, child: CopyTableDialog(context: context, tableController: tableController, allUserTables: state.allUserTables, values: values))
-                            },
-                            child: Text("Copy", style: whiteTextColor)),
-                      ),
-                    ],
-                  ),
-                ]),
-          ),
-          SampleStyleContainer(
-            child: Row(
+      SampleStyleContainer(
+        child: Column(
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -232,9 +194,7 @@ class GroupManagementTab extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          SampleStyleContainer(
-            child: Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -263,9 +223,7 @@ class GroupManagementTab extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          SampleStyleContainer(
-            child: Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -294,8 +252,8 @@ class GroupManagementTab extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       );
     });
   }

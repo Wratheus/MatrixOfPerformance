@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../core/constants/constants.dart';
@@ -13,14 +15,14 @@ class SampleBorderContainerCell extends StatelessWidget {
     return Container(
       width: width ?? 5,
       height: height,
-      decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: MyColors.customBlack.withOpacity(0.35),
-              blurRadius: 4,
-            ),
-          ],
-          borderRadius: BorderRadius.circular(1),
+      decoration: Platform.isWindows ?
+      BoxDecoration(
+          borderRadius: BorderRadius.circular(0.1),
+          border: Border.all(color: MyColors.mainCanvas),
+          color: color
+      ) :
+      BoxDecoration(
+          borderRadius: BorderRadius.circular(0.1),
           border: Border.all(color: MyColors.mainCanvas),
           color: color
       ),
