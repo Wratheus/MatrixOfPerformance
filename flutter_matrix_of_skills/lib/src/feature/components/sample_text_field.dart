@@ -30,6 +30,7 @@ class SampleTextField extends StatelessWidget {
           ],
         ),
         child: TextField(
+          enableSuggestions: false,
           keyboardType: inputType,
           inputFormatters: textInputFormatters,
           cursorColor: MyColors.mainBeige,

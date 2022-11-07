@@ -17,89 +17,103 @@ class DesktopDrawer extends StatefulWidget {
   State<DesktopDrawer> createState() => _DesktopDrawerState();
 }
 
-class _DesktopDrawerState extends State<DesktopDrawer>{
+class _DesktopDrawerState extends State<DesktopDrawer> with TickerProviderStateMixin{
+  late final AnimationController animationController;
   final EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: 20);
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    super.initState();
+  }
 
-    final double drawerWidth = widget.isCollapsed ? 80 : 240;
-    final EdgeInsetsGeometry safeArea = EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top);
-    return Drawer(
-      width: drawerWidth,
-      backgroundColor: MyColors.mainOuterColor,
-      elevation: 4,
-      child: Column(
-        children: [
-          widget.child,
-          Container(
-            padding: safeArea,
-              child: Container(
+  @override
+  Widget build(BuildContext context) {
+    double drawerWidth = 80;
+    return AnimatedBuilder(
+      builder: (context, child){
+        return Drawer(
+          width: widget.isCollapsed ? (drawerWidth * (animationController.value + 1)) : (drawerWidth * (animationController.value + 2)),
+          backgroundColor: MyColors.mainOuterColor,
+          elevation: 4,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              widget.child,
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.symmetric(vertical: 21.0, horizontal: 12.0),
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 24).add(safeArea),
-                  color: Colors.white.withOpacity(0.04),
-                  child: buildHeader(),
-              )
+                color: Colors.white.withOpacity(0.04),
+                child: buildHeader(),
+              ),
+              const SizedBox(height: 12),
+              buildElement(
+                  pageNumber: 0,
+                  icon: const Icon(Icons.storage_rounded, color: MyColors.mainBeige, size: 32),
+                  onTap: () {
+                    setState(() {
+                      widget.pageControllerPage = 0;
+                    });
+                    widget.pageController.animateToPage(0, duration: const Duration(milliseconds: 350), curve: Curves.ease);
+                  },
+                  text: const Text('T a b l e s', style: TextStyle(color: MyColors.mainBeige, fontSize: 16))
+              ),
+              buildElement(
+                pageNumber: 1,
+                icon: const Icon(Icons.bar_chart, color: MyColors.mainBeige, size: 32),
+                onTap: () {
+                  setState(() {
+                    widget.pageControllerPage = 1;
+                  });
+                  widget.pageController.animateToPage(1, duration: const Duration(milliseconds: 350), curve: Curves.ease);
+                },
+                text: const Text('G r a p h s', style: TextStyle(color: MyColors.mainBeige, fontSize: 16)),
+              ),
+              const Spacer(),
+              buildElement(
+                pageNumber: 3,
+                icon: const Icon(Icons.logout, color: MyColors.mainBeige, size: 32),
+                onTap: () async => {
+                  await App.supaBaseController.signOut(context: context),
+                  if(App.supaBaseController.client.auth.currentUser == null){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()))
+                  },
+                },
+                text: const Text('S i g n    o u t', style: TextStyle(color: MyColors.mainBeige, fontSize: 16)),
+              ),
+              buildCollapseIcon(animationController: animationController),
+            ],
           ),
-          const SizedBox(height: 12),
-          buildElement(
-              pageNumber: 0,
-              icon: const Icon(Icons.storage_rounded, color: MyColors.mainBeige, size: 32),
-              onTap: () {
-                setState(() {
-                  widget.pageControllerPage = 0;
-                });
-                widget.pageController.animateToPage(0, duration: const Duration(milliseconds: 350), curve: Curves.ease);
-              },
-              text: const Text('T a b l e s', style: TextStyle(color: MyColors.mainBeige, fontSize: 16))
-          ),
-          buildElement(
-              pageNumber: 1,
-              icon: const Icon(Icons.bar_chart, color: MyColors.mainBeige, size: 32),
-              onTap: () {
-                setState(() {
-                  widget.pageControllerPage = 1;
-                });
-                widget.pageController.animateToPage(1, duration: const Duration(milliseconds: 350), curve: Curves.ease);
-              },
-              text: const Text('G r a p h s', style: TextStyle(color: MyColors.mainBeige, fontSize: 16)),
-          ),
-          const Spacer(),
-          buildElement(
-            pageNumber: 3,
-            icon: const Icon(Icons.logout, color: MyColors.mainBeige, size: 32),
-            onTap: () async => {
-              await App.supaBaseController.signOut(context: context),
-              if(App.supaBaseController.client.auth.currentUser == null){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()))
-              },
-            },
-            text: const Text('S i g n    o u t', style: TextStyle(color: MyColors.mainBeige, fontSize: 16)),
-          ),
-          buildCollapseIcon(),
-        ],
-      ),
+        );
+      },
+      animation: animationController,
     );
+
   }
 
 
-  Widget buildHeader() => widget.isCollapsed ?
-  const Icon(
-    Icons.architecture,
-    size: 42,
-    color: MyColors.mainBeige,
-  ) :
-  Row(
-    children: const [
-      Icon(Icons.architecture, size: 64, color: MyColors.mainBeige,),
-      Text("Matrix of performance", style: TextStyle(color: MyColors.mainBeige, fontSize: 16))
-    ],
-  );
+  Widget buildHeader() {
+    return (animationController.value != 1) ?
+    const Icon(
+      Icons.architecture,
+      size: 52,
+      color: MyColors.mainBeige,
+    ) :
+    Row(
+      mainAxisSize: MainAxisSize.min,
+      children: const [
+        Icon(Icons.architecture, size: 52, color: MyColors.mainBeige,),
+        Text("Matrix of performance",
+            style: TextStyle(color: MyColors.mainBeige, fontSize: 16))
+      ],
+    );
+  }
 
-  Widget buildCollapseIcon() {
+  Widget buildCollapseIcon({required AnimationController animationController}) {
     const double size = 52;
     final icon = widget.isCollapsed ? Icons.arrow_forward_ios : Icons.arrow_back_ios;
-    final alignment = widget.isCollapsed ? Alignment.center : Alignment.centerRight;
+    const alignment = Alignment.centerRight;
     final margin = widget.isCollapsed ? null : const EdgeInsets.only(right: 16);
     final width = widget.isCollapsed ? double.infinity : size;
 
@@ -118,8 +132,9 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
           ),
           onTap: () {
             setState(() {
-              widget.isCollapsed ? widget.isCollapsed = false : widget.isCollapsed = true;
+              widget.isCollapsed ? {widget.isCollapsed = false, animationController.forward()} : {widget.isCollapsed = true, animationController.reverse()};
             });
+
           },
         ),
       ),
@@ -127,38 +142,47 @@ class _DesktopDrawerState extends State<DesktopDrawer>{
   }
 
   Widget buildElement({required double pageNumber, required Widget icon, required Widget text, required VoidCallback onTap}) {
-    return widget.isCollapsed
-        ?
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(8),
-        radius: 0,
-        onTap: onTap,
-        child: SampleStyleContainer(
-            color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
-            width: 48, height: 48,
-            child: icon
+    return Row(
+      children: [
+        Expanded(
+          child: (animationController.value != 1) ?
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8),
+              radius: 0,
+              onTap: onTap,
+              child: Row(
+                children: [
+                  SampleStyleContainer(
+                      color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
+                      width: 48, height: 48,
+                      child: icon
+                  ),
+                ],
+              ),
+            ),
+          )
+              :
+          InkWell(
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+              child: Row(
+                children: [
+                  SampleStyleContainer(
+                      color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
+                      width: 48,
+                      height: 48,
+                      child: icon),
+                  const SizedBox(width: 15),
+                  text
+                ],
+              ),
+            )
+          ),
         ),
-      ),
-    )
-        :
-    InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          children: [
-            SampleStyleContainer(
-                color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
-                width: 48,
-                height: 48,
-                child: icon),
-            const SizedBox(width: 15),
-            text
-          ],
-        ),
-      )
+      ],
     );
   }
 }
