@@ -37,7 +37,7 @@ class DeleteColumnDialog extends StatelessWidget {
   DeleteColumnDialog({Key? key, required context, required this.tableValues, required this.tableName, required this.tableController}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    SampleDropDownMenu dropDownMenu = SampleDropDownMenu(values: tableValues[0].keys.toList().sublist(2), isExpanded: false);
+    SampleDropDownMenu dropDownMenu = SampleDropDownMenu(values: tableValues[0].keys.toList().sublist(2), isExpanded: true);
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
         title: Text("Delete skill 🧵", style: whiteTextColor),
@@ -49,7 +49,11 @@ class DeleteColumnDialog extends StatelessWidget {
                   Text("Select skill to remove:", style: whiteTextColor),
                 ],
               ),
-              dropDownMenu
+              Row(
+                children: [
+                  Expanded(child: dropDownMenu),
+                ],
+              )
             ],
           ),
         ),

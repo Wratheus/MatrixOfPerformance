@@ -29,6 +29,12 @@ class _SampleDropDownMenuState extends State<SampleDropDownMenu> {
       padding: const EdgeInsets.all(10),
       child: DecoratedBox(
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.customBlack.withOpacity(0.35),
+              blurRadius: 4,
+            ),
+          ],
           color: MyColors.mainOuterColor,
           border: Border.all(color: MyColors.mainBeige.withOpacity(0.4), width:2), //border of dropdown button
           borderRadius: BorderRadius.circular(8),

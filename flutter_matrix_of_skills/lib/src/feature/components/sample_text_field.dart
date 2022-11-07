@@ -19,8 +19,16 @@ class SampleTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: SizedBox(
+      child: Container(
         width: width,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.customBlack.withOpacity(0.35),
+              blurRadius: 4,
+            ),
+          ],
+        ),
         child: TextField(
           keyboardType: inputType,
           inputFormatters: textInputFormatters,

@@ -59,7 +59,7 @@ class CopyTableDialog extends StatelessWidget {
   CopyTableDialog({Key? key, required context, required this.allUserTables, required this.tableController, required this.values}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    SampleDropDownMenu dropDownMenu = SampleDropDownMenu(values: values, isExpanded: false);
+    SampleDropDownMenu dropDownMenu = SampleDropDownMenu(values: values, isExpanded: true);
     TextEditingController newTableNameTextController = TextEditingController();
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,

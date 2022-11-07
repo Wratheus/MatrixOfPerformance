@@ -12,6 +12,7 @@ class SampleElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
+        shadowColor: MyColors.customBlack.withOpacity(0.35),
         side: BorderSide(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
         backgroundColor: MyColors.mainOuterColor, //button's fill color
         textStyle: whiteTextColor, //specify the button's text TextStyle

@@ -14,6 +14,12 @@ class SampleBorderContainerCell extends StatelessWidget {
       width: width ?? 5,
       height: height,
       decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.customBlack.withOpacity(0.35),
+              blurRadius: 4,
+            ),
+          ],
           borderRadius: BorderRadius.circular(1),
           border: Border.all(color: MyColors.mainCanvas),
           color: color

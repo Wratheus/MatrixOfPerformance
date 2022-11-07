@@ -45,7 +45,7 @@ class EditColumnDialog extends StatelessWidget {
   EditColumnDialog({Key? key, required context, required this.tableValues, required this.tableName, required this.tableController}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    SampleDropDownMenu dropDownMenu = SampleDropDownMenu(values: tableValues[0].keys.toList().sublist(2), isExpanded: false);
+    SampleDropDownMenu dropDownMenu = SampleDropDownMenu(values: tableValues[0].keys.toList().sublist(2), isExpanded: true);
     TextEditingController newColumnNameTextController = TextEditingController();
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,

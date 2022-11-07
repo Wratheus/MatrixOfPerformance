@@ -17,6 +17,12 @@ class SampleStyleContainer extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         margin: const EdgeInsets.all(3),
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.customBlack.withOpacity(0.35),
+              blurRadius: 4,
+            ),
+          ],
           borderRadius: BorderRadius.circular(8),
           color: color?? MyColors.mainOuterColor,
         ),
