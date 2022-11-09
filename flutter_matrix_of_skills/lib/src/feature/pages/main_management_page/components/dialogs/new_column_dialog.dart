@@ -35,9 +35,9 @@ class NewColumnDialog extends StatelessWidget {
     }else{
       for(int i = 0; i < textControllers.length; i++){
         if(isDigit(textControllers[i].text)){
-          tableValues[i][columnNameTextController.text] = textControllers[i].text; // add such key to every Row of table and give it text variable if it was provided
+          tableValues[i][columnNameTextController.text] = int.parse(textControllers[i].text).round(); // add such key to every Row of table and give it text variable if it was provided
         }else{
-          tableValues[i][columnNameTextController.text] = defaultValueTextController.text;
+          tableValues[i][columnNameTextController.text] = int.parse(defaultValueTextController.text).round();
         }
       }
       await App.supaBaseController.updateTable(table: 'user_tables', // update table if match was found

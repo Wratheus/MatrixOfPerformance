@@ -19,10 +19,21 @@ class GraphViewPageLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       tableController.cubitContext = context; // share cubit context to tableController to have ability to update
       tableController.selectedValue = (state as UserDataLoadedState).tableControllerSelectedValue; // share selected value if it was saved to state with controller
       tableController.sortingList = state.sortingList;
+
+      List<Map<String, dynamic>> selectedTable = <Map<String, dynamic>>[{}];
+      tableController.selectedValue ??= state.allUserTables[0]['table_name']; // if table is not selected pick first one
+      for (Map<String, dynamic> element in state.allUserTables) { // fill name list
+        if (element['table_name'] == tableController.selectedValue) {
+          selectedTable = element['table'].sublist(1);
+        }
+      }
+
+      final double radarHeight =  selectedTable.length >= 5 ? MediaQuery.of(context).size.height * 0.55 : MediaQuery.of(context).size.height * 0.4;
       final double max = maxValue(state.tableData.sublist(1));
       return RefreshIndicator(
         child: Scaffold(
@@ -53,7 +64,7 @@ class GraphViewPageLayout extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
-                                child: SampleStyleContainer(child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController)),
+                                child: SampleStyleContainer(child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: radarHeight)),
                               ),
                             ],
                           ),
@@ -62,9 +73,7 @@ class GraphViewPageLayout extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: SampleStyleContainer(
-                                    child: GroupRadarChart(
-                                        data: (state).tableData.sublist(1), maxValue: max.round()
-                                    )
+                                    child: GroupRadarChart(data: (state).tableData.sublist(1), maxValue: max.round(), height: radarHeight,)
                                 ),
                               ),
                             ],

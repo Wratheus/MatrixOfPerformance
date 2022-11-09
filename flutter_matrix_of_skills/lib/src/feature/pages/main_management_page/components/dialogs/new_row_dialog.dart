@@ -23,7 +23,7 @@ class NewRowDialog extends StatelessWidget {
         if(i == 0) {
           newRow[(tableValues[0]).keys.elementAt(i+1)] = textControllers[i].text;
         }else if(isDigit(textControllers[i].text)){
-          newRow[(tableValues[0]).keys.elementAt(i+1)] = int.parse(textControllers[i].text);
+          newRow[(tableValues[0]).keys.elementAt(i+1)] = int.parse(textControllers[i].text).round();
         }else{
           Navigator.pop(context);
           AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Skill values is not integer.')); // default value is not int

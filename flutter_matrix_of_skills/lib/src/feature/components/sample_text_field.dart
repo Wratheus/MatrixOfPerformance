@@ -40,6 +40,8 @@ class SampleTextField extends StatelessWidget {
           textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
               suffixIcon: IconButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
                 onPressed: textController.clear,
                 icon: CircleAvatar(backgroundColor: MyColors.mainBeige.withOpacity(0.05), child: const Icon(Icons.clear, size: 14, color: MyColors.mainBeige,))),
               iconColor: MyColors.mainBeige,

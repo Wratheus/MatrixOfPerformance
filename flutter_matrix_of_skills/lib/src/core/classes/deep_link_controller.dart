@@ -8,6 +8,8 @@ import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:uni_links/uni_links.dart';
 
+import '../services/page_transition.dart';
+
 
 class DeepLinkController {
   late BuildContext context;
@@ -34,6 +36,6 @@ class DeepLinkController {
 
   void redirectPasswordReset({required String token, required context}) async{
     App.supaBaseController.passwordResetSetSession(token: token).then((value) =>
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NewPasswordPage(refreshToken: token))));
+        Navigator.pushReplacement(context, SlideRightRoute(page: NewPasswordPage(refreshToken: token))));
   }
 }

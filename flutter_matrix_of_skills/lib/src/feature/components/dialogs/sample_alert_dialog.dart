@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 
+import '../../../core/services/page_transition.dart';
+
 class SampleAlertDialog extends StatelessWidget {
   String alertMessageStr;
   String tittleStr;
@@ -18,7 +20,7 @@ class SampleAlertDialog extends StatelessWidget {
           child: Text("OK", style: whiteTextColor),
           onPressed: ()=> {
             Navigator.of(context).pop(),
-            if (route != null){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => route!))}
+            if (route != null){Navigator.pushReplacement(context, SlideRightRoute(page: route!))}
           }
         )
       ],

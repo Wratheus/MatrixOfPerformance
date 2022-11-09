@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../core/classes/app.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/services/app_ui_modals.dart';
+import '../../../core/services/page_transition.dart';
 import '../../components/dialogs/sample_alert_dialog.dart';
 import '../../components/sample_elevated_button.dart';
 import '../../components/sample_text_field.dart';
@@ -58,7 +59,7 @@ class RegistrationPage extends StatelessWidget {
                           const SizedBox(height: 10,),
                           SampleElevatedButton(
                               onPressed: () async => {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
+                                Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage())),
                               },
                               child: Text('Back', style: whiteTextColor)
                           ),
@@ -102,7 +103,7 @@ class RegistrationPage extends StatelessWidget {
                 ),
                 SampleElevatedButton(
                     onPressed: () async => {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
+                      Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage())),
                     },
                     child: Text('Back', style: whiteTextColor)
                 ),

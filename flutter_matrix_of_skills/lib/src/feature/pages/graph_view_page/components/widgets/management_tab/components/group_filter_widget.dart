@@ -11,9 +11,10 @@ class GroupFilterWidget extends StatefulWidget {
   final TableController tableController;
   final List<Map<String, dynamic>> data;
   late List<Map<String, dynamic>> table;
+  final double height;
   List<GroupFilterChip> tableChipList = <GroupFilterChip>[]; // list of all table persons, sorting list is list of selected persons
 
-  GroupFilterWidget({super.key, required this.data, required this.tableController}){
+  GroupFilterWidget({super.key, required this.data, required this.tableController, required this.height}){
     tableController.selectedValue ??= data[0]['table_name']; // if table is not selected pick first one
     for (Map<String, dynamic> element in data) { // fill name list
       if (element['table_name'] == tableController.selectedValue) {
@@ -74,7 +75,7 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
     fillLists();
 
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.35,
+      height: widget.height,
       width:  520,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +84,7 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
           Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.34,
+                height: widget.height,
                 width: 250,
                 decoration: BoxDecoration(
                   border:  Border.all(color: MyColors.mainBeige.withOpacity(0.4), width: 2),
@@ -112,7 +113,7 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
             children: [
               Container(
                 width: 250,
-                height: MediaQuery.of(context).size.height * 0.29,
+                height: widget.height * 0.8,
                 decoration: BoxDecoration(
                   border:  Border.all(color: MyColors.mainBeige.withOpacity(0.4), width: 2),
                   borderRadius: BorderRadius.circular(8),

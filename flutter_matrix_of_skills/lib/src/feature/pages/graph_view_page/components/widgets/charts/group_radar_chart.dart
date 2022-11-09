@@ -7,40 +7,44 @@ class GroupRadarChart extends StatelessWidget {
   final List<Map<String, dynamic>> data;
   final double angleValue = 0.0;
   final int maxValue;
-  const GroupRadarChart({super.key, required this.data, required this.maxValue});
+  final double height;
+  const GroupRadarChart({super.key, required this.data, required this.maxValue, required this.height});
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.35,
-          width:  MediaQuery.of(context).size.height * 0.35,
-          child: RadarChart(
-            RadarChartData(
-              dataSets: showingDataSets(data: data),
-              radarBackgroundColor: Colors.transparent,
-              radarShape: RadarShape.circle,
-              radarBorderData: const BorderSide(color: Colors.transparent, width: 2),
-              radarTouchData: RadarTouchData(),
-              titlePositionPercentageOffset: 0.1,
-              gridBorderData: BorderSide(color: Colors.grey.withOpacity(0.4), width: 2),
-              tickBorderData: BorderSide(color: Colors.grey.withOpacity(0.09), width: 2),
-              ticksTextStyle: const TextStyle(color: MyColors.mainBeige, fontSize: 14, fontWeight: FontWeight.bold),
-              tickCount: maxValue,
-              titleTextStyle: const TextStyle(color: MyColors.mainBeige, fontSize: 14, fontWeight: FontWeight.bold),
-              getTitle: (index, angle) {
-                return RadarChartTitle(
-                  text: data[0].keys.toList().sublist(2)[index],
-                  angle: 0,
-                );
-              },
+          height: height,
+          width: height,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: RadarChart(
+              RadarChartData(
+                dataSets: showingDataSets(data: data),
+                radarBackgroundColor: Colors.transparent,
+                radarShape: RadarShape.circle,
+                radarBorderData: const BorderSide(color: Colors.transparent, width: 2),
+                radarTouchData: RadarTouchData(),
+                titlePositionPercentageOffset: 0.1,
+                gridBorderData: BorderSide(color: Colors.grey.withOpacity(0.4), width: 2),
+                tickBorderData: BorderSide(color: Colors.grey.withOpacity(0.09), width: 2),
+                ticksTextStyle: const TextStyle(color: MyColors.mainBeige, fontSize: 14, fontWeight: FontWeight.bold),
+                tickCount: maxValue,
+                titleTextStyle: const TextStyle(color: MyColors.mainBeige, fontSize: 14, fontWeight: FontWeight.bold),
+                getTitle: (index, angle) {
+                  return RadarChartTitle(
+                    text: data[0].keys.toList().sublist(2)[index],
+                    angle: 0,
+                  );
+                },
+              ),
+              swapAnimationCurve: Curves.linearToEaseOut,
             ),
-            swapAnimationCurve: Curves.linearToEaseOut,
           ),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
+          height: height * 0.7,
           width: 200,
           child: ListView.builder(
               itemCount: data.length,

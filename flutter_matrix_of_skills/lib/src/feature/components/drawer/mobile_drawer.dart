@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/classes/app.dart';
 import '../../../core/constants/constants.dart';
+import '../../../core/services/page_transition.dart';
 import '../../pages/login_page/login_page.dart';
 
 class MobileDrawer extends StatelessWidget {
@@ -59,7 +60,7 @@ class MobileDrawer extends StatelessWidget {
                 onTap: () async => {
                   await App.supaBaseController.signOut(context: context),
                   if(App.supaBaseController.client.auth.currentUser == null){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()))
+                    Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage()))
                   },
                 }
             ),

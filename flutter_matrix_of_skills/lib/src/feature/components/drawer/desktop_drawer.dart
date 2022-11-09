@@ -3,6 +3,7 @@ import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_con
 
 import '../../../core/classes/app.dart';
 import '../../../core/constants/constants.dart';
+import '../../../core/services/page_transition.dart';
 import '../../pages/login_page/login_page.dart';
 
 // ignore: must_be_immutable
@@ -57,7 +58,7 @@ class _DesktopDrawerState extends State<DesktopDrawer> with TickerProviderStateM
                     });
                     widget.pageController.animateToPage(0, duration: const Duration(milliseconds: 350), curve: Curves.ease);
                   },
-                  text: const Text('T a b l e s', style: TextStyle(color: MyColors.mainBeige, fontSize: 16))
+                  text: const Text('Tables', style: TextStyle(color: MyColors.mainBeige, fontSize: 16, letterSpacing: 4))
               ),
               buildElement(
                 pageNumber: 1,
@@ -68,7 +69,7 @@ class _DesktopDrawerState extends State<DesktopDrawer> with TickerProviderStateM
                   });
                   widget.pageController.animateToPage(1, duration: const Duration(milliseconds: 350), curve: Curves.ease);
                 },
-                text: const Text('G r a p h s', style: TextStyle(color: MyColors.mainBeige, fontSize: 16)),
+                text: const Text('Graphs', style: TextStyle(color: MyColors.mainBeige, fontSize: 16, letterSpacing: 4)),
               ),
               const Spacer(),
               buildElement(
@@ -77,10 +78,10 @@ class _DesktopDrawerState extends State<DesktopDrawer> with TickerProviderStateM
                 onTap: () async => {
                   await App.supaBaseController.signOut(context: context),
                   if(App.supaBaseController.client.auth.currentUser == null){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()))
+                    Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage()))
                   },
                 },
-                text: const Text('S i g n    o u t', style: TextStyle(color: MyColors.mainBeige, fontSize: 16)),
+                text: const Text('Sign out', style: TextStyle(color: MyColors.mainBeige, fontSize: 16, letterSpacing: 4)),
               ),
               buildCollapseIcon(animationController: animationController),
             ],
@@ -147,7 +148,7 @@ class _DesktopDrawerState extends State<DesktopDrawer> with TickerProviderStateM
         Expanded(
           child: (animationController.value != 1) ?
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 13.0),
             child: InkWell(
               borderRadius: BorderRadius.circular(8),
               radius: 0,

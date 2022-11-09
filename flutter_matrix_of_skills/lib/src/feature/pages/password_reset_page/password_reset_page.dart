@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 
 import '../../../core/classes/app.dart';
+import '../../../core/services/page_transition.dart';
 import '../../components/sample_elevated_button.dart';
 import '../../components/sample_text_field.dart';
 import '../../responsive/desktop_body.dart';
@@ -50,7 +51,7 @@ class PasswordResetPage extends StatelessWidget {
                             ),
                             SampleElevatedButton(
                                 onPressed: () async => {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
+                                  Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage())),
                                 },
                                 child: Text('Back', style: whiteTextColor)
                             ),
@@ -83,7 +84,7 @@ class PasswordResetPage extends StatelessWidget {
                 ),
                 SampleElevatedButton(
                     onPressed: () async => {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())),
+                      Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage())),
                     },
                     child: Text('Back', style: whiteTextColor)
                 ),

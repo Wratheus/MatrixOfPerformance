@@ -8,6 +8,7 @@ import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/registration_page/registration_page.dart';
 
 import '../../../core/classes/app.dart';
+import '../../../core/services/page_transition.dart';
 import '../../components/sample_elevated_button.dart';
 import '../../components/sample_text_field.dart';
 import '../../responsive/desktop_body.dart';
@@ -62,7 +63,7 @@ class LoginPage extends StatelessWidget {
                         Center(
                           child: InkWell(
                             radius: 0,
-                            onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegistrationPage()));},
+                            onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: RegistrationPage()));},
                             child: Text("Register",
                               style: whiteTextColor,
                             ),
@@ -72,7 +73,7 @@ class LoginPage extends StatelessWidget {
                         Center(
                           child: InkWell(
                             radius: 0,
-                            onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordResetPage()));},
+                            onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: PasswordResetPage()));},
                             child: Text("Forgot password",
                               style: greyTextColor,
                             ),
@@ -107,7 +108,7 @@ class LoginPage extends StatelessWidget {
             Center(
               child: InkWell(
                 radius: 0,
-                onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegistrationPage()));},
+                onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: RegistrationPage()));},
                 child: Text("Register",
                   style: whiteTextColor,
                 ),
@@ -117,7 +118,7 @@ class LoginPage extends StatelessWidget {
             Center(
               child: InkWell(
                 radius: 0,
-                onTap: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordResetPage()));},
+                onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: PasswordResetPage()));},
                 child: Text("Forgot password",
                   style: greyTextColor,
                 ),

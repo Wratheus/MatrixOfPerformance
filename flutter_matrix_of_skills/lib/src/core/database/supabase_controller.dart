@@ -6,6 +6,7 @@ import 'package:flutter_matrix_of_skills/src/feature/components/dialogs/sample_e
 import 'package:flutter_matrix_of_skills/src/feature/pages/login_page/login_page.dart';
 
 import '../../feature/components/dialogs/sample_alert_dialog.dart';
+import '../services/page_transition.dart';
 import 'client_credentials/auth.dart';
 import '../classes/app.dart';
 import '../services/app_ui_modals.dart';
@@ -122,7 +123,7 @@ class  SupaBaseController {
       return false; // error != null
     } else {
       signOut(context: context);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>LoginPage()));
+      Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage()));
       AppUI.showMaterialModalDialog(context: context,
           child: SampleAlertDialog(alertMessageStr: 'Your password has been changed!', tittleStr: 'Success',));
       return true; // body complete normally
