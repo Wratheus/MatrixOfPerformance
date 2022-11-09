@@ -15,7 +15,7 @@ class GroupColumnChart extends StatelessWidget {
     return Row(
       children: [
         SampleStyleContainer(
-          height: MediaQuery.of(context).size.height * 0.42,
+          height: MediaQuery.of(context).size.height * 0.35,
           width:  data[0].keys.toList().length >= 12 ? data.length * 500 : data[0].keys.toList().length >= 9 ? data.length * 250 : data[0].keys.toList().length >= 6 ? data.length * 200 : MediaQuery.of(context).size.width,
           child: SfCartesianChart(
               tooltipBehavior: TooltipBehavior(textStyle: whiteTextColor),
@@ -25,7 +25,7 @@ class GroupColumnChart extends StatelessWidget {
               legend: Legend(
                   isVisible: true,
                   textStyle: whiteTextColor,
-                  position: LegendPosition.bottom
+                  position: LegendPosition.left
               ),
               series: data[0].keys.toList().sublist(2).map<ChartSeries<dynamic, dynamic>>((key) => ColumnSeries(
                 width: 0.75,

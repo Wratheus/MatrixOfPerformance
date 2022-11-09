@@ -11,10 +11,11 @@ class GroupRadarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.45,
-          width:  MediaQuery.of(context).size.height * 0.45,
+          height: MediaQuery.of(context).size.height * 0.35,
+          width:  MediaQuery.of(context).size.height * 0.35,
           child: RadarChart(
             RadarChartData(
               dataSets: showingDataSets(data: data),
@@ -40,7 +41,7 @@ class GroupRadarChart extends StatelessWidget {
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.3,
-          width: longestName(data) * 17 + 10,
+          width: 200,
           child: ListView.builder(
               itemCount: data.length,
               itemBuilder: (BuildContext context, int index) {
@@ -56,7 +57,7 @@ class GroupRadarChart extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 5),
-                      Text(data[index]['name'], style: whiteTextColor),
+                      Text(data[index]['name'].length >= 10 ? '${(data[index]['name'] as String).substring(0, 10)}.' : data[index]['name'], style: whiteTextColor),
                       Text(" - ${calculateSumOfSkills(personSkillValues: data[index].values.toList().sublist(2)) }", style: whiteTextColor,)
                     ],
                   ),

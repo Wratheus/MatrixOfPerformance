@@ -7,7 +7,7 @@ class UserDataInitialState extends UserDataState {}
 
 class UserDataLoadedState extends UserDataState {
   final List<Map<String, dynamic>> allUserTables;
-  final List<String> sortingList;
+  final List<GroupFilterChip> sortingList;
   final List<Map<String, dynamic>> tableData;
   final List<Map<String, dynamic>> values;
   final String? tableControllerSelectedValue;

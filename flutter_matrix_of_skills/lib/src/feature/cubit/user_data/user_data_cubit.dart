@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import '../../../core/classes/app.dart';
+import '../../pages/graph_view_page/components/widgets/management_tab/components/group_filter_chip.dart';
 
 part 'user_data_state.dart';
 
@@ -15,7 +16,7 @@ class UserDataCubit extends Cubit<UserDataState> {
     }
   }
 
-  Future<void> loadUserData({String? tableName, context, String? selectedValue, List<Map<String, dynamic>>? tableData, List<String>? sortingList}) async {
+  Future<void> loadUserData({String? tableName, context, String? selectedValue, List<Map<String, dynamic>>? tableData, List<GroupFilterChip>? sortingList}) async {
     try{
       if (!isClosed) {
         emit(UserDataLoadedState(

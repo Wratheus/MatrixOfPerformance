@@ -35,7 +35,7 @@ class TableManagementPageLayout extends StatelessWidget {
               )
 
           ),
-        ):
+        ) :
         Column(
           children: [
             Row(

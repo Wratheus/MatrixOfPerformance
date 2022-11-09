@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
-import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/management_tab/components/group_filter_chip.dart';
-import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/management_tab/graph_management_tab.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/management_tab/components/group_filter_widget.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/charts/circular_chart.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/charts/col_chart.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/charts/group_col_chart.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/compo
 
 import '../../../../core/constants/constants.dart';
 import '../../../cubit/user_data/user_data_cubit.dart';
+import '../../main_management_page/components/group_drop_down_menu.dart';
 import '../../main_management_page/components/group_table_view_controller.dart';
 import '../components/widgets/charts/group_radar_chart.dart';
 
@@ -35,15 +35,25 @@ class GraphViewPageLayout extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SampleStyleContainer(
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text("Table ", style: whiteTextColor),
+                          const SizedBox(width: 5),
+                          Expanded(child: GroupDropDownMenu(tableController: tableController, isExpanded: true, backgroundColor: Colors.transparent),)
+                        ],
+                      ),
+                    ),
                     IntrinsicHeight(
                       child: Row(
                         children: [
                           Column(
                             children: [
-                              GroupFilterChip(isSelected: true, name: "Aleksandr", color: MyColors.customBluePurple.withOpacity(0.5)),
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
-                                child: GraphManagementTab(tableController: tableController, data: (state).allUserTables),
+                                child: SampleStyleContainer(child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController)),
                               ),
                             ],
                           ),
@@ -76,8 +86,14 @@ class GraphViewPageLayout extends StatelessWidget {
                               controller: ScrollController(),
                               scrollDirection: Axis.horizontal,
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(state.tableControllerSelectedValue?? state.allUserTables[0]['table_name'], style: const TextStyle(color: MyColors.mainBeige, fontSize: 22, fontWeight: FontWeight.bold)),
+                                  Row(
+                                    children: [
+                                      const SizedBox(width: 20),
+                                      Text(state.tableControllerSelectedValue?? state.allUserTables[0]['table_name'], style: const TextStyle(color: MyColors.mainBeige, fontSize: 22, fontWeight: FontWeight.bold)),
+                                    ],
+                                  ),
                                   const SizedBox(height: 15),
                                   GroupColumnChart(data: (state).tableData.sublist(1)),
                                 ]
@@ -93,8 +109,14 @@ class GraphViewPageLayout extends StatelessWidget {
                             padding: const EdgeInsets.all(5.0),
                             child: SampleStyleContainer(
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(person['name'], style: const TextStyle(color: MyColors.mainBeige, fontSize: 22, fontWeight: FontWeight.bold)),
+                                  Row(
+                                    children: [
+                                      const SizedBox(width: 20),
+                                      Text(person['name'], style: const TextStyle(color: MyColors.mainBeige, fontSize: 22, fontWeight: FontWeight.bold)),
+                                    ],
+                                  ),
                                   const SizedBox(height: 15),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,6 +144,3 @@ class GraphViewPageLayout extends StatelessWidget {
     });
   }
 }
-/*                        ColumnChart(data: (state).tableData.sublist(1)),
-
-                        CircularChart(data: (state).tableData.sublist(1)),*/
