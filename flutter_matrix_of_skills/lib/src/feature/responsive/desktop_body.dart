@@ -12,7 +12,7 @@ class DesktopScaffold extends StatelessWidget {
     // Windows window set up parameters
     doWhenWindowReady(() {
       final win = appWindow;
-      const initialSize = Size(1400, 900);
+      const initialSize = Size(1350, 750);
       win.minSize = initialSize;
       win.size = initialSize;
       win.alignment = Alignment.center;

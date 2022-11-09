@@ -33,7 +33,7 @@ class GraphViewPageLayout extends StatelessWidget {
         }
       }
 
-      final double radarHeight =  selectedTable.length >= 5 ? MediaQuery.of(context).size.height * 0.55 : MediaQuery.of(context).size.height * 0.4;
+      final double radarHeight =  selectedTable.length >= 5 ? MediaQuery.of(context).size.height * 0.6 : MediaQuery.of(context).size.height * 0.5;
       final double max = maxValue(state.tableData.sublist(1));
       return RefreshIndicator(
         child: Scaffold(
