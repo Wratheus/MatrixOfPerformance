@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
@@ -21,22 +23,34 @@ class GraphViewPageLayout extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
-      tableController.cubitContext = context; // share cubit context to tableController to have ability to update
-      tableController.selectedValue = (state as UserDataLoadedState).tableControllerSelectedValue; // share selected value if it was saved to state with controller
+      tableController.cubitContext =
+          context; // share cubit context to tableController to have ability to update
+      tableController.selectedValue = (state as UserDataLoadedState)
+          .tableControllerSelectedValue; // share selected value if it was saved to state with controller
       tableController.sortingList = state.sortingList;
 
+
       List<Map<String, dynamic>> selectedTable = <Map<String, dynamic>>[{}];
-      tableController.selectedValue ??= state.allUserTables[0]['table_name']; // if table is not selected pick first one
-      for (Map<String, dynamic> element in state.allUserTables) { // fill name list
+      tableController.selectedValue ??= state
+          .allUserTables[0]['table_name']; // if table is not selected pick first one
+      for (Map<String, dynamic> element in state
+          .allUserTables) { // fill name list
         if (element['table_name'] == tableController.selectedValue) {
           selectedTable = element['table'].sublist(1);
         }
       }
 
-      final double radarHeight =  selectedTable.length >= 5 ? MediaQuery.of(context).size.height * 0.6 : MediaQuery.of(context).size.height * 0.5;
+      final double radarHeight = selectedTable.length >= 5 ? MediaQuery
+          .of(context)
+          .size
+          .height * 0.6 : MediaQuery
+          .of(context)
+          .size
+          .height * 0.5;
       final double max = maxValue(state.tableData.sublist(1));
+
       return RefreshIndicator(
-        child: Scaffold(
+        child: Platform.isWindows ? Scaffold(
           backgroundColor: MyColors.mainCanvas,
           body: SingleChildScrollView(
             controller: ScrollController(),
@@ -144,6 +158,46 @@ class GraphViewPageLayout extends StatelessWidget {
                   ]
               ),
             ),
+          ),
+        ) // mobile layout
+            :
+        Scaffold(
+          backgroundColor: MyColors.mainCanvas,
+          body: PageView(
+            children: (state).tableData.sublist(1).map(<Widget>(Map<String, dynamic>person) {
+                return Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: SampleStyleContainer(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(person['name'], style: const TextStyle(
+                                color: MyColors.mainBeige,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        const SizedBox(height: 15),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: ColumnChart(data: person, maxValue: max)),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Expanded(child: CircularChart(data: person)),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }<Widget>).toList(),
           ),
         ),
         onRefresh: () =>
