@@ -5,6 +5,7 @@ import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/components/group_table_view_controller.dart';
 
 import '../../../../../core/classes/app.dart';
+import '../../../../../core/services/app_ui_disable_glow_effect.dart';
 import '../../../../../core/services/app_ui_modals.dart';
 import '../../../../components/dialogs/sample_alert_dialog.dart';
 import '../../../../components/dialogs/sample_error_dialog.dart';
@@ -70,29 +71,31 @@ class NewColumnDialog extends StatelessWidget {
               SizedBox(
                 width: 250,
                 height: 400,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: tableValues.length,
-                    itemBuilder: (BuildContext context, index) {
-                      if(index == 0) {
-                        textControllers.add(TextEditingController());
-                        return const SizedBox(height: 5,);
-                      }else{
-                        textControllers.add(TextEditingController());
-                        return Column(
-                          children: [
-                            const SizedBox(height: 5),
-                            SampleTextField(
-                                labelText: "${tableValues[index]['name']} value:",
-                                textColor: whiteTextColor,
-                                hideText: false,
-                                textController: textControllers[index],
-                                borderColor: MyColors.mainBeige,
-                                width: 250),
-                          ],
-                        );
+                child: DisableGlowEffect(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: tableValues.length,
+                      itemBuilder: (BuildContext context, index) {
+                        if(index == 0) {
+                          textControllers.add(TextEditingController());
+                          return const SizedBox(height: 5,);
+                        }else{
+                          textControllers.add(TextEditingController());
+                          return Column(
+                            children: [
+                              const SizedBox(height: 5),
+                              SampleTextField(
+                                  labelText: "${tableValues[index]['name']} value:",
+                                  textColor: whiteTextColor,
+                                  hideText: false,
+                                  textController: textControllers[index],
+                                  borderColor: MyColors.mainBeige,
+                                  width: 250),
+                            ],
+                          );
+                        }
                       }
-                    }
+                  ),
                 ),
               ),
             ],

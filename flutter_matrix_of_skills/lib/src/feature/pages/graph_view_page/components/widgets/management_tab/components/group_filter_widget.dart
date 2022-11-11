@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../../../../../../../core/constants/constants.dart';
+import '../../../../../../../core/services/app_ui_disable_glow_effect.dart';
 import '../../../../../../components/sample_elevated_button.dart';
 import '../../../../../main_management_page/components/group_table_view_controller.dart';
 import 'group_filter_chip.dart';
@@ -12,9 +15,10 @@ class GroupFilterWidget extends StatefulWidget {
   final List<Map<String, dynamic>> data;
   late List<Map<String, dynamic>> table;
   final double height;
+  final double width;
   List<GroupFilterChip> tableChipList = <GroupFilterChip>[]; // list of all table persons, sorting list is list of selected persons
 
-  GroupFilterWidget({super.key, required this.data, required this.tableController, required this.height}){
+  GroupFilterWidget({super.key, required this.data, required this.tableController, required this.height, required this.width}){
     tableController.selectedValue ??= data[0]['table_name']; // if table is not selected pick first one
     for (Map<String, dynamic> element in data) { // fill name list
       if (element['table_name'] == tableController.selectedValue) {
@@ -76,7 +80,7 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
 
     return SizedBox(
       height: widget.height,
-      width:  520,
+      width:  widget.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,26 +89,28 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
             children: [
               Container(
                 height: widget.height,
-                width: 250,
+                width: Platform.isWindows ? widget.width/2.1 : widget.width/1.85,
                 decoration: BoxDecoration(
                   border:  Border.all(color: MyColors.mainBeige.withOpacity(0.4), width: 2),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: widget.tableChipList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      child: widget.tableChipList[index],
-                      onTap: () { // onClick chip
-                        setState(() { // when you select chip
-                          (widget.tableChipList[index]).isSelected = true;
-                          widget.tableController.sortingList.add(widget.tableChipList[index]);
-                          widget.tableChipList.remove(widget.tableChipList[index]);
-                        });
-                      }
-                    );
-                  },
+                child: DisableGlowEffect(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: widget.tableChipList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        child: widget.tableChipList[index],
+                        onTap: () { // onClick chip
+                          setState(() { // when you select chip
+                            (widget.tableChipList[index]).isSelected = true;
+                            widget.tableController.sortingList.add(widget.tableChipList[index]);
+                            widget.tableChipList.remove(widget.tableChipList[index]);
+                          });
+                        }
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
@@ -112,31 +118,55 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
           Column(
             children: [
               Container(
-                width: 250,
+                width: Platform.isWindows ? widget.width/2.1 : widget.width/1.85,
                 height: widget.height * 0.8,
                 decoration: BoxDecoration(
                   border:  Border.all(color: MyColors.mainBeige.withOpacity(0.4), width: 2),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: ListView.builder(
-                  controller: ScrollController(),
-                  shrinkWrap: true,
-                  itemCount: widget.tableController.sortingList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                        child: widget.tableController.sortingList[index],
-                        onTap: () { // onClick chip
-                          setState(() { // when you deselect chip
-                            (widget.tableController.sortingList[index]).isSelected = false;
-                            widget.tableChipList.add(widget.tableController.sortingList[index]);
-                            widget.tableController.sortingList.remove(widget.tableController.sortingList[index]);
-                          });
-                        }
-                    );
-                  },
+                child: DisableGlowEffect(
+                  child: ListView.builder(
+                    controller: ScrollController(),
+                    shrinkWrap: true,
+                    itemCount: widget.tableController.sortingList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                          child: widget.tableController.sortingList[index],
+                          onTap: () { // onClick chip
+                            setState(() { // when you deselect chip
+                              (widget.tableController.sortingList[index]).isSelected = false;
+                              widget.tableChipList.add(widget.tableController.sortingList[index]);
+                              widget.tableController.sortingList.remove(widget.tableController.sortingList[index]);
+                            });
+                          }
+                      );
+                    },
+                  ),
                 ),
               ),
               const Spacer(),
+              !Platform.isWindows ? Row(
+                children: [
+                   SizedBox(
+                    width: 80,
+                    child: SampleElevatedButton(
+                      child: Text("load", style: whiteTextColor),
+                      onPressed: () => {
+                        loadFromSelectedList()},
+                    ),
+                  ),
+                  const SizedBox(width: 5,),
+                  SizedBox(
+                    width: 80,
+                    child: SampleElevatedButton(
+                      child: Text('Clear', style: whiteTextColor),
+                      onPressed: () => {
+                        widget.tableController.update(tableName: widget.tableController.selectedValue, selectedValue: widget.tableController.selectedValue)
+                      },
+                    ),
+                  )
+                ],
+              ) :
               Row(
                 children: [
                   SampleElevatedButton(

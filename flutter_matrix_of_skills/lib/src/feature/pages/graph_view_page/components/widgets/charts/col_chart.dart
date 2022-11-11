@@ -15,8 +15,8 @@ class ColumnChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-          height: Platform.isWindows ? (data.keys.toList().length > 6) ? (MediaQuery.of(context).size.width * 0.3) : (MediaQuery.of(context).size.width * 0.25) : (MediaQuery.of(context).size.height * 0.35),
-          width: Platform.isWindows ?  (data.keys.toList().length > 6) ? (MediaQuery.of(context).size.width * 0.3) : (MediaQuery.of(context).size.width * 0.25) : (MediaQuery.of(context).size.height * 0.35),
+          height: Platform.isWindows ? (data.keys.toList().length > 6) ? (MediaQuery.of(context).size.width * 0.3) : (MediaQuery.of(context).size.width * 0.25) : (MediaQuery.of(context).size.height * 0.25),
+          width: Platform.isWindows ?  (data.keys.toList().length > 6) ? (MediaQuery.of(context).size.width * 0.3) : (MediaQuery.of(context).size.width * 0.25) : (MediaQuery.of(context).size.height * 0.25),
           child: SfCartesianChart(
               primaryXAxis: CategoryAxis(labelStyle: whiteTextColor),
               primaryYAxis: NumericAxis(minimum: 0, maximum: maxValue, interval: 10, labelStyle: whiteTextColor, isVisible: false),

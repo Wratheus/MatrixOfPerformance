@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/classes/app.dart';
 import '../../../../../core/constants/constants.dart';
+import '../../../../../core/services/app_ui_disable_glow_effect.dart';
 import '../../../../../core/services/app_ui_modals.dart';
 import '../../../../components/dialogs/sample_alert_dialog.dart';
 import '../../../../components/sample_text_field.dart';
@@ -47,18 +48,20 @@ class NewTableFillDialog extends StatelessWidget {
               SizedBox(
                 height: 200,
                 width: 300,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: newTableColumnsAmount,
-                    itemBuilder: (BuildContext context, int index) {
-                      textControllers.add(TextEditingController());
-                      return Column(
-                        children: [
-                          const SizedBox(height: 5),
-                          SampleTextField(labelText: 'Skill ${index+1}:', textColor: whiteTextColor, hideText: false, textController: textControllers[index], borderColor: MyColors.mainBeige, width: 250),
-                        ],
-                      );
-                    }
+                child: DisableGlowEffect(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: newTableColumnsAmount,
+                      itemBuilder: (BuildContext context, int index) {
+                        textControllers.add(TextEditingController());
+                        return Column(
+                          children: [
+                            const SizedBox(height: 5),
+                            SampleTextField(labelText: 'Skill ${index+1}:', textColor: whiteTextColor, hideText: false, textController: textControllers[index], borderColor: MyColors.mainBeige, width: 250),
+                          ],
+                        );
+                      }
+                  ),
                 ),
               ),
             ],

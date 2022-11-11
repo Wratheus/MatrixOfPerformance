@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_matrix_of_skills/src/core/services/app_ui_disable_glow_effect.dart';
+import 'package:flutter_matrix_of_skills/src/core/services/custom_scroll_behavior.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/management_tab/components/group_filter_widget.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/components/widgets/charts/circular_chart.dart';
@@ -23,6 +25,7 @@ class GraphViewPageLayout extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
+      List<Widget> slidePageList = [];
       tableController.cubitContext =
           context; // share cubit context to tableController to have ability to update
       tableController.selectedValue = (state as UserDataLoadedState)
@@ -48,6 +51,52 @@ class GraphViewPageLayout extends StatelessWidget {
           .size
           .height * 0.5;
       final double max = maxValue(state.tableData.sublist(1));
+
+      if  (Platform.isAndroid || Platform.isIOS) {
+          slidePageList = (state).tableData.sublist(1).map(<Widget>(Map<String, dynamic>person) {
+          return Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: MyColors.customBlack.withOpacity(0.35),
+                  blurRadius: 4,
+                ),
+              ],
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+              color: MyColors.mainOuterColor,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(person['name'], style: const TextStyle(
+                        color: MyColors.mainBeige,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                Row(
+                  children: [
+                    Expanded(
+                        child: ColumnChart(data: person, maxValue: max)),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  children: [
+                    Expanded(child: CircularChart(data: person)),
+                  ],
+                ),
+              ],
+            ),
+          );
+        }<Widget>).toList();
+          slidePageList.insert(0, Container(child: GroupRadarChart(data: (state).tableData.sublist(1), maxValue: max.round(), height: MediaQuery.of(context).size.height * 0.44)));
+      }
 
       return RefreshIndicator(
         child: Platform.isWindows ? Scaffold(
@@ -78,7 +127,8 @@ class GraphViewPageLayout extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
-                                child: SampleStyleContainer(child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: radarHeight)),
+                                child: SampleStyleContainer(
+                                    child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: radarHeight, width: 520)),
                               ),
                             ],
                           ),
@@ -163,41 +213,60 @@ class GraphViewPageLayout extends StatelessWidget {
             :
         Scaffold(
           backgroundColor: MyColors.mainCanvas,
-          body: PageView(
-            children: (state).tableData.sublist(1).map(<Widget>(Map<String, dynamic>person) {
-                return Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: SampleStyleContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(person['name'], style: const TextStyle(
-                                color: MyColors.mainBeige,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold)),
+          body: Stack(
+            children: [
+              DisableGlowEffect(
+                child: PageView(
+                  scrollBehavior: CustomScrollBehavior(),
+                  children: slidePageList
+                ),
+              ),
+              DisableGlowEffect(
+                child: DraggableScrollableSheet(
+                    initialChildSize: 0.13,
+                    maxChildSize: 0.75,
+                    minChildSize: 0.13 ,
+                    builder: (context, scrollController) {
+                      return Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: MyColors.customBlack.withOpacity(0.35),
+                              blurRadius: 4,
+                            ),
                           ],
+                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                          color: MyColors.mainOuterColor,
                         ),
-                        const SizedBox(height: 15),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: ColumnChart(data: person, maxValue: max)),
-                          ],
+                        child: SingleChildScrollView(
+                          controller: scrollController,
+                          child: Column(
+                            children: [
+                              Container(width: 200, height: 2, color: MyColors.mainBeige.withOpacity(0.3)),
+                              const SizedBox(height: 15),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Table ", style: whiteTextColor),
+                                  const SizedBox(width: 5),
+                                  Expanded(child: GroupDropDownMenu(tableController: tableController, isExpanded: true, backgroundColor: Colors.transparent),)
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                children: [
+                                  Expanded(child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: MediaQuery.of(context).size.height * 0.5, width: MediaQuery.of(context).size.height * 0.35)),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Expanded(child: CircularChart(data: person)),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }<Widget>).toList(),
+                      );
+                    }
+                ),
+              ),
+            ]
           ),
         ),
         onRefresh: () =>

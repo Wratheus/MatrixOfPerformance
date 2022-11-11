@@ -5,6 +5,7 @@ import 'package:flutter_matrix_of_skills/src/feature/components/sample_border_co
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
 import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layout.dart';
 
+import '../../../../core/services/app_ui_disable_glow_effect.dart';
 import '../../../cubit/user_data/user_data_cubit.dart';
 
 class GroupTableView extends StatelessWidget {
@@ -19,45 +20,51 @@ class GroupTableView extends StatelessWidget {
           // Desktop layout
           SampleStyleContainer(
             width: MediaQuery.of(context).size.width * 1,
-            child: ListView.builder(
-                controller: ScrollController(),
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: (state).tableData.length,
-                itemBuilder: (context, row) {
-                  if(row == 0) {
+            child: DisableGlowEffect(
+              child: ListView.builder(
+                  controller: ScrollController(),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: (state).tableData.length,
+                  itemBuilder: (context, row) {
+                    if(row == 0) {
+                      return SampleBorderContainerCell(
+                          color: MyColors.mainInnerColor,
+                          child: DisableGlowEffect(
+                            child: GridView.builder(
+                                controller: ScrollController(),
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: (state).tableData[row].length,
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    childAspectRatio: (state).tableData[0].keys.toList().length >= 6 ? 1.5 : 5,
+                                    crossAxisCount: (state).tableData[row].length
+                                ),
+                                itemBuilder: (context, column) {
+                                  return Center(child: Text((state).tableData[row].keys.elementAt(column).toString(), style: whiteTextColor));
+                                }),
+                          ));
+                    }
+                    // row--; hide first row
                     return SampleBorderContainerCell(
-                        color: MyColors.mainInnerColor,
+                      color: MyColors.mainOuterColor,
+                      child: DisableGlowEffect(
                         child: GridView.builder(
                             controller: ScrollController(),
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: (state).tableData[row].length,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: (state).tableData[0].keys.toList().length >= 6 ? 1.5 : 5,
+                                childAspectRatio:  (state).tableData[0].keys.toList().length >= 6 ? 1.5 : 6,
                                 crossAxisCount: (state).tableData[row].length
                             ),
                             itemBuilder: (context, column) {
-                              return Center(child: Text((state).tableData[row].keys.elementAt(column).toString(), style: whiteTextColor));
-                            }));
+                              return Center(child: Text((state).tableData[row].values.elementAt(column).toString(), style: whiteTextColor));
+                            }),
+                      ),
+                    );
                   }
-                  // row--; hide first row
-                  return SampleBorderContainerCell(
-                    color: MyColors.mainOuterColor,
-                    child: GridView.builder(
-                        controller: ScrollController(),
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: (state).tableData[row].length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio:  (state).tableData[0].keys.toList().length >= 6 ? 1.5 : 6,
-                            crossAxisCount: (state).tableData[row].length
-                        ),
-                        itemBuilder: (context, column) {
-                          return Center(child: Text((state).tableData[row].values.elementAt(column).toString(), style: whiteTextColor));
-                        }),
-                  );
-                }
+              ),
             ),
           ) :
           // Mobile Layout
@@ -70,45 +77,51 @@ class GroupTableView extends StatelessWidget {
               MediaQuery.of(context).size.width * 0.97
                   :
               (100 * (state.tableData[0].length)).toDouble(),
-              child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: ScrollController(),
-                  shrinkWrap: true,
-                  itemCount: (state).tableData.length,
-                  itemBuilder: (context, row) {
-                    if(row == 0) {
+              child: DisableGlowEffect(
+                child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    controller: ScrollController(),
+                    shrinkWrap: true,
+                    itemCount: (state).tableData.length,
+                    itemBuilder: (context, row) {
+                      if(row == 0) {
+                        return SampleBorderContainerCell(
+                            color: MyColors.mainInnerColor,
+                            child: DisableGlowEffect(
+                              child: GridView.builder(
+                                  controller: ScrollController(),
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: (state).tableData[row].length,
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      childAspectRatio: 2,
+                                      crossAxisCount: (state).tableData[row].length
+                                  ),
+                                  itemBuilder: (context, column) {
+                                    return Center(child: Text((state).tableData[row].keys.elementAt(column).toString(), style: whiteTextColor));
+                                  }),
+                            ));
+                      }
+                      // row--; hide first row
                       return SampleBorderContainerCell(
-                          color: MyColors.mainInnerColor,
+                        color: MyColors.mainOuterColor,
+                        child: DisableGlowEffect(
                           child: GridView.builder(
                               controller: ScrollController(),
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: (state).tableData[row].length,
                               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  childAspectRatio: 2,
+                                  childAspectRatio: 1.5,
                                   crossAxisCount: (state).tableData[row].length
                               ),
                               itemBuilder: (context, column) {
-                                return Center(child: Text((state).tableData[row].keys.elementAt(column).toString(), style: whiteTextColor));
-                              }));
+                                return Center(child: Text((state).tableData[row].values.elementAt(column).toString(), style: whiteTextColor));
+                              }),
+                        ),
+                      );
                     }
-                    // row--; hide first row
-                    return SampleBorderContainerCell(
-                      color: MyColors.mainOuterColor,
-                      child: GridView.builder(
-                          controller: ScrollController(),
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: (state).tableData[row].length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 1.5,
-                              crossAxisCount: (state).tableData[row].length
-                          ),
-                          itemBuilder: (context, column) {
-                            return Center(child: Text((state).tableData[row].values.elementAt(column).toString(), style: whiteTextColor));
-                          }),
-                    );
-                  }
+                ),
               ),
             ),
           );

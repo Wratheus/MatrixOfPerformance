@@ -5,6 +5,7 @@ import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/
 
 import '../../../../../core/classes/app.dart';
 import '../../../../../core/constants/constants.dart';
+import '../../../../../core/services/app_ui_disable_glow_effect.dart';
 import '../../../../../core/services/app_ui_modals.dart';
 import '../../../../components/dialogs/sample_alert_dialog.dart';
 
@@ -64,28 +65,30 @@ class EditRowFillDialog extends StatelessWidget {
               SizedBox(
                 height: 200,
                 width: 300,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: tableValues[0].length,
-                    itemBuilder: (BuildContext context, index) {
-                      if(index == 0) {
-                        return const SizedBox();
-                      }else{
-                        textControllers.add(TextEditingController(text: (tableValues[rowID]).values.elementAt(index).toString()));
-                        return Column(
-                          children: [
-                            const SizedBox(height: 5),
-                            SampleTextField(
-                                labelText: '${(tableValues[0]).keys.elementAt(index)} value:',
-                                textColor: whiteTextColor,
-                                hideText: false,
-                                textController: textControllers[index-1],
-                                borderColor: MyColors.mainBeige,
-                                width: 250),
-                          ],
-                        );
+                child: DisableGlowEffect(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: tableValues[0].length,
+                      itemBuilder: (BuildContext context, index) {
+                        if(index == 0) {
+                          return const SizedBox();
+                        }else{
+                          textControllers.add(TextEditingController(text: (tableValues[rowID]).values.elementAt(index).toString()));
+                          return Column(
+                            children: [
+                              const SizedBox(height: 5),
+                              SampleTextField(
+                                  labelText: '${(tableValues[0]).keys.elementAt(index)} value:',
+                                  textColor: whiteTextColor,
+                                  hideText: false,
+                                  textController: textControllers[index-1],
+                                  borderColor: MyColors.mainBeige,
+                                  width: 250),
+                            ],
+                          );
+                        }
                       }
-                    }
+                  ),
                 ),
               ),
             ],

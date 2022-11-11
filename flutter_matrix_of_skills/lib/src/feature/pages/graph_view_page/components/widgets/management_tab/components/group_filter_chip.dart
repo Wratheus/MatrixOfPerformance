@@ -1,4 +1,6 @@
 // ignore: implementation_imports
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../../../../../../core/constants/constants.dart';
@@ -39,7 +41,8 @@ class GroupFilterChip extends StatelessWidget {
                   isSelected ?  Row(children: [reverseArrowIcon, const SizedBox(width: 5)],) : const SizedBox(),
                   HeadLetter(color: color, name: name),
                   const SizedBox(width: 10),
-                  Text(name.length > 20? name.substring(0, 10) : name, style: whiteTextColor),
+                  Platform.isWindows ? Text(name.length > 20? '${name.substring(0, 10)}.' : name, style: whiteTextColor) :
+                  Text(name.length > 10? '${name.substring(0, 10)}.' : name, style: whiteTextColor),
                 ],
               ),
               !isSelected ? selectArrowIcon : const SizedBox(),
