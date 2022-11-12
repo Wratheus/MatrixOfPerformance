@@ -15,7 +15,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class  SupaBaseController {
   final SupabaseClient client = SupabaseClient(
-      ClientCredentials().url, ClientCredentials().key);
+      ClientCredentials.url, ClientCredentials.key);
 
   Future<bool> singUp(
       {required String email, required String password, required context}) async {

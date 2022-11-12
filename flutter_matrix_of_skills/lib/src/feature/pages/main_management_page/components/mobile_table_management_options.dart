@@ -20,6 +20,7 @@ class MobileTableManagementOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       List<String> values = [];
       for (int i = 0; i < (state as UserDataLoadedState).values.length; i++) {

@@ -16,7 +16,7 @@ import '../../../cubit/user_data/user_data_cubit.dart';
 import '../../main_management_page/components/group_drop_down_menu.dart';
 import '../../main_management_page/components/group_table_view_controller.dart';
 import '../components/widgets/charts/group_radar_chart.dart';
-
+// TODO : fix height DESKTOP LAYOUT
 class GraphViewPageLayout extends StatelessWidget {
   final TableController tableController = TableController();
   GraphViewPageLayout({Key? key}) : super(key: key);
@@ -28,8 +28,7 @@ class GraphViewPageLayout extends StatelessWidget {
       List<Widget> slidePageList = [];
       tableController.cubitContext =
           context; // share cubit context to tableController to have ability to update
-      tableController.selectedValue = (state as UserDataLoadedState)
-          .tableControllerSelectedValue; // share selected value if it was saved to state with controller
+      tableController.selectedValue = (state as UserDataLoadedState).tableControllerSelectedValue; // share selected value if it was saved to state with controller
       tableController.sortingList = state.sortingList;
 
 

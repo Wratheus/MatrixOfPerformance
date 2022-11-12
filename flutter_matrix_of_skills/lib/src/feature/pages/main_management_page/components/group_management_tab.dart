@@ -32,9 +32,6 @@ class GroupManagementTab extends StatelessWidget {
       for(int i = 0; i < (state as UserDataLoadedState).values.length; i++){
         values.add(state.values[i]['table_name']);
       }
-      tableController.cubitContext = context; // share cubit context to tableController to have ability to update
-      tableController.selectedValue = (state).tableControllerSelectedValue; // share selected value if it was saved to state with controller
-
       return (Platform.isWindows) ?
       // Desktop Layout
       SizedBox(
