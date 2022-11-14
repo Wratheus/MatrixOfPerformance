@@ -5,7 +5,6 @@ import 'package:flutter_matrix_of_skills/src/core/classes/app.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/password_reset_page/new_password_page.dart';
 import 'package:uni_links_desktop/uni_links_desktop.dart';
 import 'package:flutter/foundation.dart';
-// ignore: depend_on_referenced_packages
 import 'package:uni_links/uni_links.dart';
 
 import '../services/page_transition.dart';
@@ -23,8 +22,14 @@ class DeepLinkController {
         _windowsSub = uriLinkStream.listen((Uri? uri) {
           String url = uri.toString();
           if(url.substring(url.length - 8) == 'recovery'){
-            String accessToken = url.substring(url.indexOf('=') + 1, url.indexOf('&'));
-            redirectPasswordReset(token: accessToken, context: context);
+            RegExp regExp = RegExp("refresh_token=(.*)");
+            String? match = regExp.firstMatch(url)?.group(1);
+            if(match != null) {
+              String refreshToken = match.substring(0, match.indexOf('&'));
+            redirectPasswordReset(token: refreshToken, context: context);
+            }else{
+              redirectPasswordReset(token: 'error', context: context);
+            }
           }
         }, onError: (Object err) {
         });

@@ -24,7 +24,7 @@ class GroupRadarChart extends StatelessWidget {
               height: height,
               width: height,
               child: Padding(
-                padding: const EdgeInsets.only(left: 20.0),
+                padding: const EdgeInsets.only(left: 10.0),
                 child: RadarChart(
                   RadarChartData(
                     dataSets: showingDataSets(data: data),
@@ -80,7 +80,6 @@ class GroupRadarChart extends StatelessWidget {
             Container(),
           ],
         ),
-        const SizedBox(height: 20),
         (Platform.isIOS || Platform.isAndroid) ?
         Container(
           padding: const EdgeInsets.all(10),

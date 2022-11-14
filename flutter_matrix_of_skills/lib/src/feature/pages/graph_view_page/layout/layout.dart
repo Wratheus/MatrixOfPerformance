@@ -45,12 +45,15 @@ class GraphViewPageLayout extends StatelessWidget {
       final double radarHeight = selectedTable.length >= 5 ? MediaQuery
           .of(context)
           .size
-          .height * 0.6 : MediaQuery
+          .height * 0.5 : MediaQuery
           .of(context)
           .size
-          .height * 0.5;
+          .height * 0.6;
+
       final double max = maxValue(state.tableData.sublist(1));
 
+
+      /// ANDROID IOS PREBUILD WIDGET
       if  (Platform.isAndroid || Platform.isIOS) {
           slidePageList = (state).tableData.sublist(1).map(<Widget>(Map<String, dynamic>person) {
           return Container(
@@ -97,6 +100,10 @@ class GraphViewPageLayout extends StatelessWidget {
           slidePageList.insert(0, Container(child: GroupRadarChart(data: (state).tableData.sublist(1), maxValue: max.round(), height: MediaQuery.of(context).size.height * 0.44)));
       }
 
+
+
+
+    /// BUILD
       return RefreshIndicator(
         child: Platform.isWindows ? Scaffold(
           backgroundColor: MyColors.mainCanvas,
@@ -119,30 +126,21 @@ class GraphViewPageLayout extends StatelessWidget {
                         ],
                       ),
                     ),
-                    IntrinsicHeight(
-                      child: Row(
-                        children: [
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: SampleStyleContainer(
-                                    child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: radarHeight, width: 520)),
-                              ),
-                            ],
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: SampleStyleContainer(
+                              child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: radarHeight, width: 520)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: SampleStyleContainer(
+                              child: GroupRadarChart(data: (state).tableData.sublist(1), maxValue: max.round(), height: radarHeight,)
                           ),
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: SampleStyleContainer(
-                                    child: GroupRadarChart(data: (state).tableData.sublist(1), maxValue: max.round(), height: radarHeight,)
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),

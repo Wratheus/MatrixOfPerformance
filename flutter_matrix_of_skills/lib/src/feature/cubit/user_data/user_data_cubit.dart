@@ -18,19 +18,21 @@ class UserDataCubit extends Cubit<UserDataState> {
 
   Future<void> loadUserData({String? tableName, context, String? selectedValue, List<Map<String, dynamic>>? tableData, List<GroupFilterChip>? sortingList}) async {
     try{
+      List<Map<String, dynamic>> requestData = (await App.supaBaseController.readData(postGreTable: "user_tables", context: context));
+
       if (!isClosed) {
         emit(UserDataLoadedState(
             sortingList: sortingList ?? [],
-            allUserTables: (await App.supaBaseController.readData(postGreTable: "user_tables", context: context)),
+            allUserTables: requestData,
             tableData: (tableData != null && tableData.isNotEmpty) ? tableData : (tableName != null // if tableData was not provided (most cases)
                 ?                                                                                                           // if tableName is not provided,
               (await App.supaBaseController.readData(postGreTable: "user_tables", context: context, tableName: tableName))
                 :
-              (((await App.supaBaseController.readData(postGreTable: "user_tables", context: context)).isNotEmpty) ?     // try to check if at least 1 table exist
-                ((await App.supaBaseController.readData(postGreTable: "user_tables", context: context))[0]['table'])
+              ((requestData.isNotEmpty) ?     // try to check if at least 1 table exist
+                (requestData[0]['table'])
                   :
                 const [])),                                                                                                   // and to open it else return []
-              values: await App.supaBaseController.readData(postGreTable: "user_tables", context: context),
+              values:requestData,
             tableControllerSelectedValue: selectedValue
         ));
         if (kDebugMode) {
@@ -38,7 +40,6 @@ class UserDataCubit extends Cubit<UserDataState> {
         }
       }
     }catch (e) {
-      // print(e);
       if (!isClosed) {
         emit(UserDataErrorState());
       }

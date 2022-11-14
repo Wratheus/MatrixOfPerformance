@@ -19,7 +19,7 @@ class TableManagementPage extends StatelessWidget {
           builder: (context, state) {
             if (state is UserDataInitialState) {
               context.read<UserDataCubit>().informInitial();
-              context.read<UserDataCubit>().loadUserData();
+              context.read<UserDataCubit>().loadUserData(context: context);
               return const SampleLoadingPage();
             }
             if (state is UserDataLoadedState) {
