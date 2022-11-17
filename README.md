@@ -1,32 +1,32 @@
 # Matrix of Performance
  Flutter project disgned to simplify performance tracking of students and workers
  
- 
-Windows tables panel look
-<p align="center">
-  <img src="https://i.imgur.com/efJW5Rc.png" alt="application" width="800" />
-</p>
-
 
 Windows charts panel look
 <p align="center">
-  <img src="https://i.imgur.com/nfWCN6H.png" alt="application" width="800" />
+  <img src="https://i.imgur.com/oMuiWth.png" alt="application" width="800" />
 </p>
 
-Windows login panel look
+
+Windows tables panel look
+<p align="center">
+  <img src="https://i.imgur.com/4xeaMOl.png" alt="application" width="800" />
+</p>
+
+Windows login
 
 <p align="center">
-  <img src="https://i.imgur.com/NVb3AiO.png" alt="application" width="800" />
+  <img src="https://i.imgur.com/tGpHi4k.png" alt="application" width="800" />
 </p>
 
 Mobile tables panel look
 
 <p align="center">
-  <img src="https://i.imgur.com/392ws90.png" alt="application" width="400" />
+  <img src="https://i.imgur.com/js5Dqf3.jpg" alt="application" width="400" />
 </p>
 
 Mobile charts panel look
 
 <p align="center">
-  <img src="https://i.imgur.com/V7s2CAv.png" alt="application" width="400" />
+  <img src="https://i.imgur.com/qg2lSJq.jpg" alt="application" width="400" />
 </p>
