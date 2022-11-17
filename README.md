@@ -22,7 +22,7 @@ Windows login
 Mobile tables panel look
 
 <p align="center">
-  <img src="https://i.imgur.com/392ws90.png" alt="application" width="400" />
+  <img src="https://i.imgur.com/js5Dqf3.jpg" alt="application" width="400" />
 </p>
 
 Mobile charts panel look
