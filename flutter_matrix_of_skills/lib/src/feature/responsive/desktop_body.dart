@@ -26,22 +26,33 @@ class DesktopScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.mainCanvas,
+      backgroundColor: MyColors.mainOuterColor,
       body: WindowBorder(
-        color: MyColors.mainCanvas,
+        color: MyColors.mainOuterColor,
         width: 1,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DesktopDrawer(pageController: pageController, child: WindowTitleBarBox(child: MoveWindow())),
-            RightSide(
-              child: Expanded(
-                child: PageView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: pageController,
-                    children: pageList
-                ),
+            Expanded(
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 31),
+                    child: PageView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: pageController,
+                      children: pageList,
+                    ),
+                  ),
+                  RightSide(
+                    child: Container(),
+                  ),
+                ]
               ),
-            )
+            ),
+
           ],
         ),
       ),
@@ -61,21 +72,20 @@ class RightSide extends StatelessWidget { // right side of Windows window with m
   const RightSide({Key? key, required this.child}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: MyColors.mainOuterColor,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-          WindowTitleBarBox(
-            child: Row(
-              children: [Expanded(child: MoveWindow()), const WindowButtons()],
-            ),
+    return Container(
+      height: 31,
+      color: MyColors.mainOuterColor,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+        WindowTitleBarBox(
+          child: Row(
+            children: [Expanded(child: MoveWindow()), const WindowButtons()],
           ),
-          child
-        ]),
-      ),
+        ),
+        child
+      ]),
     );
   }
 }

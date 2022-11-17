@@ -23,51 +23,52 @@ class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: MyColors.mainCanvas,
+        backgroundColor: MyColors.mainOuterColor,
         body: Platform.isWindows ?  WindowBorder(
             color: MyColors.mainCanvas,
             width: 1,
-            child: Row(
+            child: Stack(
                 children: [
-                  RightSide(child:
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.9,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          appIcon,
-                          const SizedBox(height: 5,),
-                          Center(child: Text('Complete registration to use the app', style: whiteTextColor, textAlign: TextAlign.center)),
-                          const SizedBox(height: 15,),
-                          SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                          const SizedBox(height: 15),
-                          SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                          const SizedBox(height: 10,),
-                          SizedBox(
-                            width: 200,
-                            child: SampleElevatedButton(
-                                onPressed: () async => {
-                                  if (await App.supaBaseController.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
-                                    AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done", route: LoginPage())),
-                                  }
-                                },
-                                child: Text('Register', style: whiteTextColor)
-                            ),
-                          ),
-                          const SizedBox(height: 10,),
-                          SampleElevatedButton(
-                              onPressed: () async => {
-                                Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage())),
-                              },
-                              child: Text('Back', style: whiteTextColor)
-                          ),
-                        ],
-                      ),
-                    ),
+                  RightSide(
+                      child: Container()
                   ),
-                  )
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      appIcon,
+                      const SizedBox(height: 5,),
+                      Center(child: Text('Complete registration', style: whiteTextColor, textAlign: TextAlign.center)),
+                      const SizedBox(height: 15,),
+                      SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                      const SizedBox(height: 10),
+                      SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                      const SizedBox(height: 10,),
+                      SizedBox(
+                        width: 170,
+                        child: SampleElevatedButton(
+                            onPressed: () async => {
+                              if (await App.supaBaseController.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
+                                AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done", route: LoginPage())),
+                              }
+                            },
+                            child: Text('Register', style: whiteTextColor)
+                        ),
+                      ),
+                      const SizedBox(height: 10,),
+                      Center(
+                        child: InkWell(
+                          radius: 0,
+                          onTap: () async => {
+                            Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage())),
+                          },
+                          child: Text("Back",
+                            style: greyTextColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ]
             )
         )

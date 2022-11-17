@@ -13,8 +13,8 @@ import 'src/feature/responsive/responsive_layout.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await App.supaBaseController.sessionSignIn();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await App.supaBaseController.sessionSignIn();
   runApp(const MyApp());
   if(Platform.isWindows) DesktopScaffold.setUpWindowsEnvironment();
 }

@@ -43,8 +43,8 @@ class GroupManagementTab extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         const Spacer(),
-                        SampleStyleContainer(
-                          color: Colors.transparent,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [

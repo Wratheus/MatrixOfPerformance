@@ -16,7 +16,6 @@ import '../../../cubit/user_data/user_data_cubit.dart';
 import '../../main_management_page/components/group_drop_down_menu.dart';
 import '../../main_management_page/components/group_table_view_controller.dart';
 import '../components/widgets/charts/group_radar_chart.dart';
-// TODO : fix height DESKTOP LAYOUT
 class GraphViewPageLayout extends StatelessWidget {
   final TableController tableController = TableController();
   GraphViewPageLayout({Key? key}) : super(key: key);
@@ -32,23 +31,18 @@ class GraphViewPageLayout extends StatelessWidget {
       tableController.sortingList = state.sortingList;
 
 
-      List<Map<String, dynamic>> selectedTable = <Map<String, dynamic>>[{}];
       tableController.selectedValue ??= state
           .allUserTables[0]['table_name']; // if table is not selected pick first one
       for (Map<String, dynamic> element in state
           .allUserTables) { // fill name list
         if (element['table_name'] == tableController.selectedValue) {
-          selectedTable = element['table'].sublist(1);
         }
       }
 
-      final double radarHeight = selectedTable.length >= 5 ? MediaQuery
+      final double radarHeight = MediaQuery
           .of(context)
           .size
-          .height * 0.5 : MediaQuery
-          .of(context)
-          .size
-          .height * 0.6;
+          .height * 0.5;
 
       final double max = maxValue(state.tableData.sublist(1));
 
@@ -109,14 +103,13 @@ class GraphViewPageLayout extends StatelessWidget {
           backgroundColor: MyColors.mainCanvas,
           body: SingleChildScrollView(
             controller: ScrollController(),
-            scrollDirection: Axis.vertical,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SampleStyleContainer(
-                      color: Colors.transparent,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -132,12 +125,14 @@ class GraphViewPageLayout extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: SampleStyleContainer(
-                              child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: radarHeight, width: 520)),
+                              child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: radarHeight, width: MediaQuery.of(context).size.width * 0.35)),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: SampleStyleContainer(
-                              child: GroupRadarChart(data: (state).tableData.sublist(1), maxValue: max.round(), height: radarHeight,)
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: SampleStyleContainer(
+                                child: GroupRadarChart(data: (state).tableData.sublist(1), maxValue: max.round(), height: radarHeight,)
+                            ),
                           ),
                         ),
                       ],

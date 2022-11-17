@@ -18,11 +18,11 @@ class GroupRadarChart extends StatelessWidget {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(
               height: height,
-              width: height,
+              width: MediaQuery.of(context).size.width * 0.3,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
                 child: RadarChart(
@@ -50,8 +50,8 @@ class GroupRadarChart extends StatelessWidget {
               ),
             ),
             Platform.isWindows ? SizedBox(
+              width: 150,
               height: height * 0.7,
-              width: 200,
               child: DisableGlowEffect(
                 child: ListView.builder(
                     itemCount: data.length,
@@ -67,7 +67,6 @@ class GroupRadarChart extends StatelessWidget {
                                 backgroundColor: chartColors[index % 21],
                               ),
                             ),
-                            const SizedBox(width: 5),
                             Text(data[index]['name'].length >= 10 ? '${(data[index]['name'] as String).substring(0, 10)}.' : data[index]['name'], style: whiteTextColor),
                             Text(" - ${calculateSumOfSkills(personSkillValues: data[index].values.toList().sublist(2)) }", style: whiteTextColor,)
                           ],

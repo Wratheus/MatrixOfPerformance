@@ -11,7 +11,6 @@ class DesktopDrawer extends StatefulWidget {
   Widget child;
   final PageController pageController;
   bool isCollapsed = true;
-  double pageControllerPage = 0;
   DesktopDrawer({Key? key, required this.pageController, required this.child}) : super(key: key);
 
   @override
@@ -54,9 +53,9 @@ class _DesktopDrawerState extends State<DesktopDrawer> with TickerProviderStateM
                   icon: const Icon(Icons.storage_rounded, color: MyColors.mainBeige, size: 32),
                   onTap: () {
                     setState(() {
-                      widget.pageControllerPage = 0;
+                      App.currentPageIndex = 0;
                     });
-                    widget.pageController.animateToPage(0, duration: const Duration(milliseconds: 350), curve: Curves.ease);
+                    widget.pageController.animateToPage(App.currentPageIndex, duration: const Duration(milliseconds: 350), curve: Curves.ease);
                   },
                   text: const Text('Tables', style: TextStyle(color: MyColors.mainBeige, fontSize: 16, letterSpacing: 4))
               ),
@@ -65,9 +64,9 @@ class _DesktopDrawerState extends State<DesktopDrawer> with TickerProviderStateM
                 icon: const Icon(Icons.bar_chart, color: MyColors.mainBeige, size: 32),
                 onTap: () {
                   setState(() {
-                    widget.pageControllerPage = 1;
+                    App.currentPageIndex = 1;
                   });
-                  widget.pageController.animateToPage(1, duration: const Duration(milliseconds: 350), curve: Curves.ease);
+                  widget.pageController.animateToPage(App.currentPageIndex, duration: const Duration(milliseconds: 350), curve: Curves.ease);
                 },
                 text: const Text('Graphs', style: TextStyle(color: MyColors.mainBeige, fontSize: 16, letterSpacing: 4)),
               ),
@@ -156,7 +155,7 @@ class _DesktopDrawerState extends State<DesktopDrawer> with TickerProviderStateM
               child: Row(
                 children: [
                   SampleStyleContainer(
-                      color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
+                      color: App.currentPageIndex != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
                       width: 48, height: 48,
                       child: icon
                   ),
@@ -172,7 +171,7 @@ class _DesktopDrawerState extends State<DesktopDrawer> with TickerProviderStateM
               child: Row(
                 children: [
                   SampleStyleContainer(
-                      color: widget.pageControllerPage != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
+                      color: App.currentPageIndex != pageNumber ? MyColors.mainInnerColor : MyColors.mainBeige.withOpacity(0.2),
                       width: 48,
                       height: 48,
                       child: icon),

@@ -2,6 +2,7 @@ import 'package:flutter_matrix_of_skills/src/core/database/supabase_controller.d
 import 'deep_link_controller.dart';
 
 class App{
+  static int currentPageIndex = 0;
   static SupaBaseController supaBaseController = SupaBaseController();
   static DeepLinkController deepLinkController = DeepLinkController();
 }

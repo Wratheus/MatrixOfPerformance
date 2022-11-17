@@ -34,56 +34,53 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.mainCanvas,
+      backgroundColor: MyColors.mainOuterColor,
         body: Platform.isWindows ?  WindowBorder(
           color: MyColors.mainCanvas,
           width: 1,
-          child: Row(
+          child: Stack(
               children: [
-                RightSide(child:
-                  Center(child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        appIcon,
-                        const SizedBox(height: 5,),
-                        Center(child: Text('Welcome\nplease login to continue', style: whiteTextColor, textAlign: TextAlign.center)),
-                        const SizedBox(height: 15,),
-                        SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                        const SizedBox(height: 15,),
-                        SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                        const SizedBox(height: 15,),
-                        SampleElevatedButton(
-                          onPressed: () {loginAction(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context);},
-                          child: Text('Login', style: whiteTextColor),
-                        ),
-                        const SizedBox(height: 10,),
-                        Center(
-                          child: InkWell(
-                            radius: 0,
-                            onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: RegistrationPage()));},
-                            child: Text("Register",
-                              style: whiteTextColor,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Center(
-                          child: InkWell(
-                            radius: 0,
-                            onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: PasswordResetPage()));},
-                            child: Text("Forgot password",
-                              style: greyTextColor,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                RightSide(
+                    child: Container(),
                 ),
-                )
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    appIcon,
+                    const SizedBox(height: 5,),
+                    Center(child: Text('Welcome\nplease login to continue', style: whiteTextColor, textAlign: TextAlign.center)),
+                    const SizedBox(height: 15,),
+                    SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                    const SizedBox(height: 10,),
+                    SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                    const SizedBox(height: 15,),
+                    SampleElevatedButton(
+                      onPressed: () {loginAction(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context);},
+                      child: Text('Login', style: whiteTextColor),
+                    ),
+                    const SizedBox(height: 10,),
+                    Center(
+                      child: InkWell(
+                        radius: 0,
+                        onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: RegistrationPage()));},
+                        child: Text("Register",
+                          style: whiteTextColor,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Center(
+                      child: InkWell(
+                        radius: 0,
+                        onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: PasswordResetPage()));},
+                        child: Text("Forgot password",
+                          style: greyTextColor,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ]
           )
         )
@@ -97,7 +94,7 @@ class LoginPage extends StatelessWidget {
             Center(child: Text('Welcome\nplease login to continue', style: whiteTextColor, textAlign: TextAlign.center)),
             const SizedBox(height: 15,),
             SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 10,),
             SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
             const SizedBox(height: 15,),
             SampleElevatedButton(
