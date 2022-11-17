@@ -9,7 +9,6 @@ import 'package:flutter_matrix_of_skills/src/feature/components/sample_stateful_
 
 import '../../../core/classes/app.dart';
 import '../../../core/services/page_transition.dart';
-import '../../components/sample_elevated_button.dart';
 import '../../components/sample_stateful_button/stateful_button.dart';
 import '../../components/sample_stateful_button/stateful_button_controller.dart';
 import '../../components/sample_text_field.dart';
@@ -67,7 +66,7 @@ class PasswordResetPage extends StatelessWidget {
                       Center(
                         child: InkWell(
                           radius: 0,
-                          onTap: () async => {
+                          onTap: () => {
                             Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage())),
                           },
                           child: Text("Back",
@@ -89,25 +88,41 @@ class PasswordResetPage extends StatelessWidget {
                 appIcon,
                 const SizedBox(height: 5,),
                 Center(child: Text('Enter e-mail address\n to reset your password', style: whiteTextColor, textAlign: TextAlign.center)),
-                const SizedBox(height: 15,),
+                const SizedBox(height: 10),
                 SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
                 const SizedBox(height: 10),
                 SizedBox(
-                  width: 200,
-                  child: SampleElevatedButton(
-                    onPressed: () async => await App.supaBaseController.passwordReset(email: _textControllerLogin.text,  context: context),
-                    child: Text('RESET', style: whiteTextColor),
+                  width: 100,
+                  child: StatefulButton(
+                    height: 40,
+                    borderRadius: BorderRadius.circular(16.0),
+                    color: MyColors.mainInnerColor,
+                    border: Border.all(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
+                    onTap: () async {
+                      buttonController.state = ButtonState.loading;
+                      await App.supaBaseController.passwordReset(email: _textControllerLogin.text,  context: context);
+                      buttonController.state = ButtonState.enable;
+                    },
+                    controller: buttonController,
+                    child: const TemplateButton1(
+                      title: 'R E S E T',
+                    ),
                   ),
                 ),
-                SampleElevatedButton(
-                    onPressed: () async => {
+                const SizedBox(height: 10),
+                Center(
+                  child: InkWell(
+                    radius: 0,
+                    onTap: () => {
                       Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage())),
                     },
-                    child: Text('Back', style: whiteTextColor)
+                    child: Text("Back",
+                      style: greyTextColor,
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 10,),
               ],
-            )
+            ),
         )
     );
   }

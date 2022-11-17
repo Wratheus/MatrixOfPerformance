@@ -85,44 +85,45 @@ class LoginPage extends StatelessWidget {
           )
         )
             :   //mobile
-        Center(child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            appIcon,
-            const SizedBox(height: 5,),
-            Center(child: Text('Welcome\nplease login to continue', style: whiteTextColor, textAlign: TextAlign.center)),
-            const SizedBox(height: 15,),
-            SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-            const SizedBox(height: 10,),
-            SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-            const SizedBox(height: 15,),
-            SampleElevatedButton(
-              onPressed: () {loginAction(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context);},
-              child: Text('Login', style: whiteTextColor),
-            ),
-            const SizedBox(height: 10,),
-            Center(
-              child: InkWell(
-                radius: 0,
-                onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: RegistrationPage()));},
-                child: Text("Register",
-                  style: whiteTextColor,
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              appIcon,
+              const SizedBox(height: 5,),
+              Center(child: Text('Welcome\nplease login to continue', style: whiteTextColor, textAlign: TextAlign.center)),
+              const SizedBox(height: 15,),
+              SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+              const SizedBox(height: 10,),
+              SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+              const SizedBox(height: 15,),
+              SampleElevatedButton(
+                onPressed: () {loginAction(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context);},
+                child: Text('Login', style: whiteTextColor),
+              ),
+              const SizedBox(height: 10,),
+              Center(
+                child: InkWell(
+                  radius: 0,
+                  onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: RegistrationPage()));},
+                  child: Text("Register",
+                    style: whiteTextColor,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 5),
-            Center(
-              child: InkWell(
-                radius: 0,
-                onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: PasswordResetPage()));},
-                child: Text("Forgot password",
-                  style: greyTextColor,
+              const SizedBox(height: 5),
+              Center(
+                child: InkWell(
+                  radius: 0,
+                  onTap: () { Navigator.pushReplacement(context, SlideRightRoute(page: PasswordResetPage()));},
+                  child: Text("Forgot password",
+                    style: greyTextColor,
+                  ),
                 ),
-              ),
-            )
-          ],
-        ),
+              )
+            ],
+          ),
       )
     );
   }

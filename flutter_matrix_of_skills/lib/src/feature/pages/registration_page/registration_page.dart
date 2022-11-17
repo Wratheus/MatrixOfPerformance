@@ -59,7 +59,7 @@ class RegistrationPage extends StatelessWidget {
                       Center(
                         child: InkWell(
                           radius: 0,
-                          onTap: () async => {
+                          onTap: () => {
                             Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage())),
                           },
                           child: Text("Back",
@@ -85,14 +85,14 @@ class RegistrationPage extends StatelessWidget {
               children: [
                 appIcon,
                 const SizedBox(height: 5,),
-                Center(child: Text('Complete registration to use the app', style: whiteTextColor, textAlign: TextAlign.center)),
-                const SizedBox(height: 10,),
-                SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                Center(child: Text('Complete registration', style: whiteTextColor, textAlign: TextAlign.center)),
                 const SizedBox(height: 15,),
+                SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
+                const SizedBox(height: 10),
                 SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
-                const SizedBox(height: 5,),
+                const SizedBox(height: 10,),
                 SizedBox(
-                  width: 200,
+                  width: 170,
                   child: SampleElevatedButton(
                       onPressed: () async => {
                         if (await App.supaBaseController.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
@@ -102,11 +102,17 @@ class RegistrationPage extends StatelessWidget {
                       child: Text('Register', style: whiteTextColor)
                   ),
                 ),
-                SampleElevatedButton(
-                    onPressed: () async => {
+                const SizedBox(height: 10,),
+                Center(
+                  child: InkWell(
+                    radius: 0,
+                    onTap: () => {
                       Navigator.pushReplacement(context, SlideRightRoute(page: LoginPage())),
                     },
-                    child: Text('Back', style: whiteTextColor)
+                    child: Text("Back",
+                      style: greyTextColor,
+                    ),
+                  ),
                 ),
               ],
             ),

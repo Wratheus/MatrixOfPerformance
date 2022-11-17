@@ -14,7 +14,7 @@ import 'src/feature/responsive/responsive_layout.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  await App.supaBaseController.sessionSignIn();
+  App.sessionSignIn = await App.supaBaseController.sessionSignIn();
   runApp(const MyApp());
   if(Platform.isWindows) DesktopScaffold.setUpWindowsEnvironment();
 }
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Matrix of performance App',
       theme: AppTheme.themeData,
-      home: (App.supaBaseController.client.auth.currentSession != null) ?
+      home: (App.sessionSignIn) ?
       const ResponsiveLayout() : LoginPage()
     );
   }

@@ -39,10 +39,19 @@ class GraphViewPageLayout extends StatelessWidget {
         }
       }
 
-      final double radarHeight = MediaQuery
+
+      final double radarHeight = (Platform.isAndroid || Platform.isIOS) ?
+
+      MediaQuery
+          .of(context)
+          .size
+          .height * 0.8
+                            :
+      MediaQuery
           .of(context)
           .size
           .height * 0.5;
+
 
       final double max = maxValue(state.tableData.sublist(1));
 

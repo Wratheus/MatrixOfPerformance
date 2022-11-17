@@ -22,7 +22,7 @@ class GroupRadarChart extends StatelessWidget {
           children: [
             SizedBox(
               height: height,
-              width: MediaQuery.of(context).size.width * 0.3,
+              width: Platform.isWindows ? MediaQuery.of(context).size.width * 0.3 : height * 0.95,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
                 child: RadarChart(

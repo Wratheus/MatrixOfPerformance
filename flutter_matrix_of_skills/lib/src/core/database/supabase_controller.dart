@@ -42,13 +42,17 @@ class  SupaBaseController {
   Future<bool> sessionSignIn() async {
     String? lastSession = await SecureStorage.getSessionFromStorage();
     if (lastSession != null) {
-      Map<dynamic, dynamic> jsonSession = jsonDecode(lastSession);
-      await App.supaBaseController.client.auth.setSession(
-          jsonSession['refresh_token']);
-      if (App.supaBaseController.client.auth.currentSession != null) {
-        String newSession = (json.encode(App.supaBaseController.client.auth.currentSession));
-        await SecureStorage.setSessionToStorage(newSession);
-        return true; // complete normally
+      try{
+        Map<dynamic, dynamic> jsonSession = jsonDecode(lastSession);
+        await App.supaBaseController.client.auth.setSession(
+            jsonSession['refresh_token']);
+        if (App.supaBaseController.client.auth.currentSession != null) {
+          String newSession = (json.encode(App.supaBaseController.client.auth.currentSession));
+          await SecureStorage.setSessionToStorage(newSession);
+          return true; // complete normally
+        }
+      }catch(e){
+        return false;
       }
       return false; // newSession creation failed
     }
