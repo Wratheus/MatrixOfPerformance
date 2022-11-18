@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/feature/pages/graph_view_page/graph_view_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../feature/pages/main_management_page/main_management_page.dart';
 
@@ -73,8 +74,4 @@ var greyTextColor = TextStyle(
 );
 var tilePadding = const EdgeInsets.only(left: 8.0, right: 8, top: 8);
 
-const Widget appIcon = Center(child: Icon(
-Icons.architecture,
-size: 128,
-color: MyColors.mainBeige,
-));
+Widget appIcon = SvgPicture.asset("assets/core/images/logo.svg", width: 152, height: 152);

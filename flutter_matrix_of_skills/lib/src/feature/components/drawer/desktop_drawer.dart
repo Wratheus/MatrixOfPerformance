@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../core/classes/app.dart';
 import '../../../core/constants/constants.dart';
@@ -95,16 +96,13 @@ class _DesktopDrawerState extends State<DesktopDrawer> with TickerProviderStateM
 
   Widget buildHeader() {
     return (animationController.value != 1) ?
-    const Icon(
-      Icons.architecture,
-      size: 52,
-      color: MyColors.mainBeige,
-    ) :
+    SvgPicture.asset("assets/core/images/logo.svg", width: 52, height: 52)
+        :
     Row(
       mainAxisSize: MainAxisSize.min,
-      children: const [
-        Icon(Icons.architecture, size: 52, color: MyColors.mainBeige,),
-        Text("Matrix of performance",
+      children: [
+        SvgPicture.asset("assets/core/images/logo.svg", width: 52, height: 52),
+        const Text("Matrix of performance",
             style: TextStyle(color: MyColors.mainBeige, fontSize: 16))
       ],
     );

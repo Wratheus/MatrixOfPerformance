@@ -37,7 +37,7 @@ class RegistrationPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       appIcon,
-                      const SizedBox(height: 5,),
+                      const SizedBox(height: 35,),
                       Center(child: Text('Complete registration', style: whiteTextColor, textAlign: TextAlign.center)),
                       const SizedBox(height: 15,),
                       SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
@@ -84,7 +84,7 @@ class RegistrationPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 appIcon,
-                const SizedBox(height: 5,),
+                const SizedBox(height: 25,),
                 Center(child: Text('Complete registration', style: whiteTextColor, textAlign: TextAlign.center)),
                 const SizedBox(height: 15,),
                 SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),

@@ -30,16 +30,16 @@
 		<string>Main</string>
 		<key>UISupportedInterfaceOrientations</key>
 		<key>CFBundleURLTypes</key>
-          <array>
-            <dict>
-              <key>CFBundleTypeRole</key>
-              <string>Editor</string>
-              <key>CFBundleURLSchemes</key>
-              <array>
-                <string>io.supabase.flutterquickstart</string>
-              </array>
-            </dict>
-          </array>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>io.supabase.flutterquickstart</string>
+				</array>
+			</dict>
+		</array>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
 			<string>UIInterfaceOrientationLandscapeLeft</string>

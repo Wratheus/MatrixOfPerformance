@@ -39,7 +39,7 @@ class PasswordResetPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       appIcon,
-                      const SizedBox(height: 5,),
+                      const SizedBox(height: 35,),
                       Center(child: Text('Enter e-mail address\n to reset your password', style: whiteTextColor, textAlign: TextAlign.center)),
                       const SizedBox(height: 10),
                       SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
@@ -86,7 +86,7 @@ class PasswordResetPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 appIcon,
-                const SizedBox(height: 5,),
+                const SizedBox(height: 25,),
                 Center(child: Text('Enter e-mail address\n to reset your password', style: whiteTextColor, textAlign: TextAlign.center)),
                 const SizedBox(height: 10),
                 SampleTextField(textController: _textControllerLogin, labelText: 'E-mail', hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
