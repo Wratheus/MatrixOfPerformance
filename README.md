@@ -1,6 +1,8 @@
 # Matrix of Performance
+<p align="center">
+  <img src="https://i.imgur.com/OXwGGCi.png" alt="application" width="256" />
+</p>
  Flutter project disgned to simplify performance tracking of students and workers
- 
 
 Windows charts panel look
 <p align="center">
