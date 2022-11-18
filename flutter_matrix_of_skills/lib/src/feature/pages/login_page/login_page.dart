@@ -56,7 +56,7 @@ class LoginPage extends StatelessWidget {
                     SampleTextField(textController: _textControllerPassword, labelText: 'Password', hideText: true, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
                     const SizedBox(height: 15,),
                     SampleElevatedButton(
-                      onPressed: () {loginAction(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context);},
+                      onPressed: () {loginAction(email: _textControllerLogin.text.trim(), password: _textControllerPassword.text.trim(), context: context);},
                       child: Text('Login', style: whiteTextColor),
                     ),
                     const SizedBox(height: 10,),

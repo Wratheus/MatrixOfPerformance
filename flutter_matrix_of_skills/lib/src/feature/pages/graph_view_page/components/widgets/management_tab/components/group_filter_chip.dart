@@ -9,6 +9,7 @@ import '../../../../../../../core/constants/constants.dart';
 class GroupFilterChip extends StatelessWidget {
   bool isSelected; 
   final String name;
+  Color selectedColor = Colors.greenAccent;
   final Color color;
   GroupFilterChip({super.key, required this.isSelected, required this.name, required this.color});
 
@@ -29,7 +30,7 @@ class GroupFilterChip extends StatelessWidget {
         child: Container(
           width: 200,
           decoration: BoxDecoration(
-                color: color,
+                color: isSelected ? selectedColor : color,
                 borderRadius: BorderRadius.circular(14),
                 ),
                 padding: const EdgeInsets.all(5),

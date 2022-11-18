@@ -106,21 +106,21 @@ class GroupManagementTab extends StatelessWidget {
                               SampleElevatedButton(
                                   onPressed: ()=>{
                                     (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
-                                    AppUI.showMaterialModalDialog(context: context, child: DeleteColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
-                                        :
-                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
-                                  },
-                                  child: Text("Delete skill", style: whiteTextColor)
-                              ),
-                              const SizedBox(width: 5),
-                              SampleElevatedButton(
-                                  onPressed: ()=>{
-                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: EditColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
                                         :
                                     AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
                                   },
                                   child: Text("Edit skill", style: whiteTextColor)
+                              ),
+                              const SizedBox(width: 5),
+                              SampleElevatedButton(
+                                  onPressed: ()=>{
+                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                                    AppUI.showMaterialModalDialog(context: context, child: DeleteColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
+                                        :
+                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                                  },
+                                  child: Text("Delete skill", style: whiteTextColor)
                               ),
                             ],
                           ),

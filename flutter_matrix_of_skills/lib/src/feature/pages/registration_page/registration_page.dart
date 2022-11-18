@@ -48,7 +48,7 @@ class RegistrationPage extends StatelessWidget {
                         width: 170,
                         child: SampleElevatedButton(
                             onPressed: () async => {
-                              if (await App.supaBaseController.singUp(email: _textControllerLogin.text, password: _textControllerPassword.text, context: context) == true) {
+                              if (await App.supaBaseController.singUp(email: _textControllerLogin.text.trim(), password: _textControllerPassword.text.trim(), context: context) == true) {
                                 AppUI.showMaterialModalDialog(context: context, child: SampleAlertDialog(alertMessageStr: "Registration complete,\nCheck your email for verification", tittleStr: "Done", route: LoginPage())),
                               }
                             },

@@ -53,7 +53,7 @@ class PasswordResetPage extends StatelessWidget {
                           border: Border.all(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
                           onTap: () async {
                              buttonController.state = ButtonState.loading;
-                             await App.supaBaseController.passwordReset(email: _textControllerLogin.text,  context: context);
+                             await App.supaBaseController.passwordReset(email: _textControllerLogin.text.trim(),  context: context);
                              buttonController.state = ButtonState.enable;
                             },
                           controller: buttonController,

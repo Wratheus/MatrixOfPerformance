@@ -74,7 +74,7 @@ class NewPasswordPage extends StatelessWidget {
               SampleElevatedButton(
                 onPressed: () async =>
                 await App.supaBaseController.newPasswordCommit(
-                    newPassword: _textControllerPass.text, context: context
+                    newPassword: _textControllerPass.text.trim(), context: context
                 ),
                 child: Text('Commit', style: whiteTextColor),
               ),

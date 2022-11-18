@@ -62,7 +62,7 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
   // loads selected query
   loadFromSelectedList(){
     setState(() {
-      List<Map<String, dynamic>> selectedDataObjects = [{'name': null, 'id':null, 'skill1': null, 'skill2': null, 'skill3': null}, ]; // empty {}  to fix headers sublisting in future methods of re-rendering page
+      List<Map<String, dynamic>> selectedDataObjects = [{'name': null, 'id':null, 'skill1': null, 'skill2': null, 'skill3': null}, ]; // empty {}  to fix headers sublist in future methods of re-rendering page
       for(int i = 0; i < widget.tableController.sortingList.length; i++){
         for(int k = 0; k < widget.table.length; k++){
           if(widget.table[k]['name'] == widget.tableController.sortingList[i].name) selectedDataObjects.add(widget.table[k]);
@@ -105,6 +105,9 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
                           setState(() { // when you select chip
                             (widget.tableChipList[index]).isSelected = true;
                             widget.tableController.sortingList.add(widget.tableChipList[index]);
+                            for(int i = 0; i < widget.tableController.sortingList.length; i++){
+                              widget.tableController.sortingList[i].selectedColor = chartColors[i % 21].withOpacity(0.55);
+                            }
                             widget.tableChipList.remove(widget.tableChipList[index]);
                           });
                         }
@@ -137,6 +140,9 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
                               (widget.tableController.sortingList[index]).isSelected = false;
                               widget.tableChipList.add(widget.tableController.sortingList[index]);
                               widget.tableController.sortingList.remove(widget.tableController.sortingList[index]);
+                              for(int i = 0; i < widget.tableController.sortingList.length; i++){
+                                widget.tableController.sortingList[i].selectedColor = chartColors[i % 21].withOpacity(0.55);
+                              }
                             });
                           }
                       );

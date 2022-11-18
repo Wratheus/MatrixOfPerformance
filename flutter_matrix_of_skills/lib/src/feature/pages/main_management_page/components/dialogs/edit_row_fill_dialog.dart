@@ -15,25 +15,26 @@ class EditRowFillDialog extends StatelessWidget {
   final TableController tableController;
   List<Map<String, dynamic>> tableValues;
   String? tableName;
-  int rowID;
+  Map<String, dynamic> match;
 
 
   Future<bool> editRowFillAction({required List<TextEditingController> textControllers, required context}) async {
-    Map<String, dynamic> editedRow = {};
     List<Map<String, dynamic>> newTableValues = []; // fix save in for loop
-    editedRow[(tableValues[0]).keys.elementAt(0)] = rowID; // will be defined in id match block
 
-    for(int i = 0; i < textControllers.length; i++) {
+    for(int i = 0; i < textControllers.length; i++) { // id skip i=1
       if(textControllers[i].text.isNotEmpty) {
-        editedRow[(tableValues[0]).keys.elementAt(i+1)] = textControllers[i].text;
-      } else{
-        editedRow[(tableValues[0]).keys.elementAt(i+1)] = null;
+        if(i == 0){
+          match[match.keys.elementAt(i+1)] = textControllers[i].text; // name to string
+        }else {
+          match[match.keys.elementAt(i+1)] = int.parse(textControllers[i].text).round(); // skill values
+        }
+      }else{ // no value provided
+        match[match.keys.elementAt(i+1)] = 0;
       }
     }
     for (Map<String, dynamic> element in tableValues) {
-      if (element['id'] == rowID) {
-        newTableValues.add(editedRow);
-
+      if (element['id'] == match['id']) {
+        newTableValues.add(match);
       }else {
         newTableValues.add(element);
       }
@@ -51,7 +52,7 @@ class EditRowFillDialog extends StatelessWidget {
 
 
   EditRowFillDialog(
-      {Key? key, required context, required this.tableValues, required this.tableName, required this.rowID, required this.tableController}) : super(key: key);
+      {Key? key, required context, required this.tableValues, required this.tableName, required this.tableController, required this.match}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,17 +69,17 @@ class EditRowFillDialog extends StatelessWidget {
                 child: DisableGlowEffect(
                   child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: tableValues[0].length,
+                      itemCount: match.length,
                       itemBuilder: (BuildContext context, index) {
                         if(index == 0) {
                           return const SizedBox();
                         }else{
-                          textControllers.add(TextEditingController(text: (tableValues[rowID]).values.elementAt(index).toString()));
+                          textControllers.add(TextEditingController(text: match.values.elementAt(index).toString()));
                           return Column(
                             children: [
                               const SizedBox(height: 5),
                               SampleTextField(
-                                  labelText: '${(tableValues[0]).keys.elementAt(index)} value:',
+                                  labelText: '${match.keys.elementAt(index)} value:',
                                   textColor: whiteTextColor,
                                   hideText: false,
                                   textController: textControllers[index-1],
