@@ -6,15 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_matrix_of_skills/src/core/classes/app.dart';
 import 'package:flutter_matrix_of_skills/src/core/services/custom_scroll_behavior.dart';
 import 'package:flutter_matrix_of_skills/src/feature/responsive/desktop_body.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'src/core/services/app_theme.dart';
 import 'src/feature/pages/login_page/login_page.dart';
 import 'src/feature/responsive/responsive_layout.dart';
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   App.sessionSignIn = await App.supaBaseController.sessionSignIn();
   runApp(const MyApp());

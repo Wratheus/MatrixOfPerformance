@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/core/constants/constants.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_border_container_cell.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_style_container.dart';
-import 'package:flutter_matrix_of_skills/src/feature/responsive/responsive_layout.dart';
 
 import '../../../../core/services/app_ui_disable_glow_effect.dart';
 import '../../../cubit/user_data/user_data_cubit.dart';
@@ -16,7 +17,7 @@ class GroupTableView extends StatelessWidget {
     return BlocBuilder<UserDataCubit, UserDataState>(
       builder: (context, state) {
         if ((state as UserDataLoadedState).tableData.isEmpty == false) {
-          return (ResponsiveLayout.desktopPlatformSizeCheck()) ?
+          return Platform.isWindows ?
           // Desktop layout
           SampleStyleContainer(
             width: MediaQuery.of(context).size.width * 1,
