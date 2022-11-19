@@ -35,13 +35,13 @@ dev_dependencies:
 
 flutter_icons:
   image_path: "assets/core/images/app_icon.png"
+  adaptive_icon_background: "2f333a"
   android: true
   ios: true
 
 flutter_native_splash:
   android: true
   ios: true
-  image: assets/core/images/app_icon.png
   color: "#2f333a"
 flutter:
 
