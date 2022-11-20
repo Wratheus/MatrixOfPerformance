@@ -67,7 +67,7 @@ class NewColumnDialog extends StatelessWidget {
               SampleTextField(textController: defaultColumnValue, labelText: "default skill value", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
               SizedBox(
                 width: 250,
-                height: textControllers.length > 5 ? 400 : 200,
+                height: tableValues.length < 3 ? 50 : tableValues.length > 5 ? 250 : 150,
                 child: DisableGlowEffect(
                   child: ListView.builder(
                       shrinkWrap: true,

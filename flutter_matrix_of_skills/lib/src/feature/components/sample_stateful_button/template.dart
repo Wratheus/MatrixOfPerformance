@@ -11,7 +11,7 @@ class TemplateButton1 extends StatelessWidget with TemplateButton {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 8.0, left: 8.0), //specify the button's Padding
       child: Center(
         child: Text(
           title,

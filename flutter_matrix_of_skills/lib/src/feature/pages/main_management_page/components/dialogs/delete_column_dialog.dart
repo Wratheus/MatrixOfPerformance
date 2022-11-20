@@ -46,11 +46,6 @@ class DeleteColumnDialog extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text("Select skill to remove:", style: whiteTextColor),
-                ],
-              ),
-              Row(
-                children: [
                   Expanded(child: dropDownMenu),
                 ],
               )

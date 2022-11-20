@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import '../../../../../../../core/constants/constants.dart';
 import '../../../../../../../core/services/app_ui_disable_glow_effect.dart';
 import '../../../../../../components/sample_elevated_button.dart';
+import '../../../../../../components/sample_stateful_button/stateful_button.dart';
+import '../../../../../../components/sample_stateful_button/stateful_button_controller.dart';
+import '../../../../../../components/sample_stateful_button/template.dart';
 import '../../../../../main_management_page/components/group_table_view_controller.dart';
 import 'group_filter_chip.dart';
 
@@ -17,8 +20,9 @@ class GroupFilterWidget extends StatefulWidget {
   final double height;
   final double width;
   List<GroupFilterChip> tableChipList = <GroupFilterChip>[]; // list of all table persons, sorting list is list of selected persons
-
+  ButtonController buttonController = ButtonController();
   GroupFilterWidget({super.key, required this.data, required this.tableController, required this.height, required this.width}){
+    if(tableController.sortingList.isEmpty) buttonController.state = ButtonState.disable;
     tableController.selectedValue ??= data[0]['table_name']; // if table is not selected pick first one
     for (Map<String, dynamic> element in data) { // fill name list
       if (element['table_name'] == tableController.selectedValue) {
@@ -77,7 +81,6 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
   @override
   Widget build(BuildContext context) {
     fillLists();
-
     return SizedBox(
       height: widget.height,
       width:  widget.width,
@@ -105,6 +108,7 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
                           setState(() { // when you select chip
                             (widget.tableChipList[index]).isSelected = true;
                             widget.tableController.sortingList.add(widget.tableChipList[index]);
+                            if(widget.tableController.sortingList.isNotEmpty) widget.buttonController.state = ButtonState.enable;
                             for(int i = 0; i < widget.tableController.sortingList.length; i++){
                               widget.tableController.sortingList[i].selectedColor = chartColors[i % 21].withOpacity(0.55);
                             }
@@ -140,6 +144,7 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
                               (widget.tableController.sortingList[index]).isSelected = false;
                               widget.tableChipList.add(widget.tableController.sortingList[index]);
                               widget.tableController.sortingList.remove(widget.tableController.sortingList[index]);
+                              if(widget.tableController.sortingList.isEmpty) widget.buttonController.state = ButtonState.disable; // disable button [Clear] if sortingl ist is empty
                               for(int i = 0; i < widget.tableController.sortingList.length; i++){
                                 widget.tableController.sortingList[i].selectedColor = chartColors[i % 21].withOpacity(0.55);
                               }
@@ -158,18 +163,30 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
                     child: SampleElevatedButton(
                       child: Text("load", style: whiteTextColor),
                       onPressed: () => {
-                        loadFromSelectedList()},
+                        widget.tableController.sortingList.isNotEmpty ? loadFromSelectedList()
+                        :
+                        widget.tableController.update(tableName: widget.tableController.selectedValue, selectedValue: widget.tableController.selectedValue)
+                      },
                     ),
                   ),
                   const SizedBox(width: 5,),
                   SizedBox(
-                    width: 80,
-                    child: SampleElevatedButton(
-                      child: Text('Clear', style: whiteTextColor),
-                      onPressed: () => {
-                        widget.tableController.update(tableName: widget.tableController.selectedValue, selectedValue: widget.tableController.selectedValue)
-                      },
-                    ),
+                      width: 80,
+                      child: StatefulButton(
+                        height: 40,
+                        borderRadius: BorderRadius.circular(16.0),
+                        color: MyColors.mainInnerColor,
+                        border: Border.all(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
+                        onTap: () async {
+                          widget.buttonController.state = ButtonState.disable;
+                          widget.tableController.update(tableName: widget.tableController.selectedValue, selectedValue: widget.tableController.selectedValue);
+                          widget.buttonController.state = ButtonState.enable;
+                        },
+                        controller: widget.buttonController,
+                        child: const TemplateButton1(
+                          title: 'Clear',
+                        ),
+                      )
                   )
                 ],
               ) :
@@ -178,14 +195,29 @@ class _GroupFilterWidgetState extends State<GroupFilterWidget> {
                   SampleElevatedButton(
                     child: Text("load", style: whiteTextColor),
                     onPressed: () => {
-                      loadFromSelectedList()},
-                  ),
-                  const SizedBox(width: 5,),
-                  SampleElevatedButton(
-                    child: Text('Clear', style: whiteTextColor),
-                    onPressed: () => {
+                      widget.tableController.sortingList.isNotEmpty ? loadFromSelectedList()
+                          :
                       widget.tableController.update(tableName: widget.tableController.selectedValue, selectedValue: widget.tableController.selectedValue)
                     },
+                  ),
+                  const SizedBox(width: 5,),
+                  SizedBox(
+                      width: 100,
+                      child: StatefulButton(
+                        height: 44,
+                        borderRadius: BorderRadius.circular(14.0),
+                        color: MyColors.mainInnerColor,
+                        border: Border.all(width: 2, color: MyColors.mainBeige.withOpacity(0.4)),
+                        onTap: () async {
+                          widget.buttonController.state = ButtonState.disable;
+                          widget.tableController.update(tableName: widget.tableController.selectedValue, selectedValue: widget.tableController.selectedValue);
+                          widget.buttonController.state = ButtonState.enable;
+                        },
+                        controller: widget.buttonController,
+                        child: const TemplateButton1(
+                          title: 'Clear',
+                        ),
+                      )
                   )
                 ],
               )

@@ -73,20 +73,20 @@ class GroupManagementTab extends StatelessWidget {
                               const SizedBox(width: 5),
                               SampleElevatedButton(
                                   onPressed: ()=>{
-                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                                    (tableController.selectedValue != null && (state).tableData.sublist(1).isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: EditRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
                                         :
-                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected or your table does not have rows.'))
                                   },
                                   child: Text("Edit person", style: whiteTextColor)
                               ),
                               const SizedBox(width: 5),
                               SampleElevatedButton(
                                   onPressed: ()=>{
-                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                                    (tableController.selectedValue != null && (state).tableData.sublist(1).isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: DeleteRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
                                         :
-                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selecte nor your table does not have rows.'))
                                   },
                                   child: Text("Delete person", style: whiteTextColor)
                               ),
@@ -105,20 +105,20 @@ class GroupManagementTab extends StatelessWidget {
                               const SizedBox(width: 5),
                               SampleElevatedButton(
                                   onPressed: ()=>{
-                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                                    (tableController.selectedValue != null && (state).tableData.sublist(1).isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: EditColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
                                         :
-                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected or your table\ndoes not have columns available for editing.'))
                                   },
                                   child: Text("Edit skill", style: whiteTextColor)
                               ),
                               const SizedBox(width: 5),
                               SampleElevatedButton(
                                   onPressed: ()=>{
-                                    (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                                    (tableController.selectedValue != null && (state).tableData.sublist(1).isNotEmpty) ?
                                     AppUI.showMaterialModalDialog(context: context, child: DeleteColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
                                         :
-                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                                    AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected or your table\ndoes not have columns available for editing.'))
                                   },
                                   child: Text("Delete skill", style: whiteTextColor)
                               ),
@@ -204,10 +204,10 @@ class GroupManagementTab extends StatelessWidget {
                 Expanded(
                   child: SampleElevatedButton(
                       onPressed: ()=>{
-                        (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                        (tableController.selectedValue != null && (state).tableData.sublist(1).isNotEmpty) ?
                         AppUI.showMaterialModalDialog(context: context, child: DeleteRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
                             :
-                        AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                        AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selecte nor your table does not have rows.'))
                       },
                       child: Text("Delete person", style: whiteTextColor)
                   ),
@@ -216,10 +216,10 @@ class GroupManagementTab extends StatelessWidget {
                 Expanded(
                   child: SampleElevatedButton(
                       onPressed: ()=>{
-                        (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                        (tableController.selectedValue != null && (state).tableData.sublist(1).isNotEmpty) ?
                         AppUI.showMaterialModalDialog(context: context, child: DeleteColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
                             :
-                        AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                        AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected or your table\ndoes not have columns available for editing.'))
                       },
                       child: Text("Delete skill", style: whiteTextColor)
                   ),
@@ -233,10 +233,10 @@ class GroupManagementTab extends StatelessWidget {
                 Expanded(
                   child: SampleElevatedButton(
                       onPressed: ()=>{
-                        (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                        (tableController.selectedValue != null && (state).tableData.sublist(1).isNotEmpty) ?
                         AppUI.showMaterialModalDialog(context: context, child: EditRowDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
                             :
-                        AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                        AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected or your table does not have rows.'))
                       },
                       child: Text("Edit person", style: whiteTextColor)
                   ),
@@ -245,10 +245,10 @@ class GroupManagementTab extends StatelessWidget {
                 Expanded(
                   child: SampleElevatedButton(
                       onPressed: ()=>{
-                        (tableController.selectedValue != null && (state).tableData.isNotEmpty) ?
+                        (tableController.selectedValue != null && (state).tableData.sublist(1).isNotEmpty) ?
                         AppUI.showMaterialModalDialog(context: context, child: EditColumnDialog(context: context, tableValues: state.tableData, tableName: tableController.selectedValue, tableController: tableController))
                             :
-                        AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected.'))
+                        AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'No table selected or your table\ndoes not have columns available for editing.'))
                       },
                       child: Text("Edit skill", style: whiteTextColor)
                   ),
