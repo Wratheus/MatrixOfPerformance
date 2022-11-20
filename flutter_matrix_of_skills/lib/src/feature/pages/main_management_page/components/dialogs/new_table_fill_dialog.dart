@@ -41,7 +41,7 @@ class NewTableFillDialog extends StatelessWidget {
     List<TextEditingController> textControllers = [];
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
-        title: Text("Please, fill headers 🥺👍", style: whiteTextColor),
+        title: Text("Please, fill headers 🥺👍", style: whiteTextColor, textAlign: TextAlign.center),
         content: SingleChildScrollView(
           child: Column(
             children: [

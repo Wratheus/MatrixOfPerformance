@@ -15,7 +15,7 @@ class NewTableDialog extends StatelessWidget {
   List<Map<String, dynamic>> tableValues;
   final TableController tableController;
 
-  void fillTableColumns({required context, required List<Map<String, dynamic>> tableValues, required TextEditingController tableNameTextController, required TextEditingController columnAmountTextController}) {
+  static void fillTableColumns({required context, required List<Map<String, dynamic>> tableValues, required TextEditingController tableNameTextController, required TextEditingController columnAmountTextController, required TableController tableController}) {
     bool tableAlreadyExist = false;
 
     for(int i = 0; i < tableValues.length; i++) {
@@ -50,7 +50,7 @@ class NewTableDialog extends StatelessWidget {
     TextEditingController columnAmountTextController = TextEditingController();
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
-        title: Text("Create new table 🧵", style: whiteTextColor),
+        title: Text("Create new table 🧵", style: whiteTextColor, textAlign: TextAlign.center),
         content: SingleChildScrollView(
           child: Column(
             children: [
@@ -62,7 +62,7 @@ class NewTableDialog extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () {fillTableColumns(tableNameTextController: tableNameTextController, tableValues: tableValues, context: context, columnAmountTextController: columnAmountTextController);},
+            onPressed: () {fillTableColumns(tableController: tableController, tableNameTextController: tableNameTextController, tableValues: tableValues, context: context, columnAmountTextController: columnAmountTextController);},
             child: Text("OK", style: whiteTextColor),
           ),
           const SizedBox(height: 10),

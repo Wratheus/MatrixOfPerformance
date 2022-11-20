@@ -100,7 +100,7 @@ class GraphViewPageLayout extends StatelessWidget {
             ),
           );
         }<Widget>).toList();
-          slidePageList.insert(0, Container(child: GroupRadarChart(data: (state).tableData.sublist(1), maxValue: max.round(), height: MediaQuery.of(context).size.height * 0.44)));
+          slidePageList.insert(0, Container(child: GroupRadarChart(data: (state).tableData.sublist(1), height: MediaQuery.of(context).size.height * 0.44)));
       }
 
 
@@ -140,7 +140,7 @@ class GraphViewPageLayout extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: SampleStyleContainer(
-                                child: GroupRadarChart(data: (state).tableData.sublist(1), maxValue: max.round(), height: radarHeight,)
+                                child: GroupRadarChart(data: (state).tableData.sublist(1), height: radarHeight,)
                             ),
                           ),
                         ),

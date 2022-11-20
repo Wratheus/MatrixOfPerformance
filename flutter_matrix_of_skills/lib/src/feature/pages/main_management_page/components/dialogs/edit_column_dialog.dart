@@ -49,7 +49,7 @@ class EditColumnDialog extends StatelessWidget {
     TextEditingController newColumnNameTextController = TextEditingController();
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
-        title: Text("Rename skill 🧵", style: whiteTextColor),
+        title: Text("Rename skill 🧵", style: whiteTextColor, textAlign: TextAlign.center),
         content: SingleChildScrollView(
           child: Column(
             children: [

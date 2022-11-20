@@ -28,11 +28,11 @@ class DeleteTableDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
-        title: Text('Delete table "$tableName"? 🥺', style: whiteTextColor),
+        title: Text('Delete table "$tableName"? 🥺', style: whiteTextColor, textAlign: TextAlign.center),
         content: SingleChildScrollView(
           child: Column(
             children: [
-              Center(child: Text("Are you sure you want to delete $tableName", style: whiteTextColor)),
+              Center(child: Text("Are you sure you want to delete table '$tableName'", style: whiteTextColor, textAlign: TextAlign.center)),
             ],
           ),
         ),

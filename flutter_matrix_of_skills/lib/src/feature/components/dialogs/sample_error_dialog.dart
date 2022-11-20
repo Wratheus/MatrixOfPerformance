@@ -21,8 +21,8 @@ class SampleErrorDialog extends StatelessWidget {
           },
         )
       ],
-      title: Text("Error 🥺", style: whiteTextColor),
-      content: Text(errorMessage, style: whiteTextColor),
+      title: Text("Error 🥺", style: whiteTextColor, textAlign: TextAlign.center,),
+      content: Text(errorMessage, style: whiteTextColor, textAlign: TextAlign.center),
     );
   }
 }

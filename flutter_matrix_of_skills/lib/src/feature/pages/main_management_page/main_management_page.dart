@@ -1,9 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/dialogs/sample_error_dialog.dart';
 import 'package:flutter_matrix_of_skills/src/feature/components/sample_loading_page.dart';
+import 'package:flutter_matrix_of_skills/src/feature/pages/main_management_page/layout/empty_tables_dialog.dart';
 
+import '../../../core/classes/app.dart';
 import '../../cubit/user_data/user_data_cubit.dart';
 import '../../responsive/responsive_layout.dart';
 
@@ -23,13 +24,18 @@ class TableManagementPage extends StatelessWidget {
               return const SampleLoadingPage();
             }
             if (state is UserDataLoadedState) {
-              if (kDebugMode) {
-                print('Table management page is loaded');
+              if(state.allUserTables.isNotEmpty) {
+                return TableManagementPageLayout();
+              }else{
+                return const EmptyTablesDialog();
               }
-              return TableManagementPageLayout();
             }
-            if (state is UserDataErrorState) {
-              return SampleErrorDialog(errorMessage: "Main management page\nCubit error state", route: const ResponsiveLayout());
+            if (state is UserDataErrorState) { {
+                App.currentPageIndex = 0;
+                return SampleErrorDialog(
+                    errorMessage: "Main management page\nCubit error state",
+                    route: const ResponsiveLayout());
+              }
             }
             return Container();
           }

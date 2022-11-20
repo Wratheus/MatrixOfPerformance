@@ -25,15 +25,12 @@ class NewColumnDialog extends StatelessWidget {
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Wrong skill value.')); // wrong values
       return false;
-    } else if(!isDigit(defaultValueTextController.text)){
-      Navigator.pop(context);
-      AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'default value is not int.')); // default value is not int
-      return false;
-    }else if(columnAlreadyExist == true){
+    } else if(columnAlreadyExist == true){
       Navigator.pop(context);
       AppUI.showMaterialModalDialog(context: context, child: SampleErrorDialog(errorMessage: 'Such skill is already exist.')); // wrong values
       return false;
     }else{
+      if(!isDigit(defaultValueTextController.text)) defaultValueTextController.text = '0';
       for(int i = 0; i < textControllers.length; i++){
         if(isDigit(textControllers[i].text)){
           tableValues[i][columnNameTextController.text] = int.parse(textControllers[i].text).round(); // add such key to every Row of table and give it text variable if it was provided
@@ -61,7 +58,7 @@ class NewColumnDialog extends StatelessWidget {
     TextEditingController defaultColumnValue = TextEditingController();
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
-        title: Text("Add new skill 🧵", style: whiteTextColor),
+        title: Text("Add new skill 🧵", style: whiteTextColor, textAlign: TextAlign.center),
         content: SingleChildScrollView(
           child: Column(
             children: [
@@ -70,7 +67,7 @@ class NewColumnDialog extends StatelessWidget {
               SampleTextField(textController: defaultColumnValue, labelText: "default skill value", hideText: false, borderColor: MyColors.mainBeige, textColor: whiteTextColor, width: 250),
               SizedBox(
                 width: 250,
-                height: 400,
+                height: textControllers.length > 5 ? 400 : 200,
                 child: DisableGlowEffect(
                   child: ListView.builder(
                       shrinkWrap: true,

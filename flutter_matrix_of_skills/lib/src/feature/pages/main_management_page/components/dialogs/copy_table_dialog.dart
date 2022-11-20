@@ -63,7 +63,7 @@ class CopyTableDialog extends StatelessWidget {
     TextEditingController newTableNameTextController = TextEditingController();
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
-        title: Text("Copy table 🧵", style: whiteTextColor),
+        title: Text("Copy table 🧵", style: whiteTextColor, textAlign: TextAlign.center),
         content: SingleChildScrollView(
           child: Column(
             children: [

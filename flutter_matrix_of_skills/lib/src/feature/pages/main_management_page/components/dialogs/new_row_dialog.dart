@@ -55,12 +55,12 @@ class NewRowDialog extends StatelessWidget {
     List<TextEditingController> textControllers = [];
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
-        title: Text("Please, fill new row", style: whiteTextColor),
+        title: Text("Please, fill new row 🧵", style: whiteTextColor, textAlign: TextAlign.center),
         content: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
-                height: 200,
+                height: 150,
                 width: 300,
                 child: DisableGlowEffect(
                   child: ListView.builder(

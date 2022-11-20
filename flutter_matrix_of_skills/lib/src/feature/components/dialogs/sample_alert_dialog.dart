@@ -13,8 +13,8 @@ class SampleAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: MyColors.mainInnerColor,
-      title: Text("$tittleStr 🧵", style: whiteTextColor),
-      content: Text(alertMessageStr, style: whiteTextColor),
+      title: Text("$tittleStr 🤩", style: whiteTextColor, textAlign: TextAlign.center),
+      content: Text(alertMessageStr, style: whiteTextColor, textAlign: TextAlign.center),
       actions: [
         TextButton(
           child: Text("OK", style: whiteTextColor),

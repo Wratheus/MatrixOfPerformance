@@ -148,6 +148,12 @@ class GroupManagementTab extends StatelessWidget {
                         const SizedBox(width: 5),
                         SampleElevatedButton(
                             onPressed: ()=>{
+                              state.allUserTables.isEmpty ?
+                              {AppUI.showMaterialModalDialog(context: context,
+                                  child: NewTableDialog(context: context,
+                                    tableValues: state.allUserTables,
+                                    tableController: tableController,))}
+                              :
                               AppUI.showMaterialModalDialog(context: context, child: CopyTableDialog(context: context, tableController: tableController, allUserTables: state.allUserTables, values: values))
                             },
                             child: Text("Copy Table", style: whiteTextColor))

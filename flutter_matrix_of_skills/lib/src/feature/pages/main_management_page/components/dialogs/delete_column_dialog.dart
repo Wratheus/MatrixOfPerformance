@@ -40,7 +40,7 @@ class DeleteColumnDialog extends StatelessWidget {
     SampleDropDownMenu dropDownMenu = SampleDropDownMenu(values: tableValues[0].keys.toList().sublist(2), isExpanded: true);
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
-        title: Text("Delete skill 🧵", style: whiteTextColor),
+        title: Text("Delete skill 🧵", style: whiteTextColor, textAlign: TextAlign.center),
         content: SingleChildScrollView(
           child: Column(
             children: [

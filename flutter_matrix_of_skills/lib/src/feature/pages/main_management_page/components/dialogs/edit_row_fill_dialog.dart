@@ -59,12 +59,12 @@ class EditRowFillDialog extends StatelessWidget {
     List<TextEditingController> textControllers = [];
     return AlertDialog(
         backgroundColor: MyColors.mainInnerColor,
-        title: Text("Please, edit row", style: whiteTextColor),
+        title: Text("Please, edit row 🧵", style: whiteTextColor, textAlign: TextAlign.center),
         content: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
-                height: 200,
+                height: match.keys.length > 3 ? 300 : 165,
                 width: 300,
                 child: DisableGlowEffect(
                   child: ListView.builder(

@@ -10,9 +10,8 @@ import '../../../../../../core/services/app_ui_disable_glow_effect.dart';
 class GroupRadarChart extends StatelessWidget {
   final List<Map<String, dynamic>> data;
   final double angleValue = 0.0;
-  final int maxValue;
   final double height;
-  const GroupRadarChart({super.key, required this.data, required this.maxValue, required this.height});
+  const GroupRadarChart({super.key, required this.data, required this.height});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,7 +35,7 @@ class GroupRadarChart extends StatelessWidget {
                     gridBorderData: BorderSide(color: Colors.grey.withOpacity(0.4), width: 2),
                     tickBorderData: BorderSide(color: Colors.grey.withOpacity(0.09), width: 2),
                     ticksTextStyle: const TextStyle(color: MyColors.mainBeige, fontSize: 14, fontWeight: FontWeight.bold),
-                    tickCount: maxValue,
+                    tickCount: 10,
                     titleTextStyle: const TextStyle(color: MyColors.mainBeige, fontSize: 14, fontWeight: FontWeight.bold),
                     getTitle: (index, angle) {
                       return RadarChartTitle(
