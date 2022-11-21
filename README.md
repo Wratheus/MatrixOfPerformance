@@ -6,19 +6,18 @@
 
 Windows charts panel look
 <p align="center">
-  <img src="https://i.imgur.com/oMuiWth.png" alt="application" width="800" />
+  <img src="https://i.imgur.com/0lxWcUQ.png" alt="application" width="800" />
 </p>
 
 
 Windows tables panel look
 <p align="center">
-  <img src="https://i.imgur.com/4xeaMOl.png" alt="application" width="800" />
+  <img src="https://i.imgur.com/McwlVSI.png" alt="application" width="800" />
 </p>
 
 Windows login
-
 <p align="center">
-  <img src="https://i.imgur.com/tGpHi4k.png" alt="application" width="800" />
+  <img src="https://i.imgur.com/FnZHHOP.png" alt="application" width="800" />
 </p>
 
 Mobile tables panel look
