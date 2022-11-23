@@ -19,9 +19,21 @@ class GroupRadarChart extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(
+            Container(
+              decoration: Platform.isWindows ?
+              const BoxDecoration(color: MyColors.mainOuterColor) :
+              BoxDecoration(
+                color: MyColors.mainOuterColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: MyColors.customBlack.withOpacity(0.35),
+                    blurRadius: 4,
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(16),
+              ),
               height: height,
-              width: Platform.isWindows ? MediaQuery.of(context).size.width * 0.3 : height * 0.95,
+              width: Platform.isWindows ? MediaQuery.of(context).size.width * 0.3 : height * 1 - 20,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
                 child: RadarChart(
@@ -79,46 +91,49 @@ class GroupRadarChart extends StatelessWidget {
           ],
         ),
         (Platform.isIOS || Platform.isAndroid) ?
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: MyColors.customBlack.withOpacity(0.35),
-                blurRadius: 4,
-              ),
-            ],
-            borderRadius: const BorderRadius.all(Radius.circular(16)),
-            color: MyColors.mainOuterColor,
-          ),
-          height: height * 0.59,
-          child: RawScrollbar(
-            trackColor: MyColors.mainBeige,
-            trackVisibility: true,
-            timeToFade: const Duration(minutes: 5),
-            thickness: 4,
-            child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          height: 17,
-                          width: 17,
-                          child: CircleAvatar(
-                            backgroundColor: chartColors[index % 21],
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: MyColors.customBlack.withOpacity(0.35),
+                  blurRadius: 4,
+                ),
+              ],
+              borderRadius: const BorderRadius.all(Radius.circular(16)),
+              color: MyColors.mainOuterColor,
+            ),
+            height: height * 0.59,
+            child: RawScrollbar(
+              trackColor: MyColors.mainBeige,
+              trackVisibility: true,
+              timeToFade: const Duration(minutes: 5),
+              thickness: 4,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 17,
+                            width: 17,
+                            child: CircleAvatar(
+                              backgroundColor: chartColors[index % 21],
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 5),
-                        Text(data[index]['name'].length >= 30 ? '${(data[index]['name'] as String).substring(0, 30)}.' : data[index]['name'], style: const TextStyle(fontSize: 22, color: MyColors.mainBeige)),
-                        Text(" - ${calculateSumOfSkills(personSkillValues: data[index].values.toList().sublist(2)) }", style: whiteTextColor,)
-                      ],
-                    ),
-                  );
-                }
+                          const SizedBox(width: 5),
+                          Text(data[index]['name'].length >= 30 ? '${(data[index]['name'] as String).substring(0, 30)}.' : data[index]['name'], style: const TextStyle(fontSize: 20, color: MyColors.mainBeige)),
+                          Text(" - ${calculateSumOfSkills(personSkillValues: data[index].values.toList().sublist(2)) }", style: whiteTextColor,)
+                        ],
+                      ),
+                    );
+                  }
+              ),
             ),
           ),
         ) :

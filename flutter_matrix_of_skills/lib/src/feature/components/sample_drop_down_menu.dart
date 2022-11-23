@@ -7,8 +7,12 @@ import '../../core/constants/constants.dart';
 class SampleDropDownMenu extends StatefulWidget {
   List<String> values;
   late String selectedValue;
+  String? controllerSelectedValue;
   bool isExpanded;
-  SampleDropDownMenu({super.key, required this.values, required this.isExpanded}) { selectedValue = values[0];}
+  final Function(String?)? onChanged;
+  SampleDropDownMenu({super.key, required this.values, required this.isExpanded, this.onChanged, this.controllerSelectedValue}) {
+    (controllerSelectedValue == null) ? selectedValue = values[0] : selectedValue = controllerSelectedValue!;
+  }
   @override
   State<SampleDropDownMenu> createState() => _SampleDropDownMenuState();
 }
@@ -62,7 +66,7 @@ class _SampleDropDownMenuState extends State<SampleDropDownMenu> {
                       )
                   )
               ).toList(),
-              onChanged: (item) => dropDownCallBack(item),
+              onChanged: (item) => widget.onChanged!(item) ?? dropDownCallBack(item),
             ),
         ),
       ),

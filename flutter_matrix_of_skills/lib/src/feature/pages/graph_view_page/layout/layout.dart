@@ -16,6 +16,7 @@ import '../../../cubit/user_data/user_data_cubit.dart';
 import '../../main_management_page/components/group_drop_down_menu.dart';
 import '../../main_management_page/components/group_table_view_controller.dart';
 import '../components/widgets/charts/group_radar_chart.dart';
+import '../components/widgets/mobile_widgets/drop_down_tab.dart';
 class GraphViewPageLayout extends StatelessWidget {
   final TableController tableController = TableController();
   GraphViewPageLayout({Key? key}) : super(key: key);
@@ -25,254 +26,193 @@ class GraphViewPageLayout extends StatelessWidget {
 
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       List<Widget> slidePageList = [];
-      tableController.cubitContext =
-          context; // share cubit context to tableController to have ability to update
+      tableController.cubitContext = context; // share cubit context to tableController to have ability to update
       tableController.selectedValue = (state as UserDataLoadedState).tableControllerSelectedValue; // share selected value if it was saved to state with controller
       tableController.sortingList = state.sortingList;
-
-
-      tableController.selectedValue ??= state
-          .allUserTables[0]['table_name']; // if table is not selected pick first one
-      for (Map<String, dynamic> element in state
-          .allUserTables) { // fill name list
-        if (element['table_name'] == tableController.selectedValue) {
-        }
-      }
-
+      tableController.selectedValue ??= state.allUserTables[0]['table_name']; // if table is not selected pick first one
 
       final double radarHeight = (Platform.isAndroid || Platform.isIOS) ?
-
-      MediaQuery
-          .of(context)
-          .size
-          .height * 0.8
+      MediaQuery.of(context).size.height * 0.8
                             :
-      MediaQuery
-          .of(context)
-          .size
-          .height * 0.5;
-
+      MediaQuery.of(context).size.height * 0.5;
 
       final double max = maxValue(state.tableData.sublist(1));
 
-
-      /// ANDROID IOS PREBUILD WIDGET
-      if  (Platform.isAndroid || Platform.isIOS) {
-          slidePageList = (state).tableData.sublist(1).map(<Widget>(Map<String, dynamic>person) {
-          return Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: MyColors.customBlack.withOpacity(0.35),
-                  blurRadius: 4,
-                ),
-              ],
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-              color: MyColors.mainOuterColor,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(person['name'], style: const TextStyle(
-                        color: MyColors.mainBeige,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                const SizedBox(height: 15),
-                Row(
-                  children: [
-                    Expanded(
-                        child: ColumnChart(data: person, maxValue: max)),
-                  ],
-                ),
-                const SizedBox(height: 5),
-                Row(
-                  children: [
-                    Expanded(child: CircularChart(data: person)),
-                  ],
-                ),
-              ],
-            ),
+      if  (Platform.isAndroid || Platform.isIOS) { // mobile PageView for this layout
+          slidePageList = <Widget>[];
+          slidePageList.add(
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: GroupRadarChart(data: (state).tableData.sublist(1), height: MediaQuery.of(context).size.height * 0.44),
+              )
           );
-        }<Widget>).toList();
-          slidePageList.insert(0, Container(child: GroupRadarChart(data: (state).tableData.sublist(1), height: MediaQuery.of(context).size.height * 0.44)));
+          slidePageList.add(
+              DropDownChartMenu(personList: state.tableData.sublist(1), max: max)
+          );
+
       }
 
-
-
-
-    /// BUILD
-      return RefreshIndicator(
-        child: Platform.isWindows ? Scaffold(
-          backgroundColor: MyColors.mainCanvas,
-          body: SingleChildScrollView(
-            controller: ScrollController(),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text("Table ", style: whiteTextColor),
-                          const SizedBox(width: 5),
-                          Expanded(child: GroupDropDownMenu(tableController: tableController, isExpanded: true, backgroundColor: Colors.transparent),)
-                        ],
-                      ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+      return Platform.isWindows ? Scaffold(
+        backgroundColor: MyColors.mainCanvas,
+        body: SingleChildScrollView(
+          controller: ScrollController(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: SampleStyleContainer(
-                              child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: radarHeight, width: MediaQuery.of(context).size.width * 0.35)),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: SampleStyleContainer(
-                                child: GroupRadarChart(data: (state).tableData.sublist(1), height: radarHeight,)
-                            ),
-                          ),
-                        ),
+                        Text("Table ", style: whiteTextColor),
+                        const SizedBox(width: 5),
+                        Expanded(child: GroupDropDownMenu(tableController: tableController, isExpanded: true, backgroundColor: Colors.transparent),)
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: SampleStyleContainer(
-                        child: RawScrollbar(
-                          trackColor: MyColors.mainBeige,
-                          trackVisibility: true,
-                          timeToFade: const Duration(minutes: 5),
-                          thickness: 4,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SingleChildScrollView(
-                              controller: ScrollController(),
-                              scrollDirection: Axis.horizontal,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const SizedBox(width: 20),
-                                      Text(state.tableControllerSelectedValue?? state.allUserTables[0]['table_name'], style: const TextStyle(color: MyColors.mainBeige, fontSize: 22, fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 15),
-                                  GroupColumnChart(data: (state).tableData.sublist(1)),
-                                ]
-                              ),
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: SampleStyleContainer(
+                            child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: radarHeight, width: MediaQuery.of(context).size.width * 0.35)),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: SampleStyleContainer(
+                              child: GroupRadarChart(data: (state).tableData.sublist(1), height: radarHeight,)
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: SampleStyleContainer(
+                      child: RawScrollbar(
+                        trackColor: MyColors.mainBeige,
+                        trackVisibility: true,
+                        timeToFade: const Duration(minutes: 5),
+                        thickness: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SingleChildScrollView(
+                            controller: ScrollController(),
+                            scrollDirection: Axis.horizontal,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const SizedBox(width: 20),
+                                    Text(state.tableControllerSelectedValue?? state.allUserTables[0]['table_name'], style: const TextStyle(color: MyColors.mainBeige, fontSize: 22, fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                                const SizedBox(height: 15),
+                                GroupColumnChart(data: (state).tableData.sublist(1)),
+                              ]
                             ),
                           ),
                         ),
                       ),
                     ),
-                    Column(
-                        children: (state).tableData.sublist(1).map(<Widget>(Map<String, dynamic>person){
-                          return Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: SampleStyleContainer(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const SizedBox(width: 20),
-                                      Text(person['name'], style: const TextStyle(color: MyColors.mainBeige, fontSize: 22, fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 15),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(child: ColumnChart(data: person, maxValue: max)),
-                                      ((state).tableData.sublist(1)[0].keys.length > 6) ? Container() :  Expanded(child: SkillBoxChart(data: person, maxValue: max)),
-                                      Expanded(child: CircularChart(data: person)),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                  ),
+                  Column(
+                      children: (state).tableData.sublist(1).map(<Widget>(Map<String, dynamic>person){
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: SampleStyleContainer(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const SizedBox(width: 20),
+                                    Text(person['name'], style: const TextStyle(color: MyColors.mainBeige, fontSize: 22, fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                                const SizedBox(height: 15),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(child: ColumnChart(data: person, maxValue: max)),
+                                    ((state).tableData.sublist(1)[0].keys.length > 6) ? Container() :  Expanded(child: SkillBoxChart(data: person, maxValue: max)),
+                                    Expanded(child: CircularChart(data: person)),
+                                  ],
+                                ),
+                              ],
                             ),
-                          );
-                        }<Widget>).toList()
-                    ),
-                  ]
-              ),
+                          ),
+                        );
+                      }<Widget>).toList()
+                  ),
+                ]
             ),
           ),
-        ) // mobile layout
-            :
-        Scaffold(
-          backgroundColor: MyColors.mainCanvas,
-          body: Stack(
-            children: [
-              DisableGlowEffect(
-                child: PageView(
-                  scrollBehavior: CustomScrollBehavior(),
-                  children: slidePageList
-                ),
-              ),
-              DisableGlowEffect(
-                child: DraggableScrollableSheet(
-                    initialChildSize: 0.13,
-                    maxChildSize: 0.75,
-                    minChildSize: 0.13 ,
-                    builder: (context, scrollController) {
-                      return Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: MyColors.customBlack.withOpacity(0.35),
-                              blurRadius: 4,
-                            ),
-                          ],
-                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-                          color: MyColors.mainOuterColor,
-                        ),
-                        child: SingleChildScrollView(
-                          controller: scrollController,
-                          child: Column(
-                            children: [
-                              Container(width: 200, height: 2, color: MyColors.mainBeige.withOpacity(0.3)),
-                              const SizedBox(height: 15),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Table ", style: whiteTextColor),
-                                  const SizedBox(width: 5),
-                                  Expanded(child: GroupDropDownMenu(tableController: tableController, isExpanded: true, backgroundColor: Colors.transparent),)
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              Row(
-                                children: [
-                                  Expanded(child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: MediaQuery.of(context).size.height * 0.5, width: MediaQuery.of(context).size.height * 0.35)),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-                ),
-              ),
-            ]
-          ),
         ),
-        onRefresh: () =>
-            context.read<UserDataCubit>()
-                .reloadUserData(),
+      ) // mobile layout
+          :
+      Scaffold(
+        backgroundColor: MyColors.mainCanvas,
+        body: Stack(
+          children: [
+            DisableGlowEffect(
+              child: PageView(
+                scrollBehavior: CustomScrollBehavior(),
+                children: slidePageList
+              ),
+            ),
+            DisableGlowEffect(
+              child: DraggableScrollableSheet(
+                  initialChildSize: 0.13,
+                  maxChildSize: 0.75,
+                  minChildSize: 0.13 ,
+                  builder: (context, scrollController) {
+                    return Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: MyColors.customBlack.withOpacity(0.35),
+                            blurRadius: 4,
+                          ),
+                        ],
+                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                        color: MyColors.mainInnerColor,
+                      ),
+                      child: SingleChildScrollView(
+                        controller: scrollController,
+                        child: Column(
+                          children: [
+                            Container(width: 200, height: 2, color: MyColors.mainBeige.withOpacity(0.3)),
+                            const SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Table ", style: whiteTextColor),
+                                const SizedBox(width: 5),
+                                Expanded(child: GroupDropDownMenu(tableController: tableController, isExpanded: true, backgroundColor: Colors.transparent),)
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                Expanded(child: GroupFilterWidget(data: (state).allUserTables, tableController: tableController, height: MediaQuery.of(context).size.height * 0.5, width: MediaQuery.of(context).size.height * 0.35)),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+              ),
+            ),
+          ]
+        ),
       );
     });
   }
