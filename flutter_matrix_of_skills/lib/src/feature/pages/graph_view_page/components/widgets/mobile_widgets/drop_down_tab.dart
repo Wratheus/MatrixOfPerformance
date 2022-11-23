@@ -32,8 +32,16 @@ class _DropDownChartMenuState extends State<DropDownChartMenu> {
     super.initState();
 
   }
+
+  @override
+  void dispose() {
+    widget.dropDownController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    widget.dropDownController.addListener(() {setState((){});});
     return Scaffold(
       backgroundColor: MyColors.mainCanvas,
       body: Column(
