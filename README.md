@@ -6,7 +6,12 @@
 </p>
 
 
-
+<h2>Simple installation</h2>
+<p>
+1. Go to GitHub [Releases]
+2. Download latest Anrodid/Windows release <br>
+3. Run <b>.apk .exe</b> file <br>
+</p>
 <h2>Set up project for development </h2>
 <p>
 <h3>Cloning Matrix of Performance</h3>
