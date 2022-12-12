@@ -31,7 +31,7 @@ class GroupFilterChip extends StatelessWidget {
           width: 200,
           decoration: BoxDecoration(
                 color: isSelected ? selectedColor : color,
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(8),
                 ),
                 padding: const EdgeInsets.all(5),
           child: Row(

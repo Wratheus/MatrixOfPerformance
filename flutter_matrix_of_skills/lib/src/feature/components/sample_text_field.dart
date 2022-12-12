@@ -39,6 +39,7 @@ class SampleTextField extends StatelessWidget {
           textAlign: TextAlign.start,
           textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
+              floatingLabelStyle: whiteTextColor,
               suffixIcon: IconButton(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
@@ -54,8 +55,8 @@ class SampleTextField extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0)
               ),
               labelText: labelText,
-              labelStyle: whiteTextColor,
-
+              labelStyle: TextStyle(color: Colors.grey.withOpacity(1)
+              )
             ),
           style: textColor,
         ),
