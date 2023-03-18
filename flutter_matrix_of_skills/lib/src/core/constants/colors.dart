@@ -28,3 +28,41 @@ final closeButtonColors = WindowButtonColors(
     mouseDown: const Color(0xFFB71C1C),
     iconNormal: MyColors.mainBeige,
     iconMouseOver: MyColors.mainBeige);
+
+
+
+
+
+
+
+class WhiteTheme {
+
+  static const Color customBrightGreen = Color(0xff0eff7e);
+  static const Color customGrey = Color(0xffeff4f2);
+  static const Color customBluePurple = Color(0xff5b60ec);
+  static const Color customBlack = Color(0xff11111d);
+  static const Color customDeepPurple = Color(0xff1d1b31);
+
+  static const Color mainBeige = Color(0xfff3f6ff);
+  static const Color mainHighlightedBlue = Color(0xff45546a);
+  static const Color mainCanvas = Color(0x90171a20);
+  static const Color mainOuterColor = Color(0xff272931);
+  static const Color mainInnerColor = Color(0xff2f323a);
+
+}
+
+class DarkTheme {
+
+  static const Color customBrightGreen = Color(0xff0eff7e);
+  static const Color customGrey = Color(0xffeff4f2);
+  static const Color customBluePurple = Color(0xff5b60ec);
+  static const Color customBlack = Color(0xff11111d);
+  static const Color customDeepPurple = Color(0xff1d1b31);
+
+  static const Color mainBeige = Color(0xfff3f6ff);
+  static const Color mainHighlightedBlue = Color(0xff45546a);
+  static const Color mainCanvas = Color(0x90171a20);
+  static const Color mainOuterColor = Color(0xff272931);
+  static const Color mainInnerColor = Color(0xff2f323a);
+
+}
